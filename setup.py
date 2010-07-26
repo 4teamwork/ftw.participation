@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.0a1-dev'
+version = open('ftw/participation/version.txt').read().strip()
 
 setup(name='ftw.participation',
       version=version,
