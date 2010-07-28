@@ -206,7 +206,7 @@ class InvitationStorage(object):
         else:
             self.invitations[invitation.email].append(invitation)
 
-    def destory_invitation(self, invitation):
+    def remove_invitation(self, invitation):
         """Removes the `invitation` from the storage and destroys it
         """
         if invitation.email in self.invitations and \
@@ -226,3 +226,13 @@ class InvitationStorage(object):
                         del self.invitations[email]
                     return True
         return False
+
+    def reassign_invitation(self, invitation, new_email):
+        """Reassigns a invitation to another email address (`new_email`).
+        """
+        # remove invitation from storage
+        self.remove_invitation(invitation)
+        # change the email
+        invitation.email = new_email
+        # re-add it to the storage
+        self.add_invitation(invitation)
