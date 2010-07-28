@@ -6,7 +6,7 @@ maintainer = 'Jonas Baumann'
 
 setup(name='ftw.participation',
       version=version,
-      description="Provide participation functionality for workspaces" + \
+      description="Invite other users (register or unregistered) to a context" + \
           ' (Maintainer: %s)' % maintainer,
       long_description=open("README.txt").read() + "\n" + \
           open(os.path.join("docs", "HISTORY.txt")).read(),
