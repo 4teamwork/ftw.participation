@@ -26,7 +26,7 @@ setup(name='ftw.participation',
       zip_safe=False,
       install_requires=[
         'setuptools',
-        # -*- Extra requirements: -*-
+        'z3c.autoinclude',
         ],
       entry_points="""
       # -*- Entry points: -*-
