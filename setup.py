@@ -25,6 +25,8 @@ setup(name='ftw.participation',
       include_package_data=True,
       zip_safe=False,
       install_requires=[
+        'z3c.form',
+        'plone.z3cform',
         'setuptools',
         'plone.browserlayer',
         'z3c.autoinclude',
