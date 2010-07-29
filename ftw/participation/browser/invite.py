@@ -78,6 +78,8 @@ class InviteForm(Form):
 
     @buttonAndHandler(_(u'button_invite', default=u'Invite'))
     def handle_invite(self, action):
+        """Invite the users: create Invitations and send email
+        """
         data, errors = self.extractData()
         if len(errors) == 0:
             IStatusMessage(self.request).addStatusMessage(
@@ -86,7 +88,9 @@ class InviteForm(Form):
 
     @buttonAndHandler(_(u'button_cancel', default=u'Cancel'))
     def handle_cancel(self, action):
-        url = self.request.RESPONSE.get('HTTP_REFERER')
+        """Go back to the site we came from
+        """
+        url = self.request.get('HTTP_REFERER')
         url = url or self.context.portal_url()
         self.request.RESPONSE.redirect(url)
 
