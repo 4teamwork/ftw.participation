@@ -31,4 +31,7 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
+  <!-- register adapters -->
+  <adapter factory=".storage.InvitationStorage" />
+
 </configure>

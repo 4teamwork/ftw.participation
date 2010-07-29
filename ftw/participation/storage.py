@@ -63,7 +63,7 @@ class InvitationStorage(object):
 
         """
         data = {}
-        for email, users_invitiations in self.invitations:
+        for email, users_invitiations in self.invitations.items():
             for invitation in users_invitiations:
                 data[invitation.iid] = invitation
         return data
@@ -161,7 +161,7 @@ class InvitationStorage(object):
         session = self.context.REQUEST.SESSION
         if self.SESSION_PENDING_KEY not in session:
             session[self.SESSION_PENDING_KEY] = PersistentList()
-        session[self.SESSION_PENDING_KEY].append(invitation)
+        session[self.SESSION_PENDING_KEY].append(invitation.iid)
 
     def assign_pending_session_invitations(self, email=None):
         """
@@ -186,9 +186,9 @@ class InvitationStorage(object):
         pending_invitations = self.get_pending_session_invitations()
         if pending_invitations and len(pending_invitations):
             for iid in pending_invitations[:]:
-                inv = self.get_invitation_by_id(iid)
+                inv = self.get_invitation_by_iid(iid)
                 if inv:
-                    inv.reassign(self.context, iid)
+                    self.reassign_invitation(inv, email)
             # remove the list from the session - all session-invitations are
             # dropped from the session
             del self.context.REQUEST.SESSION[self.SESSION_PENDING_KEY]

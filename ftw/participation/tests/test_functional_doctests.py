@@ -9,7 +9,7 @@ MODULENAMES = ()
 
 
 TESTFILES = (
-    'lebenslage.txt',
+    'invitations.txt',
     )
 
 
