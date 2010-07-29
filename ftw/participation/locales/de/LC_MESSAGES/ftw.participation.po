@@ -1,0 +1,55 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2010-07-29 12:16+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: DOMAIN\n"
+
+#. Default: "Cancel"
+#: ./ftw/participation/browser/invite.py:87
+msgid "button_cancel"
+msgstr "Abbrechen"
+
+#. Default: "Invite"
+#: ./ftw/participation/browser/invite.py:79
+msgid "button_invite"
+msgstr "Einladen"
+
+#. Default: "At least one of the defined addresses are not valid."
+#: ./ftw/participation/browser/invite.py:65
+msgid "error_invalid_addresses"
+msgstr "Mindestens eine der angegebenen Adressen ist ungültig."
+
+#. Default: "Enter one e-mail address per line"
+#: ./ftw/participation/browser/invite.py:22
+msgid "help_addresses"
+msgstr "Geben Sie eine E-Mail Adresse pro Zeile ein"
+
+#. Default: "Enter a comment which will be contained in the invitaiton E-Mail"
+#: ./ftw/participation/browser/invite.py:29
+msgid "help_comment"
+msgstr "Dieser Kommentar wird ins Einladungs-E-Mail eingefügt."
+
+#. Default: "E-Mail Addresses"
+#: ./ftw/participation/browser/invite.py:21
+msgid "label_addresses"
+msgstr "E-Mail Adressen"
+
+#. Default: "Comment"
+#: ./ftw/participation/browser/invite.py:28
+msgid "label_comment"
+msgstr "Kommentar"
+
+#. Default: "Invite Participants"
+#: ./ftw/participation/browser/invite.py:73
+msgid "label_invite_participants"
+msgstr "Beteiligte Einladen"
+
+
