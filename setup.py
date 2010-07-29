@@ -4,6 +4,11 @@ import os
 version = open('ftw/participation/version.txt').read().strip()
 maintainer = 'Jonas Baumann'
 
+tests_require = (
+    'zope.testing',
+    'collective.testcaselayer',
+    )
+
 setup(name='ftw.participation',
       version=version,
       description="Invite other users (register or unregistered) to a context" + \
@@ -31,6 +36,8 @@ setup(name='ftw.participation',
         'plone.browserlayer',
         'z3c.autoinclude',
         ],
+      tests_require=tests_require,
+      extras_require=dict(tests=tests_require),
       entry_points="""
       # -*- Entry points: -*-
       [z3c.autoinclude.plugin]
