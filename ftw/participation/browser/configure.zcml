@@ -1,7 +1,13 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
-    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="ftw.participation">
 
+  <browser:page
+      for="ftw.participation.interfaces.IParticipationSupport"
+      name="invite_participants"
+      class=".invite.InviteParticipantsView"
+      permission="zope2.View"
+      />
 
 </configure>

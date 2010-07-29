@@ -14,3 +14,8 @@ class IInvitationStorage(Interface):
 class IParticipationSupport(Interface):
     """Marker interface for objects where other users can be invitation
     """
+
+
+class IInvitationMailer(Interface):
+    """Adapter interface for the invitation mailer
+    """
