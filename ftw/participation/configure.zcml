@@ -6,7 +6,10 @@
     xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="ftw.participation">
 
-  <!-- auto include dependencies -->
+  <!-- include dependencies -->
+  <include package="plone.browserlayer" />
+
+  <!-- auto include -->
   <include package="z3c.autoinclude" file="meta.zcml" />
   <includeDependencies package="." />
 

@@ -1,0 +1,6 @@
+<layers>
+
+  <layer name="ftw.participation"
+         interface="ftw.participation.interface.IParticipationBrowserLayer" />
+
+</layers>

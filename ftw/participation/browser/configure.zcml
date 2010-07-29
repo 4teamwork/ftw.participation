@@ -8,6 +8,7 @@
       name="invite_participants"
       class=".invite.InviteParticipantsView"
       permission="zope2.View"
+      layer="ftw.participation.interfaces.IParticipationBrowserLayer"
       />
 
 </configure>

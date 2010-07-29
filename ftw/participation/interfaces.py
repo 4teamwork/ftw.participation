@@ -1,6 +1,11 @@
 from zope.interface import Interface
 
 
+class IParticipationBrowserLayer(Interface):
+    """Browser layer interface for ftw.participation
+    """
+
+
 class IInvitation(Interface):
     """Marker interface for invitations
     """
