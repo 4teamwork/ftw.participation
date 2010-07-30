@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-07-29 12:16+0000\n"
+"POT-Creation-Date: 2010-07-30 09:50+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13,43 +13,77 @@ msgstr ""
 "Domain: DOMAIN\n"
 
 #. Default: "Cancel"
-#: ./ftw/participation/browser/invite.py:87
+#: ./ftw/participation/browser/invite.py:109
 msgid "button_cancel"
 msgstr "Abbrechen"
 
 #. Default: "Invite"
-#: ./ftw/participation/browser/invite.py:79
+#: ./ftw/participation/browser/invite.py:87
 msgid "button_invite"
 msgstr "Einladen"
 
 #. Default: "At least one of the defined addresses are not valid."
-#: ./ftw/participation/browser/invite.py:65
+#: ./ftw/participation/browser/invite.py:73
 msgid "error_invalid_addresses"
 msgstr "Mindestens eine der angegebenen Adressen ist ungültig."
 
 #. Default: "Enter one e-mail address per line"
-#: ./ftw/participation/browser/invite.py:22
+#: ./ftw/participation/browser/invite.py:30
 msgid "help_addresses"
 msgstr "Geben Sie eine E-Mail Adresse pro Zeile ein"
 
 #. Default: "Enter a comment which will be contained in the invitaiton E-Mail"
-#: ./ftw/participation/browser/invite.py:29
+#: ./ftw/participation/browser/invite.py:37
 msgid "help_comment"
 msgstr "Dieser Kommentar wird ins Einladungs-E-Mail eingefügt."
 
+#. Default: "The invitation mails were sent."
+#: ./ftw/participation/browser/invite.py:104
+msgid "info_invitations_sent"
+msgstr "Die Einladungen wurden per E-Mail versendet."
+
+#. Default: "Hello"
+#: ./ftw/participation/browser/templates/invitation_mail_html.pt:7
+#: ./ftw/participation/browser/templates/invitation_mail_text.pt:2
+msgid "invitaiton_mail_salutation"
+msgstr "Guten Tag,"
+
+#. Default: "If you would like to participate, click on the link below an register or log in: ${link_url}"
+#: ./ftw/participation/browser/templates/invitation_mail_html.pt:21
+#: ./ftw/participation/browser/templates/invitation_mail_text.pt:9
+msgid "invitation_mail_actions"
+msgstr "Wenn Sie die Einladung annehmen möchten klicken sie auf folgenden Link: ${link_url}"
+
+#. Default: "${inviter_name} has invited you to participate in ${context_title} on the platform ${site_title}."
+#: ./ftw/participation/browser/templates/invitation_mail_html.pt:15
+#: ./ftw/participation/browser/templates/invitation_mail_text.pt:3
+msgid "invitation_mail_invite_text"
+msgstr "${inviter_name} hat Sie eingeladen, an ${context_title} auf der Plattform ${site_title} teilzunehmen."
+
+#. Default: "Message by ${inviter_name}:"
+#: ./ftw/participation/browser/templates/invitation_mail_html.pt:27
+#: ./ftw/participation/browser/templates/invitation_mail_text.pt:13
+msgid "invitation_mail_message"
+msgstr "Nachricht von ${inviter_name}:"
+
 #. Default: "E-Mail Addresses"
-#: ./ftw/participation/browser/invite.py:21
+#: ./ftw/participation/browser/invite.py:29
 msgid "label_addresses"
 msgstr "E-Mail Adressen"
 
 #. Default: "Comment"
-#: ./ftw/participation/browser/invite.py:28
+#: ./ftw/participation/browser/invite.py:36
 msgid "label_comment"
 msgstr "Kommentar"
 
 #. Default: "Invite Participants"
-#: ./ftw/participation/browser/invite.py:73
+#: ./ftw/participation/browser/invite.py:81
 msgid "label_invite_participants"
 msgstr "Beteiligte Einladen"
+
+#. Default: "Invitation for paticipating in ${title}"
+#: ./ftw/participation/browser/invite.py:173
+msgid "mail_invitation_subject"
+msgstr "Einladung zur Beiteiligung an ${title}"
 
 

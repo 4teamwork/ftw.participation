@@ -1,0 +1,31 @@
+<html i18n:domain="ftw.participation">
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type">
+    <title></title>
+  </head>
+  <body>
+    <p i18n:translate="invitaiton_mail_salutation">Hello</p>
+    <p i18n:translate="invitation_mail_invite_text">
+      <span i18n:name="inviter_name" tal:replace="options/inviter_name" />
+      has invited you to participate in
+      <tal:title i18n:name="context_title">
+        &laquo;<span tal:replace="here/pretty_title_or_id" />&raquo;
+      </tal:title>
+      on the platform
+      <a tal:attributes="href here/portal_url" tal:content="options/site_title"
+         i18n:name="site_title"/>.
+    </p>
+    <p i18n:translate="invitation_mail_actions">
+      If you would like to participate, click on the link below an register or
+      log in:
+      <a tal:attributes="href options/link_url" tal:content="options/link_url"
+         i18n:name="link_url" />
+    </p>
+    <p>
+      <b i18n:translate="invitation_mail_message">
+        Message by <span tal:replace="options/inviter_name" i18n:name="inviter_name"/>:
+      </b><br />
+      <span tal:replace="structure options/html_comment" />
+    </p>
+  </body>
+</html>

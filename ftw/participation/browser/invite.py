@@ -1,5 +1,11 @@
+from Products.CMFCore.interfaces import IPropertiesTool
+from Products.CMFCore.utils import getToolByName
 from Products.statusmessages.interfaces import IStatusMessage
+from email.header import Header
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 from ftw.participation import _
+from ftw.participation.invitation import Invitation
 from plone.z3cform.layout import wrap_form
 from z3c.form.button import buttonAndHandler
 from z3c.form.error import ErrorViewMessage
@@ -8,8 +14,10 @@ from z3c.form.form import Form
 from z3c.form.validator import SimpleFieldValidator
 from z3c.form.validator import WidgetValidatorDiscriminators
 from zope import schema
-from zope.component import provideAdapter
+from zope.component import provideAdapter, getUtility
+from zope.i18n import translate
 from zope.interface import Interface
+import os.path
 import re
 
 
@@ -82,16 +90,105 @@ class InviteForm(Form):
         """
         data, errors = self.extractData()
         if len(errors) == 0:
-            IStatusMessage(self.request).addStatusMessage(
-                'not yet implemented', type='info')
-            return self.request.RESPONSE.redirect('./')
+            # get inviter
+            mtool = getToolByName(self.context, 'portal_membership')
+            inviter = mtool.getAuthenticatedMember()
+            # handle every email seperate
+            for email in data.get('addresses').strip().split('\n'):
+                email = email.strip()
+                if not email:
+                    continue
+                inv = Invitation(self.context, email, inviter.getId())
+                self.send_invitation(inv, email, inviter, data.get('comment'))
+            # notify user
+            msg = _(u'info_invitations_sent',
+                    default=u'The invitation mails were sent.')
+            IStatusMessage(self.request).addStatusMessage(msg, type='info')
+            return self.redirect()
 
     @buttonAndHandler(_(u'button_cancel', default=u'Cancel'))
     def handle_cancel(self, action):
-        """Go back to the site we came from
+        return self.redirect()
+
+    def redirect(self):
+        """Redirect back
         """
-        url = self.request.get('HTTP_REFERER')
-        url = url or self.context.portal_url()
-        self.request.RESPONSE.redirect(url)
+        return self.request.RESPONSE.redirect('./')
+
+    def send_invitation(self, invitation, email, inviter, comment):
+        """Send a invitation email to a user
+        """
+        properties = getUtility(IPropertiesTool)
+        # prepare from address for header
+        header_from = Header(properties.email_from_name.decode('utf-8'),
+                             'iso-8859-1')
+        header_from.append(u'<%s>' % properties.email_from_address.
+                           decode('utf-8'),
+                           'iso-8859-1')
+        # get subject
+        header_subject = Header(unicode(self.get_subject()), 'iso-8859-1')
+
+        # prepare comments
+        # prepare comment
+        pttool = getToolByName(self.context, 'portal_transforms')
+        html_comment = pttool('text_to_html', comment) or ''
+
+        # prepare options
+        options = {
+            'invitation': invitation,
+            'email': email,
+            'inviter': inviter,
+            'inviter_name': inviter.getProperty('fullname',
+                                                False) or inviter.getId(),
+            'text_comment': comment,
+            'html_comment': html_comment,
+            'link_url': self.get_url(invitation),
+            'site_title': self.context.portal_url.getPortalObject().Title(),
+            }
+
+        # get the body views
+        html_view = self.context.unrestrictedTraverse('@@invitation_mail_html')
+        text_view = self.context.unrestrictedTraverse('@@invitation_mail_text')
+        # make the mail
+        msg = MIMEMultipart('alternative')
+        msg['Subject'] = header_subject
+        msg['From'] = header_from
+        msg['To'] = email
+
+        # render and embedd html / text
+        text_body = text_view(**options).encode('utf-8')
+        msg.attach(MIMEText(text_body, 'plain', 'utf-8'))
+        html_body = html_view(**options).encode('utf-8')
+        msg.attach(MIMEText(html_body, 'html', 'utf-8'))
+        # send the mail
+        mh = getToolByName(self.context, 'MailHost')
+        mh.send(msg, mto=email)
+
+    def get_subject(self):
+        """Returns the translated subject of the email.
+        """
+        context_title = self.context.pretty_title_or_id().decode('utf-8')
+        # -- i18ndude hint --
+        if 0:
+            _(u'mail_invitation_subject',
+              default=u'Invitation for paticipating in ${title}',
+              mapping=dict(title=context_title))
+        # / -- i18ndude hint --
+        # do not use translation messages - translate directly
+        return translate(u'mail_invitation_subject',
+                         domain='ftw.participation',
+                         context=self.request,
+                         default=u'Invitation for paticipating in ${title}',
+                         mapping=dict(title=context_title))
+
+    def get_url(self, invitation):
+        """Returns the URL which is embedded in the invitation email. Usually
+        the links points to the invitation view and uses the iid of the
+        invitation as parameter, so that the invitation will be marked as
+        pending in the session.
+
+        """
+        return os.path.join(self.context.portal_url(),
+                            '@@invitations?iid=%s' % invitation.iid)
 
 InviteParticipantsView = wrap_form(InviteForm)
