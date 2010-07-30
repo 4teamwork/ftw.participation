@@ -1,15 +1,15 @@
+from Products.CMFCore.interfaces import IPropertiesTool
+from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
-from zope.i18n import translate
+from Products.statusmessages.interfaces import IStatusMessage
 from email.header import Header
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from Products.statusmessages.interfaces import IStatusMessage
 from ftw.participation import _
-from Products.CMFCore.utils import getToolByName
 from ftw.participation.interfaces import IInvitationStorage
 from ftw.participation.interfaces import IParticipationSetter
 from zope.component import getMultiAdapter, getUtility
-from Products.CMFCore.interfaces import IPropertiesTool
+from zope.i18n import translate
 
 
 
@@ -21,25 +21,10 @@ class AcceptInvitation(BrowserView):
     """
 
     def __call__(self, iid=None):
-        """
-        """
         if not iid:
             iid = self.request.get('iid')
-        # globals
-        self.storage = IInvitationStorage(self.context)
-        self.invitation = self.storage.get_invitation_by_iid(iid)
-        self.target = self.invitation.get_target()
 
-        # sanity check
-        mtool = getToolByName(self.context, 'portal_membership')
-        self.member = mtool.getAuthenticatedMember()
-        valid_emails = (self.member.getId(),
-                        self.member.getProperty('email', object()))
-        if not self.invitation or self.invitation.email not in valid_emails:
-            msg = _(u'error_invitation_not_found',
-                    default=u'Could not find the invitation.')
-            IStatusMessage(self.request).addStatusMessage(msg, type='error')
-            return self.request.RESPONSE.redirect(self.context.portal_url())
+        self.load(iid)
 
         self.set_participation()
         self.send_email()
@@ -55,6 +40,27 @@ class AcceptInvitation(BrowserView):
 
         # redirect context (where the user now has access)
         return self.request.RESPONSE.redirect(self.target.absolute_url())
+
+    def load(self, iid):
+        """Loads the storage, the invitation and the target and does some
+        more things.
+
+        """
+        self.storage = IInvitationStorage(self.context)
+        self.invitation = self.storage.get_invitation_by_iid(iid)
+        self.target = self.invitation.get_target()
+
+        # sanity check
+        mtool = getToolByName(self.context, 'portal_membership')
+        self.member = mtool.getAuthenticatedMember()
+        valid_emails = (self.member.getId(),
+                        self.member.getProperty('email', object()))
+        if not self.invitation or self.invitation.email not in valid_emails:
+            msg = _(u'error_invitation_not_found',
+                    default=u'Could not find the invitation.')
+            IStatusMessage(self.request).addStatusMessage(msg, type='error')
+            return self.request.RESPONSE.redirect(self.context.portal_url())
+
 
 
     def set_participation(self):
@@ -137,7 +143,7 @@ class AcceptInvitation(BrowserView):
         context_title = self.context.pretty_title_or_id().decode('utf-8')
         # -- i18ndude hint --
         if 0:
-            _(u'mail_invitation_subject',
+            _(u'mail_invitation_accepted_subject',
               default=u'The Invitation to participate in ${title} ' +\
                   u'was accepted by ${user}',
               mapping=dict(title=context_title,
