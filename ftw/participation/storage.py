@@ -107,7 +107,8 @@ class InvitationStorage(object):
         """
         # guess the email if its `None`
         if email == None:
-            member = getToolByName(self.context, 'portal_membership')
+            mtool = getToolByName(self.context, 'portal_membership')
+            member = mtool.getAuthenticatedMember()
             email = member.getProperty('email', member.getId())
         # move session-invitations - if necessary
         self.assign_pending_session_invitations()
@@ -125,7 +126,8 @@ class InvitationStorage(object):
         """
         # guess the `userid` if its `None`
         if userid == None:
-            member = getToolByName(self.context, 'portal_membership')
+            mtool = getToolByName(self.context, 'portal_membership')
+            member = mtool.getAuthenticatedMember()
             userid = member.getId()
         # find all inivitations where the inviter is `userid`
         list_ = []

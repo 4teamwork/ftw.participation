@@ -36,33 +36,36 @@
                   <th class="nosort"></th>
                 </tr>
               </thead>
+
+              <tbody>
+                <tal:invitations repeat="inv received_invitations">
+                  <tr tal:define="target inv/get_target">
+                    <td><input type="checkbox" name="received_invitations:list" tal:attributes="value inv/iid" /></td>
+                    <td class="inv-ws">
+                      <b tal:content="target/Title" />
+                    </td>
+                    <td class="inv-inviter" tal:content="inv/inviter" />
+                    <td class="inv-actions">
+                      <a href="" class="accept-button" i18n:translate="link_accept_invitation"
+                         tal:attributes="href string:${here/absolute_url}/@@accept_invitation?iid=${inv/iid}">
+                        Yes, I wan't to participate</a>
+                      <a href="" class="reject-button" i18n:translate="link_reject_invitation"
+                         tal:attributes="href string:${here/absolute_url}/@@reject_invitation?iid=${inv/iid}">
+                        No, I don't wan't to participate</a>
+                    </td>
+                  </tr>
+                </tal:invitations>
+              </tbody>
             </table>
 
+            <input type="submit" name="accept" value="Accept"
+                   i18n:attributes="value" />
+            <input type="submit" name="reject" value="Reject"
+                   i18n:attributes="value" />
+
           </tal:HAS_RECEIVED_INVITATIONS>
-          <!--       <tbody> -->
-          <!--         <tal:invitations repeat="inv view/my_invitations"> -->
-          <!--           <tr tal:define="target python:inv.get_target(here)"> -->
-          <!--             <td><input type="checkbox" name="invitations:list" tal:attributes="value inv/iid" /></td> -->
-          <!--             <td class="inv-ws"> -->
-          <!--               <b tal:content="target/Title" /> -->
-          <!--             </td> -->
-          <!--             <td class="inv-inviter" tal:content="inv/inviter" /> -->
-          <!--             <td class="inv-actions"> -->
-          <!--               <a href="" class="accept-button" tal:attributes="href string:${here/absolute_url}/@@accept_invitation?iid=${inv/iid}" i18n:translate="link_accept_invitation"> -->
-          <!--                 Yes, I wan't to participate</a> -->
-          <!--               <a href="" class="reject-button" tal:attributes="href string:${here/absolute_url}/@@reject_invitation?iid=${inv/iid}" i18n:translate="link_reject_invitation"> -->
-          <!--                 No, I don't wan't to participate</a> -->
 
-          <!--             </td> -->
-          <!--           </tr> -->
-          <!--         </tal:invitations> -->
-          <!--       </tbody> -->
-          <!--     </table> -->
-          <!--     <input type="submit" name="accept" value="annehmen" /> -->
-          <!--     <input type="submit" name="reject" value="ablehnen" /> -->
-          <!--   </tal:HAS_INVITATIONS> -->
-
-          <hr />
+          <p></p>
 
           <h2 i18n:translate="headline_sent_invitations">Your sent invitations</h2>
 
@@ -76,37 +79,36 @@
             <p class="descreet" i18n:translate="text_sent_invitations">
               You have invited the following users. They have not yet confirmed your invitation.
             </p>
+
+            <table class="listing invited-users-listing">
+              <thead>
+                <tr>
+                  <th class="nosort"><input type="checkbox" class="select_all_invitations" /></th>
+                  <th class="inv-ws" i18n:translate="inv_head_workspace">Workspace</th>
+                  <th class="inv-user" i18n:translate="inv_head_user">User</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tal:invitations repeat="inv sent_invitations">
+                  <tr tal:define="target inv/get_target">
+                    <td>
+                      <input type="checkbox" name="sent_invitations:list" tal:attributes="value inv/iid"/>
+                    </td>
+                    <td class="inv-ws">
+                      <a href="." tal:attributes="href target/absolute_url">
+                        <b tal:content="target/Title" />
+                      </a>
+                    </td>
+                    <td class="inv-user" tal:content="inv/email" />
+                  </tr>
+                </tal:invitations>
+              </tbody>
+            </table>
+
+            <input type="submit" name="retract" value="Retract"
+                   i18n:attributes="value"/>
           </tal:HAS_SENT_INVITATIONS>
 
-          <!--     <table class="listing invited-users-listing"> -->
-          <!--       <thead> -->
-          <!--         <tr> -->
-          <!--           <th class="nosort"><input type="checkbox" class="select_all_invitations" /></th> -->
-          <!--           <th class="inv-ws" i18n:translate="inv_head_workspace">Workspace</th> -->
-          <!--           <th class="inv-user" i18n:translate="inv_head_user">User</th> -->
-          <!--         </tr> -->
-          <!--       </thead> -->
-          <!--       <tbody> -->
-          <!--         <tal:invitations repeat="inv view/invited_users_invitations"> -->
-          <!--           <tr tal:define="target python:inv.get_target(here)"> -->
-          <!--             <td> -->
-          <!--               <input type="checkbox" name="invited:list" tal:attributes="value inv/iid"/> -->
-          <!--             </td> -->
-          <!--             <td class="inv-ws"> -->
-          <!--               <a href="." tal:attributes="href target/absolute_url"> -->
-          <!--                 <b tal:content="target/Title" /> -->
-          <!--               </a> -->
-          <!--             </td> -->
-          <!--             <td class="inv-user" tal:content="inv/email" /> -->
-          <!--           </tr> -->
-          <!--         </tal:invitations> -->
-          <!--       </tbody> -->
-          <!--     </table> -->
-
-          <!--     <input type="submit" name="retract" value="widerrufen" /> -->
-
-          <!--   </tal:HAS_INVITED_USERS> -->
-          <!-- </tal:LOGGED_IN> -->
 
           <input type="hidden" name="form.submitted" value="1" />
           <input tal:replace="structure context/@@authenticator/authenticator" />
