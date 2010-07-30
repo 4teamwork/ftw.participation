@@ -11,19 +11,35 @@
       layer="ftw.participation.interfaces.IParticipationBrowserLayer"
       />
 
+  <browser:page
+      for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
+      name="invitations"
+      class=".invitations.InvitationsView"
+      permission="zope2.View"
+      layer="ftw.participation.interfaces.IParticipationBrowserLayer"
+      />
+
+  <browser:page
+      for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
+      name="welcome_invited"
+      class=".welcome.WelcomeInvitedView"
+      permission="zope2.View"
+      layer="ftw.participation.interfaces.IParticipationBrowserLayer"
+      />
+
   <!-- mail tempaltes -->
   <browser:page
       for="ftw.participation.interfaces.IParticipationSupport"
       name="invitation_mail_html"
       permission="zope2.View"
-      template="templates/invitation_mail_html.pt"
+      template="mail_templates/invitation_mail_html.pt"
       />
 
   <browser:page
       for="ftw.participation.interfaces.IParticipationSupport"
       name="invitation_mail_text"
       permission="zope2.View"
-      template="templates/invitation_mail_text.pt"
+      template="mail_templates/invitation_mail_text.pt"
       />
 
 </configure>

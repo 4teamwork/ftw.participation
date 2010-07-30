@@ -159,7 +159,7 @@ class InvitationStorage(object):
 
         """
         session = self.context.REQUEST.SESSION
-        if self.SESSION_PENDING_KEY not in session:
+        if self.SESSION_PENDING_KEY not in session.keys():
             session[self.SESSION_PENDING_KEY] = PersistentList()
         session[self.SESSION_PENDING_KEY].append(invitation.iid)
 
