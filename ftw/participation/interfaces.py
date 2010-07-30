@@ -24,3 +24,11 @@ class IParticipationSupport(Interface):
 class IInvitationMailer(Interface):
     """Adapter interface for the invitation mailer
     """
+
+
+class IParticipationSetter(Interface):
+    """Adapter interface for the adapter which sets the permission or does
+    other things for participating a user.
+    Discrimniators: context, request, invitation, member
+
+    """

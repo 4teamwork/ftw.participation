@@ -33,5 +33,6 @@
 
   <!-- register adapters -->
   <adapter factory=".storage.InvitationStorage" />
+  <adapter factory=".setter.DefaultParticipationSetter" />
 
 </configure>

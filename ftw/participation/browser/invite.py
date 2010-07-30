@@ -128,7 +128,6 @@ class InviteForm(Form):
         # get subject
         header_subject = Header(unicode(self.get_subject()), 'iso-8859-1')
 
-        # prepare comments
         # prepare comment
         pttool = getToolByName(self.context, 'portal_transforms')
         html_comment = pttool('text_to_html', comment) or ''
