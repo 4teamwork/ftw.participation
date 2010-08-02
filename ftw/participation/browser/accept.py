@@ -8,6 +8,7 @@ from email.mime.text import MIMEText
 from ftw.participation import _
 from ftw.participation.interfaces import IInvitationStorage
 from ftw.participation.interfaces import IParticipationSetter
+from zExceptions import Redirect
 from zope.component import getMultiAdapter, getUtility
 from zope.i18n import translate
 
@@ -59,7 +60,7 @@ class AcceptInvitation(BrowserView):
             msg = _(u'error_invitation_not_found',
                     default=u'Could not find the invitation.')
             IStatusMessage(self.request).addStatusMessage(msg, type='error')
-            return self.request.RESPONSE.redirect(self.context.portal_url())
+            raise Redirect(self.context.portal_url())
 
 
 
@@ -104,8 +105,11 @@ class AcceptInvitation(BrowserView):
         options = {
             'invitation': self.invitation,
             'inviter': to_member,
+            'inviter_name': to_member.getProperty('fullname', to_member.getId()),
             'invited': self.member,
-            'url': self.context.absolute_url(),
+            'invited_name': self.member.getProperty('fullname', self.member.getId()),
+            'invited_email': self.member.getProperty('email', self.member.getId()),
+            'target': self.target,
             }
 
         # make the mail

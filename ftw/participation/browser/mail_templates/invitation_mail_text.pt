@@ -1,5 +1,5 @@
 <tal:mail i18n:domain="ftw.participation"><tal:p i18n:translate="invitaiton_mail_salutation">Hello</tal:p>
-<tal:p i18n:translate="invitation_mail_invite_text"><tal:span i18n:name="inviter_name" tal:replace="options/inviter_name" /> has invited you to participate in <tal:title i18n:name="context_title">  «<tal:span tal:replace="here/pretty_title_or_id" />»</tal:title> on the platform <tal:site_title i18n:name="site_title">«<tal:title tal:replace="options/site_title" i18n:name="site_title" />»</tal:site_title>.
+<tal:p i18n:translate="invitation_mail_invite_text"><tal:span i18n:name="inviter_name" tal:replace="options/inviter_name" /> has invited you to participate in <tal:title i18n:name="context_title">  «<tal:span tal:replace="here/pretty_title_or_id" />»</tal:title> on the platform <tal:site_title i18n:name="site_title">«<tal:title tal:replace="options/site_title" />»</tal:site_title>.
   </tal:p>
 
 <tal:p i18n:translate="invitation_mail_actions">

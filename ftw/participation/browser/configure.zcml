@@ -3,11 +3,13 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="ftw.participation">
 
+  <include package="plone.app.workflow" />
+
   <browser:page
       for="ftw.participation.interfaces.IParticipationSupport"
       name="invite_participants"
       class=".invite.InviteParticipantsView"
-      permission="zope2.View"
+      permission="plone.DelegateRoles"
       layer="ftw.participation.interfaces.IParticipationBrowserLayer"
       />
 
@@ -43,7 +45,15 @@
       layer="ftw.participation.interfaces.IParticipationBrowserLayer"
       />
 
-  <!-- mail tempaltes -->
+  <browser:page
+      for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
+      name="retract_invitation"
+      class=".retract.RetractInvitation"
+      permission="zope2.View"
+      layer="ftw.participation.interfaces.IParticipationBrowserLayer"
+      />
+
+  <!-- mail templates -->
   <browser:page
       for="ftw.participation.interfaces.IParticipationSupport"
       name="invitation_mail_html"
@@ -56,6 +66,20 @@
       name="invitation_mail_text"
       permission="zope2.View"
       template="mail_templates/invitation_mail_text.pt"
+      />
+
+  <browser:page
+      for="ftw.participation.interfaces.IParticipationSupport"
+      name="invitation_accepted_mail_html"
+      permission="zope2.View"
+      template="mail_templates/invitation_accepted_mail_html.pt"
+      />
+
+  <browser:page
+      for="ftw.participation.interfaces.IParticipationSupport"
+      name="invitation_accepted_mail_text"
+      permission="zope2.View"
+      template="mail_templates/invitation_accepted_mail_text.pt"
       />
 
 </configure>

@@ -1,0 +1,25 @@
+<html i18n:domain="ftw.participation">
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type">
+    <title></title>
+  </head>
+  <body>
+    <p i18n:translate="rejected_mail_salutation">
+      Hello <span i18n:name="inviter_name" tal:replace="options/inviter_name" />
+    </p>
+    <p i18n:translate="rejected_mail_text">
+      Your invitation for participating in
+      <tal:title i18n:name="context_title">
+        &laquo;<span tal:replace="options/target/pretty_title_or_id" />&raquo;
+      </tal:title>
+      was rejected by the user
+      <span i18n:name="invited_name" tal:replace="options/invited_name" />
+      (<span i18n:name="invited_email" tal:replace="options/invited_email" />).
+    </p>
+    <p>
+      <span tal:replace="options/target/pretty_title_or_id" />
+      <a tal:content="options/target/absolute_url"
+         tal:attributes="href options/target/absolute_url" />
+    </p>
+  </body>
+</html>
