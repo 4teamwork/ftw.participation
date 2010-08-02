@@ -10,15 +10,14 @@
     <p i18n:translate="rejected_mail_text">
       Your invitation for participating in
       <tal:title i18n:name="context_title">
-        &laquo;<span tal:replace="options/target/pretty_title_or_id" />&raquo;
+        &laquo;<span tal:replace="options/target/Title" />&raquo;
       </tal:title>
       was rejected by the user
       <span i18n:name="invited_name" tal:replace="options/invited_name" />
       (<span i18n:name="invited_email" tal:replace="options/invited_email" />).
     </p>
     <p>
-      <span tal:replace="options/target/pretty_title_or_id" />
-      <a tal:content="options/target/absolute_url"
+      <a tal:content="options/target/Title"
          tal:attributes="href options/target/absolute_url" />
     </p>
   </body>

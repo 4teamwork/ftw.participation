@@ -126,11 +126,11 @@ class AcceptInvitation(BrowserView):
         text_body = text_view(**options).encode('utf-8')
         msg.attach(MIMEText(text_body, 'plain', 'utf-8'))
         html_body = html_view(**options).encode('utf-8')
-        msg.attach(MIMEText(html_body), 'html', 'utf-8')
+        msg.attach(MIMEText(html_body, 'html', 'utf-8'))
 
         # send the email
         mh = getToolByName(self.context, 'MailHost')
-        mh.send(msg, to=to_member.getProperty('email'))
+        mh.send(msg, mto=to_member.getProperty('email'))
 
     def get_mail_body_html_view(self):
         return self.context.unrestrictedTraverse('@@invitation_accepted_mail_html')

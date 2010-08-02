@@ -3,8 +3,6 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="ftw.participation">
 
-  <include package="plone.app.workflow" />
-
   <browser:page
       for="ftw.participation.interfaces.IParticipationSupport"
       name="invite_participants"
@@ -69,17 +67,31 @@
       />
 
   <browser:page
-      for="ftw.participation.interfaces.IParticipationSupport"
+      for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
       name="invitation_accepted_mail_html"
       permission="zope2.View"
       template="mail_templates/invitation_accepted_mail_html.pt"
       />
 
   <browser:page
-      for="ftw.participation.interfaces.IParticipationSupport"
+      for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
       name="invitation_accepted_mail_text"
       permission="zope2.View"
       template="mail_templates/invitation_accepted_mail_text.pt"
+      />
+
+  <browser:page
+      for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
+      name="invitation_rejected_mail_html"
+      permission="zope2.View"
+      template="mail_templates/invitation_rejected_mail_html.pt"
+      />
+
+  <browser:page
+      for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
+      name="invitation_rejected_mail_text"
+      permission="zope2.View"
+      template="mail_templates/invitation_rejected_mail_text.pt"
       />
 
 </configure>

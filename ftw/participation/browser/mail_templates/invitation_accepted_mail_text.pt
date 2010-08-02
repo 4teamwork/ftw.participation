@@ -2,5 +2,5 @@
 <tal:p i18n:translate="accepted_mail_salutation">Hello <tal:span i18n:name="inviter_name" tal:replace="options/inviter_name" /></tal:p>
 <tal:p i18n:translate="accepted_mail_text">Your invitation for participating in <tal:title i18n:name="context_title">"<span tal:replace="options/target/pretty_title_or_id" />"</tal:title> was accepted by the user <tal:span i18n:name="invited_name" tal:replace="options/invited_name" /> (<tal:span i18n:name="invited_email" tal:replace="options/invited_email" />).</tal:p>
 
-<tal:title tal:replace="options/target/pretty_title_or_id" /> <tal:url tal:replace="options/target/absolute_url" />
+<tal:title tal:replace="options/target/pretty_title_or_id" />: <tal:url tal:replace="options/target/absolute_url" />
 </tal:mail>
