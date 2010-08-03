@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<object name="portal_javascripts" meta_type="JavaScripts Registry"
+        autogroup="False">
+
+  <javascript cacheable="True" compression="full" cookable="True" enabled="True"
+              expression="" id="++resource++ftw.participation/select_all.js"
+              inline="False" />
+
+</object>

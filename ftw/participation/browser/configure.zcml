@@ -3,6 +3,14 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="ftw.participation">
 
+  <!-- resource directory -->
+  <browser:resourceDirectory
+      name="ftw.participation"
+      directory="resources"
+      layer="ftw.participation.interfaces.IParticipationBrowserLayer"
+      />
+
+  <!-- pages -->
   <browser:page
       for="ftw.participation.interfaces.IParticipationSupport"
       name="invite_participants"
