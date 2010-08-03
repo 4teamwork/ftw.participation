@@ -59,6 +59,14 @@
       layer="ftw.participation.interfaces.IParticipationBrowserLayer"
       />
 
+  <browser:page
+      for="*"
+      name="participation_active"
+      class=".active.ParticipationActive"
+      permission="zope2.View"
+      layer="ftw.participation.interfaces.IParticipationBrowserLayer"
+      />
+
   <!-- mail templates -->
   <browser:page
       for="ftw.participation.interfaces.IParticipationSupport"

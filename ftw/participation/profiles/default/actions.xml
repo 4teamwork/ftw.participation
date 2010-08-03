@@ -12,7 +12,7 @@
       <property
           name="url_expr">string:${here/absolute_url}/@@invite_participants</property>
       <property name="icon_expr"></property>
-      <property name="available_expr"></property>
+      <property name="available_expr">here/participation_active</property>
       <property name="permissions">
         <element value="Sharing page: Delegate roles"/>
       </property>
