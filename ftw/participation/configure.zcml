@@ -8,6 +8,7 @@
 
   <!-- include dependencies -->
   <include package="plone.browserlayer" />
+  <include package="archetypes.schemaextender" />
 
   <!-- auto include -->
   <include package="z3c.autoinclude" file="meta.zcml" />
@@ -34,5 +35,7 @@
   <!-- register adapters -->
   <adapter factory=".storage.InvitationStorage" />
   <adapter factory=".setter.DefaultParticipationSetter" />
+  <adapter factory=".quota.ParticipationQuotaExtender" />
+  <adapter factory=".quota.ParticipationQuotaHelper" />
 
 </configure>

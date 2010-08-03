@@ -29,6 +29,18 @@ class IInvitationMailer(Interface):
 class IParticipationSetter(Interface):
     """Adapter interface for the adapter which sets the permission or does
     other things for participating a user.
-    Discrimniators: context, request, invitation, member
+    Discriminators: context, request, invitation, member
 
+    """
+
+
+class IParticipationQuotaSupport(Interface):
+    """This marker interface enables a participation quota on the provided
+    context. A protected field for defining the quota limit is added to
+    the schema.
+
+    """
+
+class IParticipationQuotaHelper(Interface):
+    """Helper adapter for the participation quota.
     """

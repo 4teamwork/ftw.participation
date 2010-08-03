@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-08-02 11:52+0000\n"
+"POT-Creation-Date: 2010-08-03 14:37+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,18 +42,13 @@ msgid "accepted_mail_text"
 msgstr ""
 
 #. Default: "Cancel"
-#: ./ftw/participation/browser/invite.py:109
+#: ./ftw/participation/browser/invite.py:143
 msgid "button_cancel"
 msgstr ""
 
 #. Default: "Invite"
-#: ./ftw/participation/browser/invite.py:87
+#: ./ftw/participation/browser/invite.py:121
 msgid "button_invite"
-msgstr ""
-
-#. Default: "At least one of the defined addresses are not valid."
-#: ./ftw/participation/browser/invite.py:73
-msgid "error_invalid_addresses"
 msgstr ""
 
 #. Default: "Could not find the invitation."
@@ -65,6 +60,16 @@ msgstr ""
 #. Default: "Invitor could not be notified: he has no email address defined."
 #: ./ftw/participation/browser/accept.py:91
 msgid "error_inviter_email_missing"
+msgstr ""
+
+#. Default: "The participation quoat is reached, you cannot add any further participants."
+#: ./ftw/participation/browser/invite.py:93
+msgid "error_participation_quota_reached"
+msgstr ""
+
+#. Default: "You cannot invite so many participants any more. Can only add ${num} more participants."
+#: ./ftw/participation/browser/invite.py:97
+msgid "error_too_many_participants"
 msgstr ""
 
 #. Default: "Invitations"
@@ -83,13 +88,17 @@ msgid "headline_sent_invitations"
 msgstr ""
 
 #. Default: "Enter one e-mail address per line"
-#: ./ftw/participation/browser/invite.py:30
+#: ./ftw/participation/browser/invite.py:31
 msgid "help_addresses"
 msgstr ""
 
 #. Default: "Enter a comment which will be contained in the invitaiton E-Mail"
-#: ./ftw/participation/browser/invite.py:37
+#: ./ftw/participation/browser/invite.py:38
 msgid "help_comment"
+msgstr ""
+
+#: ./ftw/participation/quota.py:37
+msgid "help_participation_quota_limit"
 msgstr ""
 
 #. Default: "You have accepted the invitation."
@@ -108,7 +117,7 @@ msgid "info_invitation_retracted"
 msgstr ""
 
 #. Default: "The invitation mails were sent."
-#: ./ftw/participation/browser/invite.py:104
+#: ./ftw/participation/browser/invite.py:138
 msgid "info_invitations_sent"
 msgstr ""
 
@@ -152,18 +161,23 @@ msgid "invitation_mail_message"
 msgstr ""
 
 #. Default: "E-Mail Addresses"
-#: ./ftw/participation/browser/invite.py:29
+#: ./ftw/participation/browser/invite.py:30
 msgid "label_addresses"
 msgstr ""
 
 #. Default: "Comment"
-#: ./ftw/participation/browser/invite.py:36
+#: ./ftw/participation/browser/invite.py:37
 msgid "label_comment"
 msgstr ""
 
 #. Default: "Invite Participants"
-#: ./ftw/participation/browser/invite.py:81
+#: ./ftw/participation/browser/invite.py:115
 msgid "label_invite_participants"
+msgstr ""
+
+#. Default: "Participation quota limit"
+#: ./ftw/participation/quota.py:35
+msgid "label_participation_quota_limit"
 msgstr ""
 
 #. Default: "Yes, I wan't to participate"
@@ -187,7 +201,7 @@ msgid "mail_invitation_rejected_subject"
 msgstr ""
 
 #. Default: "Invitation for paticipating in ${title}"
-#: ./ftw/participation/browser/invite.py:172
+#: ./ftw/participation/browser/invite.py:206
 msgid "mail_invitation_subject"
 msgstr ""
 

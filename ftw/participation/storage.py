@@ -137,6 +137,16 @@ class InvitationStorage(object):
                     list_.append(inv)
         return list_ or default
 
+    def get_invitations_for_context(self, context, default=[]):
+        """Returns all invitations for a context. This method may be slow.
+        """
+        list_ = []
+        for users_invitiations in self.invitations.values():
+            for inv in users_invitiations:
+                if inv.get_target() == context:
+                    list_.append(inv)
+        return list_ or default
+
     def get_pending_session_invitations(self, default=[]):
         """When the user clicks on the invitation in the email program the
         invitation is temporary stored in the session too (if the user is

@@ -5,10 +5,11 @@ from email.header import Header
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from ftw.participation import _
+from ftw.participation.interfaces import IParticipationQuotaHelper
+from ftw.participation.interfaces import IParticipationQuotaSupport
 from ftw.participation.invitation import Invitation
 from plone.z3cform.layout import wrap_form
 from z3c.form.button import buttonAndHandler
-from z3c.form.error import ErrorViewMessage
 from z3c.form.field import Fields
 from z3c.form.form import Form
 from z3c.form.validator import SimpleFieldValidator
@@ -17,6 +18,7 @@ from zope import schema
 from zope.component import provideAdapter, getUtility
 from zope.i18n import translate
 from zope.interface import Interface
+from zope.interface import Invalid
 import os.path
 import re
 
@@ -60,20 +62,43 @@ class AddressesValidator(SimpleFieldValidator):
 
         """
         super(AddressesValidator, self).validate(value)
-        for addr in value.strip().split('\n'):
+        addresses = value.strip().split('\n')
+        self._validate_quota(addresses)
+        self._validate_addresses(addresses)
+
+    def _validate_quota(self, addresses):
+        """Validate the amount of typed addresses according to quota definition.
+        """
+        if IParticipationQuotaSupport.providedBy(self.context):
+            quota_support = IParticipationQuotaHelper(self.context)
+            allowed = quota_support.allowed_number_of_invitations()
+            if len(addresses) > allowed:
+                if allowed <= 0:
+                    msg = _(u'error_participation_quota_reached',
+                            default=u'The participation quota is reached, '
+                            'you cannot add any further participants.')
+                else:
+                    msg = _('error_too_many_participants',
+                            default=u'You cannot invite so many participants '
+                            'any more. Can only add ${num} more participants.',
+                            mapping={'num': allowed})
+                raise Invalid(msg)
+
+    def _validate_addresses(self, addresses):
+        """E-Mail address validation
+        """
+        for addr in addresses:
             addr = addr.strip()
             if not self.email_expression.match(addr):
-                raise schema.interfaces.ConstraintNotSatisfied()
+                msg = _(u'error_invalid_addresses',
+                        default=u'At least one of the defined addresses '
+                        'are not valid.')
+                raise Invalid(msg)
 
 
 WidgetValidatorDiscriminators(AddressesValidator,
                               field=IInviteSchema['addresses'])
 provideAdapter(AddressesValidator)
-provideAdapter(ErrorViewMessage(
-        _(u'error_invalid_addresses',
-          default=u'At least one of the defined addresses are not valid.'),
-        error=schema.interfaces.ConstraintNotSatisfied,
-        field=IInviteSchema['addresses']), name='message')
 
 
 class InviteForm(Form):
@@ -130,7 +155,7 @@ class InviteForm(Form):
 
         # prepare comment
         pttool = getToolByName(self.context, 'portal_transforms')
-        html_comment = pttool('text_to_html', comment) or ''
+        html_comment = comment and pttool('text_to_html', comment) or ''
 
         # prepare options
         options = {
