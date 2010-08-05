@@ -138,7 +138,8 @@ class InviteForm(Form):
     def redirect(self):
         """Redirect back
         """
-        return self.request.RESPONSE.redirect('./')
+        url = self.context.absolute_url() + '/@@participants'
+        return self.request.RESPONSE.redirect(url)
 
     def send_invitation(self, invitation, email, inviter, comment):
         """Send a invitation email to a user

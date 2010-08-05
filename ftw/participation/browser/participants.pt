@@ -11,12 +11,36 @@
       <metal:main-macro define-macro="main">
 
         <h1 i18n:translate="headline_participants" class="documentFirstHeading">
-          Participants of <span i18n:name="title" tal:replace="here/Title" />
+          Participants of
+          <tal:title i18n:name="title">
+            &laquo;<span tal:replace="here/Title" />&raquo;
+          </tal:title>
         </h1>
 
-        <form action="" method="post"
-              tal:attributes="action string:${here/absolute_url}/@@invitations">
+        <a tal:attributes="href string:${here/absolute_url}/@@invite_participants"
+           i18n:translate="link_invite_participants">Invite participants</a>
 
+        <form action="" method="post"
+              tal:attributes="action string:${here/absolute_url}/@@participants">
+
+          <div id="participants" tal:repeat="item view/get_participants">
+
+            <div class="participant">
+              <input type="checkbox" name="userids:list"
+                     tal:attributes="value item/userid;
+                                     id string:box_${item/userid};
+                                     disabled item/readonly;" />
+              <label tal:attributes="for string:box_${item/userid}"
+                     tal:content="item/name" />
+            </div>
+
+          </div>
+
+          <input type="submit" name="form.delete" value="Delete Participants"
+                 i18n:attributes="value button_delete_participants" />
+
+          <input type="submit" name="form.cancel" value="Cancel"
+                 i18n:attributes="value button_cancel" />
 
         </form>
 
