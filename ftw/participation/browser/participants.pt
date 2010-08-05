@@ -1,0 +1,26 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      metal:use-macro="here/main_template/macros/master"
+      lang="en"
+      i18n:domain="ftw.participation">
+
+  <body>
+    <div metal:fill-slot="main">
+      <metal:main-macro define-macro="main">
+
+        <h1 i18n:translate="headline_participants" class="documentFirstHeading">
+          Participants of <span i18n:name="title" tal:replace="here/Title" />
+        </h1>
+
+        <form action="" method="post"
+              tal:attributes="action string:${here/absolute_url}/@@invitations">
+
+
+        </form>
+
+      </metal:main-macro>
+    </div>
+  </body>
+</html>
