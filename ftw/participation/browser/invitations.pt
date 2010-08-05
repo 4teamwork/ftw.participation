@@ -13,6 +13,7 @@
         <h1 i18n:translate="headline_invitations" class="documentFirstHeading">Invitations</h1>
 
         <form action="" method="post"
+              tal:attributes="action string:${here/absolute_url}/@@invitations"
               tal:define="received_invitations received_invitations|view/get_received_invitations;
                           sent_invitations sent_invitaitons|view/get_sent_invitations;">
 
