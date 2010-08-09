@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-08-03 14:37+0000\n"
+"POT-Creation-Date: 2010-08-09 13:18+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,16 +17,36 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: ftw.participation\n"
 
-#: ./ftw/participation/browser/invitations.pt:61
+#: ./ftw/participation/browser/invitations.pt:62
 msgid "Accept"
 msgstr ""
 
-#: ./ftw/participation/browser/invitations.pt:63
+#: ./ftw/participation/browser/participants.py:39
+msgid "Changes saved."
+msgstr ""
+
+#: ./ftw/participation/profiles/default/actions.xml
+msgid "Here you can manage participants"
+msgstr ""
+
+#: ./ftw/participation/profiles/default/actions.xml
+msgid "Manage participants"
+msgstr ""
+
+#: ./ftw/participation/profiles/default/actions.xml
+msgid "My Invitations"
+msgstr ""
+
+#: ./ftw/participation/browser/invitations.pt:64
 msgid "Reject"
 msgstr ""
 
-#: ./ftw/participation/browser/invitations.pt:108
+#: ./ftw/participation/browser/invitations.pt:109
 msgid "Retract"
+msgstr ""
+
+#: ./ftw/participation/profiles/default/actions.xml
+msgid "Show a overview of my invitaitons"
 msgstr ""
 
 #. Default: "Hello ${inviter_name}"
@@ -42,13 +62,24 @@ msgid "accepted_mail_text"
 msgstr ""
 
 #. Default: "Cancel"
-#: ./ftw/participation/browser/invite.py:143
+#: ./ftw/participation/browser/invite.py:134
+#: ./ftw/participation/browser/participants.pt:42
 msgid "button_cancel"
 msgstr ""
 
+#. Default: "Delete Participants"
+#: ./ftw/participation/browser/participants.pt:39
+msgid "button_delete_participants"
+msgstr ""
+
 #. Default: "Invite"
-#: ./ftw/participation/browser/invite.py:121
+#: ./ftw/participation/browser/invite.py:112
 msgid "button_invite"
+msgstr ""
+
+#. Default: "At least one of the defined addresses are not valid."
+#: ./ftw/participation/browser/invite.py:93
+msgid "error_invalid_addresses"
 msgstr ""
 
 #. Default: "Could not find the invitation."
@@ -62,13 +93,13 @@ msgstr ""
 msgid "error_inviter_email_missing"
 msgstr ""
 
-#. Default: "The participation quoat is reached, you cannot add any further participants."
-#: ./ftw/participation/browser/invite.py:93
+#. Default: "The participation quota is reached, you cannot add any further participants."
+#: ./ftw/participation/browser/invite.py:77
 msgid "error_participation_quota_reached"
 msgstr ""
 
 #. Default: "You cannot invite so many participants any more. Can only add ${num} more participants."
-#: ./ftw/participation/browser/invite.py:97
+#: ./ftw/participation/browser/invite.py:81
 msgid "error_too_many_participants"
 msgstr ""
 
@@ -77,23 +108,28 @@ msgstr ""
 msgid "headline_invitations"
 msgstr ""
 
+#. Default: "Participants of ${title}"
+#: ./ftw/participation/browser/participants.pt:15
+msgid "headline_participants"
+msgstr ""
+
 #. Default: "Your received invitations"
-#: ./ftw/participation/browser/invitations.pt:19
+#: ./ftw/participation/browser/invitations.pt:20
 msgid "headline_received_invitations"
 msgstr ""
 
 #. Default: "Your sent invitations"
-#: ./ftw/participation/browser/invitations.pt:70
+#: ./ftw/participation/browser/invitations.pt:71
 msgid "headline_sent_invitations"
 msgstr ""
 
 #. Default: "Enter one e-mail address per line"
-#: ./ftw/participation/browser/invite.py:31
+#: ./ftw/participation/browser/invite.py:32
 msgid "help_addresses"
 msgstr ""
 
 #. Default: "Enter a comment which will be contained in the invitaiton E-Mail"
-#: ./ftw/participation/browser/invite.py:38
+#: ./ftw/participation/browser/invite.py:39
 msgid "help_comment"
 msgstr ""
 
@@ -117,22 +153,22 @@ msgid "info_invitation_retracted"
 msgstr ""
 
 #. Default: "The invitation mails were sent."
-#: ./ftw/participation/browser/invite.py:138
+#: ./ftw/participation/browser/invite.py:129
 msgid "info_invitations_sent"
 msgstr ""
 
 #. Default: "Inviter"
-#: ./ftw/participation/browser/invitations.pt:35
+#: ./ftw/participation/browser/invitations.pt:36
 msgid "inv_head_inviter"
 msgstr ""
 
 #. Default: "User"
-#: ./ftw/participation/browser/invitations.pt:88
+#: ./ftw/participation/browser/invitations.pt:89
 msgid "inv_head_user"
 msgstr ""
 
 #. Default: "Workspace"
-#: ./ftw/participation/browser/invitations.pt:34
+#: ./ftw/participation/browser/invitations.pt:35
 msgid "inv_head_workspace"
 msgstr ""
 
@@ -161,17 +197,17 @@ msgid "invitation_mail_message"
 msgstr ""
 
 #. Default: "E-Mail Addresses"
-#: ./ftw/participation/browser/invite.py:30
+#: ./ftw/participation/browser/invite.py:31
 msgid "label_addresses"
 msgstr ""
 
 #. Default: "Comment"
-#: ./ftw/participation/browser/invite.py:37
+#: ./ftw/participation/browser/invite.py:38
 msgid "label_comment"
 msgstr ""
 
 #. Default: "Invite Participants"
-#: ./ftw/participation/browser/invite.py:115
+#: ./ftw/participation/browser/invite.py:106
 msgid "label_invite_participants"
 msgstr ""
 
@@ -181,12 +217,17 @@ msgid "label_participation_quota_limit"
 msgstr ""
 
 #. Default: "Yes, I wan't to participate"
-#: ./ftw/participation/browser/invitations.pt:49
+#: ./ftw/participation/browser/invitations.pt:50
 msgid "link_accept_invitation"
 msgstr ""
 
+#. Default: "Invite participants"
+#: ./ftw/participation/browser/participants.pt:20
+msgid "link_invite_participants"
+msgstr ""
+
 #. Default: "No, I don't wan't to participate"
-#: ./ftw/participation/browser/invitations.pt:52
+#: ./ftw/participation/browser/invitations.pt:53
 msgid "link_reject_invitation"
 msgstr ""
 
@@ -201,7 +242,7 @@ msgid "mail_invitation_rejected_subject"
 msgstr ""
 
 #. Default: "Invitation for paticipating in ${title}"
-#: ./ftw/participation/browser/invite.py:206
+#: ./ftw/participation/browser/invite.py:198
 msgid "mail_invitation_subject"
 msgstr ""
 
@@ -218,22 +259,22 @@ msgid "rejected_mail_text"
 msgstr ""
 
 #. Default: "You have no received invitations."
-#: ./ftw/participation/browser/invitations.pt:22
+#: ./ftw/participation/browser/invitations.pt:23
 msgid "text_no_received_invitations"
 msgstr ""
 
 #. Default: "No open invitations. All users invited by you have accepted or rejected the invitation."
-#: ./ftw/participation/browser/invitations.pt:73
+#: ./ftw/participation/browser/invitations.pt:74
 msgid "text_no_sent_invitations"
 msgstr ""
 
 #. Default: "You were invited to particpate in the objects below. Accept or reject the invitation - the invitor will be notified."
-#: ./ftw/participation/browser/invitations.pt:26
+#: ./ftw/participation/browser/invitations.pt:27
 msgid "text_received_invitations"
 msgstr ""
 
 #. Default: "You have invited the following users. They have not yet confirmed your invitation."
-#: ./ftw/participation/browser/invitations.pt:79
+#: ./ftw/participation/browser/invitations.pt:80
 msgid "text_sent_invitations"
 msgstr ""
 

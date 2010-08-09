@@ -5,10 +5,10 @@
   <object name="object_buttons" meta_type="CMF Action Category">
 
     <object name="participants" meta_type="CMF Action"
-            i18n:domain="egov.participation">
+            i18n:domain="ftw.participation">
       <property name="title" i18n:translate="">Manage participants</property>
       <property i18n:translate=""
-                name="description">Manage participants</property>
+                name="description">Here you can manage participants</property>
       <property
           name="url_expr">string:${here/absolute_url}/@@participants</property>
       <property name="icon_expr"></property>
@@ -23,10 +23,10 @@
   <object name="user" meta_type="CMF Action Category">
 
     <object name="invitations" meta_type="CMF Action"
-            i18n:domain="egov.participation">
+            i18n:domain="ftw.participation">
       <property name="title" i18n:translate="">My Invitations</property>
       <property i18n:translate=""
-                name="description">My Invitaitons</property>
+                name="description">Show a overview of my invitaitons</property>
       <property
           name="url_expr">string:${here/portal_url}/@@invitations</property>
       <property name="icon_expr"></property>
