@@ -3,3 +3,6 @@
 *.pyo
 *.mo
 
+buildout.cfg
+bin
+develop-eggs
