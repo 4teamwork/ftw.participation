@@ -8,7 +8,7 @@ from zope.component import adapts
 from zope.interface import Interface
 from zope.interface import implements
 import AccessControl
-import md5
+from hashlib import md5
 
 
 class InvitationStorage(object):
@@ -83,7 +83,7 @@ class InvitationStorage(object):
         counter = 1
         iid = None
         while not iid or iid in used_iids:
-            iid = md5.new(base + str(counter)).hexdigest().strip()
+            iid = md5(base + str(counter)).hexdigest().strip()
             counter += 1
         # set the iid on the invitation
         invitation.iid = iid
