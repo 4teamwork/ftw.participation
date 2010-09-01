@@ -61,14 +61,17 @@ class AddressesValidator(SimpleFieldValidator):
         email addresses.
 
         """
+
         super(AddressesValidator, self).validate(value)
         addresses = value.strip().split('\n')
         self._validate_quota(addresses)
         self._validate_addresses(addresses)
 
     def _validate_quota(self, addresses):
-        """Validate the amount of typed addresses according to quota definition.
+        """Validate the amount of typed addresses according to quota
+        definition.
         """
+
         if IParticipationQuotaSupport.providedBy(self.context):
             quota_support = IParticipationQuotaHelper(self.context)
             allowed = quota_support.allowed_number_of_invitations()
@@ -87,6 +90,7 @@ class AddressesValidator(SimpleFieldValidator):
     def _validate_addresses(self, addresses):
         """E-Mail address validation
         """
+
         for addr in addresses:
             addr = addr.strip()
             if not self.email_expression.match(addr):
@@ -113,6 +117,7 @@ class InviteForm(Form):
     def handle_invite(self, action):
         """Invite the users: create Invitations and send email
         """
+
         data, errors = self.extractData()
         if len(errors) == 0:
             # get inviter
@@ -138,12 +143,14 @@ class InviteForm(Form):
     def redirect(self):
         """Redirect back
         """
+
         url = self.context.absolute_url() + '/@@participants'
         return self.request.RESPONSE.redirect(url)
 
     def send_invitation(self, invitation, email, inviter, comment):
         """Send a invitation email to a user
         """
+
         properties = getUtility(IPropertiesTool)
         # prepare from address for header
         header_from = Header(properties.email_from_name.decode('utf-8'),
@@ -192,6 +199,7 @@ class InviteForm(Form):
     def get_subject(self):
         """Returns the translated subject of the email.
         """
+
         context_title = self.context.pretty_title_or_id().decode('utf-8')
         # -- i18ndude hint --
         if 0:
@@ -211,8 +219,8 @@ class InviteForm(Form):
         the links points to the invitation view and uses the iid of the
         invitation as parameter, so that the invitation will be marked as
         pending in the session.
-
         """
+
         return os.path.join(self.context.portal_url(),
                             '@@invitations?iid=%s' % invitation.iid)
 
