@@ -42,7 +42,7 @@ class ManageParticipants(BrowserView):
         elif form.get('form.cancel'):
             return self.request.RESPONSE.redirect(self.cancel_url())
 
-        return self.index()
+        return super(ManageParticipants, self).__call__()
 
     def cancel_url(self):
         return self.context.absolute_url()

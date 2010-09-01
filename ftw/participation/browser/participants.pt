@@ -17,32 +17,37 @@
           </tal:title>
         </h1>
 
-        <a tal:attributes="href string:${here/absolute_url}/@@invite_participants"
-           i18n:translate="link_invite_participants">Invite participants</a>
+        <metal:form-macro define-macro="form">
 
-        <form action="" method="post"
-              tal:attributes="action string:${here/absolute_url}/@@participants">
+          <a tal:attributes="href string:${here/absolute_url}/@@invite_participants"
+             i18n:translate="link_invite_participants">Invite participants</a>
 
-          <div id="participants" tal:repeat="item view/get_participants">
+          <form action="" method="post"
+                tal:attributes="action form_action|string:${here/absolute_url}/@@participants">
 
-            <div class="participant">
-              <input type="checkbox" name="userids:list"
-                     tal:attributes="value item/userid;
-                                     id string:box_${item/userid};
-                                     disabled item/readonly;" />
-              <label tal:attributes="for string:box_${item/userid}"
-                     tal:content="item/name" />
+            <div id="participants" tal:repeat="item view/get_participants">
+
+              <div class="participant">
+                <input type="checkbox" name="userids:list"
+                       tal:attributes="value item/userid;
+                                       id string:box_${item/userid};
+                                       disabled item/readonly;" />
+                <label tal:attributes="for string:box_${item/userid}"
+                       tal:content="item/name" />
+              </div>
+
             </div>
 
-          </div>
+            <input type="submit" name="form.delete" value="Delete Participants"
+                   i18n:attributes="value button_delete_participants" />
 
-          <input type="submit" name="form.delete" value="Delete Participants"
-                 i18n:attributes="value button_delete_participants" />
+            <input type="submit" name="form.cancel" value="Cancel"
+                   i18n:attributes="value button_cancel"
+                   tal:condition="not:hide_cancel_button|nothing" />
 
-          <input type="submit" name="form.cancel" value="Cancel"
-                 i18n:attributes="value button_cancel" />
+          </form>
 
-        </form>
+        </metal:form-macro>
 
       </metal:main-macro>
     </div>
