@@ -1,9 +1,33 @@
+from ftw.participation import _
+from zope import schema
 from zope.interface import Interface
 
 
 class IParticipationBrowserLayer(Interface):
     """Browser layer interface for ftw.participation
     """
+
+
+class IParticipationRegistry(Interface):
+    """plone.app.registry configuration interface
+    """
+
+    allow_invite_users = schema.Bool(
+        title=_(u'label_allow_invite_users',
+                default=u'Allow to invite users'),
+        description=_(u'help_allow_invite_users',
+                      default=u'Allow to search users from PAS in invitation '
+                      'form.'),
+        default=True)
+
+    allow_invite_email = schema.Bool(
+        title=_(u'label_allow_invite_email',
+                default=u'Allow to invite participants by email'),
+        description=_(u'help_allow_invite_email',
+                      default=u'Allow to invite participants by typing the '
+                      'e-mail address in the invitation form. It is '
+                      'recommended to enable registriation in plone security'),
+        default=True)
 
 
 class IInvitation(Interface):
