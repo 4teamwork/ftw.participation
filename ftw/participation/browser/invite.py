@@ -7,12 +7,16 @@ from email.mime.text import MIMEText
 from ftw.participation import _
 from ftw.participation.interfaces import IParticipationQuotaHelper
 from ftw.participation.interfaces import IParticipationQuotaSupport
+from ftw.participation.interfaces import IParticipationRegistry
 from ftw.participation.invitation import Invitation
 from plone.formwidget.autocomplete.widget import AutocompleteMultiFieldWidget
+from plone.registry.interfaces import IRegistry
 from plone.z3cform.layout import wrap_form
 from z3c.form.button import buttonAndHandler
 from z3c.form.field import Fields
 from z3c.form.form import Form
+from z3c.form.util import getSpecification
+from z3c.form.validator import InvariantsValidator
 from z3c.form.validator import SimpleFieldValidator
 from z3c.form.validator import WidgetValidatorDiscriminators
 from z3c.form.validator import WidgetsValidatorDiscriminators
@@ -21,8 +25,6 @@ from zope.component import provideAdapter, getUtility
 from zope.i18n import translate
 from zope.interface import Interface
 from zope.interface import Invalid
-from z3c.form.validator import InvariantsValidator
-from z3c.form.util import getSpecification
 import os.path
 import re
 
@@ -106,10 +108,17 @@ class NumberOfAdressesAndUsersValidator(InvariantsValidator):
 
         if invitations_nr == 0:
             # at least one invitation required
-            errors += (Invalid(_(u'Select at least one user or enter at '
-                                 'least one e-mail address')),)
+            registry = getUtility(IRegistry)
+            config = registry.forInterface(IParticipationRegistry)
+            if config.allow_invite_email and config.allow_invite_users:
+                errors += (Invalid(_(u'Select at least one user or enter at '
+                                     'least one e-mail address')),)
+            elif config.allow_invite_email:
+                errors += (Invalid(_(u'Enter at least one e-mail address.')),)
+            elif config.allow_invite_users:
+                errors += (Invalid(_(u'Select at least one user.')),)
 
-        elif IParticipationQuotaSupport.providedBy(self.context):
+        if IParticipationQuotaSupport.providedBy(self.context):
             # check maximum participants when quota enabled
             quota_support = IParticipationQuotaHelper(self.context)
             allowed = quota_support.allowed_number_of_invitations()
@@ -139,10 +148,27 @@ class InviteForm(Form):
     fields = Fields(IInviteSchema)
     fields['users'].widgetFactory = AutocompleteMultiFieldWidget
 
+    def updateWidgets(self):
+        super(InviteForm, self).updateWidgets()
+        registry = getUtility(IRegistry)
+        config = registry.forInterface(IParticipationRegistry)
+
+        if not config.allow_invite_email:
+            # disable address field
+            del self.widgets['addresses']
+            self.widgets['users'].required = True
+
+        if not config.allow_invite_users:
+            # disable users field
+            del self.widgets['users']
+            self.widgets['addresses'].required = True
+
     @buttonAndHandler(_(u'button_invite', default=u'Invite'))
     def handle_invite(self, action):
         """Invite the users: create Invitations and send email
         """
+        registry = getUtility(IRegistry)
+        config = registry.forInterface(IParticipationRegistry)
 
         data, errors = self.extractData()
         if len(errors) == 0:
@@ -152,10 +178,12 @@ class InviteForm(Form):
 
             # get all addresses
             addresses = []
-            if data.get('addresses') and len(data.get('addresses')):
+            if config.allow_invite_email and \
+                    data.get('addresses') and len(data.get('addresses')):
                 for addr in data.get('addresses').split('\n'):
                     addresses.append(addr.strip())
-            if data.get('users'):
+
+            if config.allow_invite_users and data.get('users'):
                 for user in data['users']:
                     member = mtool.getMemberById(user)
                     addresses.append(member.getProperty('email'))
