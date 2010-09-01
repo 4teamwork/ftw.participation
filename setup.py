@@ -11,11 +11,12 @@ tests_require = (
 
 setup(name='ftw.participation',
       version=version,
-      description="Invite other users (register or unregistered) to a context" + \
-          ' (Maintainer: %s)' % maintainer,
+      description="Invite other users (register or unregistered) to a " + \
+          'context (Maintainer: %s)' % maintainer,
       long_description=open("README.txt").read() + "\n" + \
           open(os.path.join("docs", "HISTORY.txt")).read(),
-      # Get more strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
+      # Get more strings from
+      # http://pypi.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
         "Programming Language :: Python",
         ],
