@@ -8,31 +8,43 @@ from ftw.participation import _
 from ftw.participation.interfaces import IParticipationQuotaHelper
 from ftw.participation.interfaces import IParticipationQuotaSupport
 from ftw.participation.invitation import Invitation
+from plone.formwidget.autocomplete.widget import AutocompleteMultiFieldWidget
 from plone.z3cform.layout import wrap_form
 from z3c.form.button import buttonAndHandler
 from z3c.form.field import Fields
 from z3c.form.form import Form
 from z3c.form.validator import SimpleFieldValidator
 from z3c.form.validator import WidgetValidatorDiscriminators
+from z3c.form.validator import WidgetsValidatorDiscriminators
 from zope import schema
 from zope.component import provideAdapter, getUtility
 from zope.i18n import translate
 from zope.interface import Interface
 from zope.interface import Invalid
+from z3c.form.validator import InvariantsValidator
+from z3c.form.util import getSpecification
 import os.path
 import re
+
 
 
 class IInviteSchema(Interface):
     """Schema interface for invite form
     """
 
+    users = schema.List(
+        title=_(u'label_users', default=u'Users'),
+        description=_(u'help_users',
+                      default=u'Select users to invite.'),
+        value_type=schema.Choice(
+            vocabulary=u'plone.principalsource.Users'),
+        required=False)
+
     addresses = schema.Text(
         title=_(u'label_addresses', default=u'E-Mail Addresses'),
         description=_(u'help_addresses',
                       default=u'Enter one e-mail address per line'),
-        required=True,
-        )
+        required=False)
 
     comment = schema.Text(
         title=_(u'label_comment', default=u'Comment'),
@@ -63,29 +75,9 @@ class AddressesValidator(SimpleFieldValidator):
         """
 
         super(AddressesValidator, self).validate(value)
-        addresses = value.strip().split('\n')
-        self._validate_quota(addresses)
-        self._validate_addresses(addresses)
-
-    def _validate_quota(self, addresses):
-        """Validate the amount of typed addresses according to quota
-        definition.
-        """
-
-        if IParticipationQuotaSupport.providedBy(self.context):
-            quota_support = IParticipationQuotaHelper(self.context)
-            allowed = quota_support.allowed_number_of_invitations()
-            if len(addresses) > allowed:
-                if allowed <= 0:
-                    msg = _(u'error_participation_quota_reached',
-                            default=u'The participation quota is reached, '
-                            'you cannot add any further participants.')
-                else:
-                    msg = _('error_too_many_participants',
-                            default=u'You cannot invite so many participants '
-                            'any more. Can only add ${num} more participants.',
-                            mapping={'num': allowed})
-                raise Invalid(msg)
+        if value:
+            addresses = value.strip().split('\n')
+            self._validate_addresses(addresses)
 
     def _validate_addresses(self, addresses):
         """E-Mail address validation
@@ -105,13 +97,47 @@ WidgetValidatorDiscriminators(AddressesValidator,
 provideAdapter(AddressesValidator)
 
 
+class NumberOfAdressesAndUsersValidator(InvariantsValidator):
+
+    def validate(self, data):
+        errors = ()
+        invitations_nr = (data.get('users') and len(data.get('users')) or 0) +\
+            (data.get('addresses') and len(data.get('addresses')) or 0)
+
+        if invitations_nr == 0:
+            # at least one invitation required
+            errors += (Invalid(_(u'Select at least one user or enter at '
+                                 'least one e-mail address')),)
+
+        elif IParticipationQuotaSupport.providedBy(self.context):
+            # check maximum participants when quota enabled
+            quota_support = IParticipationQuotaHelper(self.context)
+            allowed = quota_support.allowed_number_of_invitations()
+            if invitations_nr > allowed:
+                if allowed <= 0:
+                    msg = _(u'error_participation_quota_reached',
+                            default=u'The participation quota is reached, '
+                            'you cannot add any further participants.')
+                else:
+                    msg = _('error_too_many_participants',
+                            default=u'You cannot invite so many participants '
+                            'any more. Can only add ${num} more participants.',
+                            mapping={'num': allowed})
+                raise Invalid(msg)
+
+        return errors
+
+WidgetsValidatorDiscriminators(NumberOfAdressesAndUsersValidator,
+                               schema=getSpecification(IInviteSchema,
+                                                       force=True))
+provideAdapter(NumberOfAdressesAndUsersValidator)
+
+
 class InviteForm(Form):
-    fields = Fields(IInviteSchema)
     label = _(u'label_invite_participants', default=u'Invite Participants')
     ignoreContext = True
-
-    def __init__(self, *a, **kw):
-        super(InviteForm, self).__init__(*a, **kw)
+    fields = Fields(IInviteSchema)
+    fields['users'].widgetFactory = AutocompleteMultiFieldWidget
 
     @buttonAndHandler(_(u'button_invite', default=u'Invite'))
     def handle_invite(self, action):
@@ -123,13 +149,25 @@ class InviteForm(Form):
             # get inviter
             mtool = getToolByName(self.context, 'portal_membership')
             inviter = mtool.getAuthenticatedMember()
+
+            # get all addresses
+            addresses = []
+            if data.get('addresses') and len(data.get('addresses')):
+                for addr in data.get('addresses').split('\n'):
+                    addresses.append(addr.strip())
+            if data.get('users'):
+                for user in data['users']:
+                    member = mtool.getMemberById(user)
+                    addresses.append(member.getProperty('email'))
+
             # handle every email seperate
-            for email in data.get('addresses').strip().split('\n'):
+            for email in addresses:
                 email = email.strip()
                 if not email:
                     continue
                 inv = Invitation(self.context, email, inviter.getId())
                 self.send_invitation(inv, email, inviter, data.get('comment'))
+
             # notify user
             msg = _(u'info_invitations_sent',
                     default=u'The invitation mails were sent.')

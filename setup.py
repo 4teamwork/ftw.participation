@@ -32,6 +32,8 @@ setup(name='ftw.participation',
       zip_safe=False,
       install_requires=[
         'archetypes.schemaextender',
+        'plone.principalsource',
+        'plone.formwidget.autocomplete',
         'plone.z3cform',
         'setuptools',
         'z3c.form',
