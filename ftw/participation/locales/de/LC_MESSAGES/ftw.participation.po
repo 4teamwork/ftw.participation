@@ -38,7 +38,7 @@ msgstr "ablehnen"
 
 #: ./ftw/participation/browser/invitations.pt:109
 msgid "Retract"
-msgstr "Wiederrufen"
+msgstr "Widerrufen"
 
 #: ./ftw/participation/profiles/default/actions.xml
 msgid "Show a overview of my invitaitons"
@@ -145,7 +145,7 @@ msgstr "Sie haben die Einladung abgelehnt"
 #. Default: "You have retracted the invitation."
 #: ./ftw/participation/browser/retract.py:20
 msgid "info_invitation_retracted"
-msgstr "Sie haben die Einladung wiederrufen"
+msgstr "Sie haben die Einladung widerrufen"
 
 #. Default: "The invitation mails were sent."
 #: ./ftw/participation/browser/invite.py:129
