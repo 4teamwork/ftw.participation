@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-08-09 13:18+0000\n"
-"PO-Revision-Date: 2010-08-09 16:57+0200\n"
+"POT-Creation-Date: 2010-09-08 16:01+0000\n"
+"PO-Revision-Date: 2010-09-08 18:05+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,10 @@ msgstr "Akzeptieren"
 #: ./ftw/participation/browser/participants.py:39
 msgid "Changes saved."
 msgstr "Änderungen wurden Gespeichert"
+
+#: ./ftw/participation/browser/invite.py:117
+msgid "Enter at least one e-mail address."
+msgstr "Geben Sie mindestens eine E-Mail Adresse an."
 
 #: ./ftw/participation/profiles/default/actions.xml
 msgid "Here you can manage participants"
@@ -40,6 +44,14 @@ msgstr "ablehnen"
 msgid "Retract"
 msgstr "Widerrufen"
 
+#: ./ftw/participation/browser/invite.py:114
+msgid "Select at least one user or enter at least one e-mail address"
+msgstr "Wählen Sie mindestens ein Benutzer aus oder geben Sie mindestens eine E-Mail Adresse an."
+
+#: ./ftw/participation/browser/invite.py:119
+msgid "Select at least one user."
+msgstr "Wählen Sie mindestens ein Benutzer aus."
+
 #: ./ftw/participation/profiles/default/actions.xml
 msgid "Show a overview of my invitaitons"
 msgstr "Zeigt einen Überblick über die Einladungen"
@@ -57,23 +69,23 @@ msgid "accepted_mail_text"
 msgstr "Ihre Einladung um an ${context_title} teilzunehmen wurde vom User ${invited_name} akzeptiert"
 
 #. Default: "Cancel"
-#: ./ftw/participation/browser/invite.py:134
-#: ./ftw/participation/browser/participants.pt:42
+#: ./ftw/participation/browser/invite.py:205
+#: ./ftw/participation/browser/participants.pt:44
 msgid "button_cancel"
 msgstr "Abbrechen"
 
 #. Default: "Delete Participants"
-#: ./ftw/participation/browser/participants.pt:39
+#: ./ftw/participation/browser/participants.pt:41
 msgid "button_delete_participants"
 msgstr "Teilnehmer löschen"
 
 #. Default: "Invite"
-#: ./ftw/participation/browser/invite.py:112
+#: ./ftw/participation/browser/invite.py:166
 msgid "button_invite"
 msgstr "Einladen"
 
 #. Default: "At least one of the defined addresses are not valid."
-#: ./ftw/participation/browser/invite.py:93
+#: ./ftw/participation/browser/invite.py:91
 msgid "error_invalid_addresses"
 msgstr "Mindestens eine der eingegebenen Adressen ist ungültig"
 
@@ -89,12 +101,12 @@ msgid "error_inviter_email_missing"
 msgstr "Die einladende Person konnte nicht benachrichtigt werden: Er hat keine E-Mail-Adresse definiert"
 
 #. Default: "The participation quota is reached, you cannot add any further participants."
-#: ./ftw/participation/browser/invite.py:77
+#: ./ftw/participation/browser/invite.py:127
 msgid "error_participation_quota_reached"
 msgstr "Die Maximale Teilnehmerzahl ist erreicht, Sie können keine Teilnehmer mehr hinzufügen"
 
 #. Default: "You cannot invite so many participants any more. Can only add ${num} more participants."
-#: ./ftw/participation/browser/invite.py:81
+#: ./ftw/participation/browser/invite.py:131
 msgid "error_too_many_participants"
 msgstr "Sie können nicht mehr so viele Teilnehmer einladen. Sie können maximal ${num} Einladungen versenden."
 
@@ -119,18 +131,33 @@ msgid "headline_sent_invitations"
 msgstr "Versendete Einladungen"
 
 #. Default: "Enter one e-mail address per line"
-#: ./ftw/participation/browser/invite.py:32
+#: ./ftw/participation/browser/invite.py:47
 msgid "help_addresses"
 msgstr "Geben Sie eine E-Mail Adresse pro Zeile ein"
 
+#. Default: "Allow to invite participants by typing the e-mail address in the invitation form. It is recommended to enable registriation in plone security"
+#: ./ftw/participation/interfaces.py:26
+msgid "help_allow_invite_email"
+msgstr "Nicht registrierte Personen können per E-Mail Adresse eingeladen werden."
+
+#. Default: "Allow to search users from PAS in invitation form."
+#: ./ftw/participation/interfaces.py:18
+msgid "help_allow_invite_users"
+msgstr "Bestehende Benutzer können durchsucht und eingeladen werden."
+
 #. Default: "Enter a comment which will be contained in the invitaiton E-Mail"
-#: ./ftw/participation/browser/invite.py:39
+#: ./ftw/participation/browser/invite.py:53
 msgid "help_comment"
 msgstr "Dieser Kommentar wird ins Einladungs-E-Mail eingefügt."
 
 #: ./ftw/participation/quota.py:37
 msgid "help_participation_quota_limit"
 msgstr "Mit hilfe des Quota limits können Sie die maximale Teilnehmerzahl definieren"
+
+#. Default: "Select users to invite."
+#: ./ftw/participation/browser/invite.py:39
+msgid "help_users"
+msgstr "Wählen Sie einen oder mehrere Benutzer aus."
 
 #. Default: "You have accepted the invitation."
 #: ./ftw/participation/browser/accept.py:34
@@ -148,7 +175,7 @@ msgid "info_invitation_retracted"
 msgstr "Sie haben die Einladung widerrufen"
 
 #. Default: "The invitation mails were sent."
-#: ./ftw/participation/browser/invite.py:129
+#: ./ftw/participation/browser/invite.py:200
 msgid "info_invitations_sent"
 msgstr "Die Einladungen wurden per E-Mail versendet."
 
@@ -192,17 +219,27 @@ msgid "invitation_mail_message"
 msgstr "Nachricht von ${inviter_name}:"
 
 #. Default: "E-Mail Addresses"
-#: ./ftw/participation/browser/invite.py:31
+#: ./ftw/participation/browser/invite.py:46
 msgid "label_addresses"
 msgstr "E-Mail Adressen"
 
+#. Default: "Allow to invite participants by email"
+#: ./ftw/participation/interfaces.py:24
+msgid "label_allow_invite_email"
+msgstr "Fremde Benutzer beteiligen"
+
+#. Default: "Allow to invite users"
+#: ./ftw/participation/interfaces.py:16
+msgid "label_allow_invite_users"
+msgstr "Existierende Benutzer beteiligen"
+
 #. Default: "Comment"
-#: ./ftw/participation/browser/invite.py:38
+#: ./ftw/participation/browser/invite.py:52
 msgid "label_comment"
 msgstr "Kommentar"
 
 #. Default: "Invite Participants"
-#: ./ftw/participation/browser/invite.py:106
+#: ./ftw/participation/browser/invite.py:146
 msgid "label_invite_participants"
 msgstr "Teilnehmer einladen"
 
@@ -211,13 +248,18 @@ msgstr "Teilnehmer einladen"
 msgid "label_participation_quota_limit"
 msgstr "Maximale Anzahl Teilnehmer"
 
+#. Default: "Users"
+#: ./ftw/participation/browser/invite.py:38
+msgid "label_users"
+msgstr "Benutzer"
+
 #. Default: "Yes, I wan't to participate"
 #: ./ftw/participation/browser/invitations.pt:50
 msgid "link_accept_invitation"
 msgstr "Ja, ich möchte teilnehmen"
 
 #. Default: "Invite participants"
-#: ./ftw/participation/browser/participants.pt:20
+#: ./ftw/participation/browser/participants.pt:22
 msgid "link_invite_participants"
 msgstr "Teilnehmer einladen"
 
@@ -237,7 +279,7 @@ msgid "mail_invitation_rejected_subject"
 msgstr "Die Einladung um an ${title} teilzunehmen wurde von ${user} abgelehnt"
 
 #. Default: "Invitation for paticipating in ${title}"
-#: ./ftw/participation/browser/invite.py:198
+#: ./ftw/participation/browser/invite.py:272
 msgid "mail_invitation_subject"
 msgstr "Einladung zur Teilnahme an ${title}"
 
