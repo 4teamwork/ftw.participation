@@ -10,6 +10,8 @@
       layer="ftw.participation.interfaces.IParticipationBrowserLayer"
       />
 
+
+  <include package="plone.app.workflow" />
   <!-- pages -->
   <browser:page
       for="ftw.participation.interfaces.IParticipationSupport"
