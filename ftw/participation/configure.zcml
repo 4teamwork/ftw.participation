@@ -38,4 +38,10 @@
   <adapter factory=".quota.ParticipationQuotaExtender" />
   <adapter factory=".quota.ParticipationQuotaHelper" />
 
+  <utility
+      provides="zope.schema.interfaces.IVocabularyFactory"
+      component=".source.ParticipationUsersFactory"
+      name="ftw.participation.users"
+      />
+
 </configure>

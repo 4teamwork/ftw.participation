@@ -39,7 +39,7 @@ class IInviteSchema(Interface):
         description=_(u'help_users',
                       default=u'Select users to invite.'),
         value_type=schema.Choice(
-            vocabulary=u'plone.principalsource.Users'),
+            vocabulary=u'ftw.participation.users'),#plone.principalsource.Users'),
         required=False)
 
     addresses = schema.Text(
