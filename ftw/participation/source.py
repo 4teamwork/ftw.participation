@@ -39,4 +39,4 @@ class ParticipationBinder(source.PrincipalSourceBinder):
         return ParticipationUsers(context, self.users, self.groups)
 
 
-ParticipationUsersFactory = ParticipationBinder(users=True, groups=True)
+ParticipationUsersFactory = ParticipationBinder(users=True, groups=False)
