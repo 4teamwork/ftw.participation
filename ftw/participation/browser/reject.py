@@ -49,7 +49,8 @@ class RejectInvitation(AcceptInvitation):
         """
         member = getToolByName(self.context,
                                'portal_membership').getAuthenticatedMember()
-        fullname = member.getProperty('fullname', member.getId())
+        fullname = member.getProperty(
+            'fullname', member.getId()).decode('utf8')
         context_title = self.context.pretty_title_or_id().decode('utf-8')
         # -- i18ndude hint --
         if 0:
