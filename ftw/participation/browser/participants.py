@@ -54,14 +54,16 @@ class ManageParticipants(BrowserView):
         authenticated_member = mtool.getAuthenticatedMember()
         for userid, roles in self.context.get_local_roles():
             member = mtool.getMemberById(userid)
-            email = member.getProperty('email')
-            name = member.getProperty('fullname')
-            item = dict(member=member, userid=userid, roles=roles,
-                        readonly=userid == authenticated_member.getId())
-            if name and email:
-                item['name'] = '%s (%s)' % (name, email)
-            elif name:
-                item['name'] = name
-            else:
-                item['name'] = userid
-            yield item
+            # skip groups
+            if member is not None:
+                email = member.getProperty('email', '')
+                name = member.getProperty('fullname', '')
+                item = dict(member=member, userid=userid, roles=roles,
+                            readonly=userid == authenticated_member.getId())
+                if name and email:
+                    item['name'] = '%s (%s)' % (name, email)
+                elif name:
+                    item['name'] = name
+                else:
+                    item['name'] = userid
+                yield item

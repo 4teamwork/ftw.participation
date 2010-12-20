@@ -4,7 +4,8 @@ Changelog
 
 1.0a3
 -----
-
+* Fix in participation.pt - don't show groups
+  [20.12.2010, mathias.leimgruber]
 
 1.0a2
 -----
