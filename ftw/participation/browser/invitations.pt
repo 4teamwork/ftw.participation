@@ -40,7 +40,7 @@
 
               <tbody>
                 <tal:invitations repeat="inv received_invitations">
-                  <tr tal:define="target inv/get_target">
+                  <tr tal:define="target inv/get_target" tal:condition="nocall:target">
                     <td><input type="checkbox" name="received_invitations:list" tal:attributes="value inv/iid" /></td>
                     <td class="inv-ws">
                       <b tal:content="target/Title" />
@@ -91,7 +91,7 @@
               </thead>
               <tbody>
                 <tal:invitations repeat="inv sent_invitations">
-                  <tr tal:define="target inv/get_target">
+                  <tr tal:define="target inv/get_target" tal:condition="nocall:target">
                     <td>
                       <input type="checkbox" name="sent_invitations:list" tal:attributes="value inv/iid"/>
                     </td>
