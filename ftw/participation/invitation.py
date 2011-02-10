@@ -13,9 +13,10 @@ class Invitation(Persistent):
 
     implements(IInvitation)
 
-    def __init__(self, target, email, inviter):
+    def __init__(self, target, email, inviter, roles):
         """Creates a new `Invitation` on the `target` for `email`. The
-        invitation was created by `inviter` (userid).
+        invitation was created by `inviter` (userid). Roles are the given
+        additional roles for the user (email)
         """
         # get the storage
         storage = IInvitationStorage(target)
@@ -23,6 +24,7 @@ class Invitation(Persistent):
         self.email = email
         self.inviter = inviter
         self.set_target(target)
+        self.roles = roles
         # generate the id, which sets it to self.iid
         storage.generate_iid_for(self)
         # register the invitation

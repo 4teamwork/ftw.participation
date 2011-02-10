@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-09-08 16:01+0000\n"
+"POT-Creation-Date: 2011-02-10 09:21+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,7 +25,7 @@ msgstr ""
 msgid "Changes saved."
 msgstr ""
 
-#: ./ftw/participation/browser/invite.py:117
+#: ./ftw/participation/browser/invite.py:126
 msgid "Enter at least one e-mail address."
 msgstr ""
 
@@ -49,11 +49,11 @@ msgstr ""
 msgid "Retract"
 msgstr ""
 
-#: ./ftw/participation/browser/invite.py:114
+#: ./ftw/participation/browser/invite.py:123
 msgid "Select at least one user or enter at least one e-mail address"
 msgstr ""
 
-#: ./ftw/participation/browser/invite.py:119
+#: ./ftw/participation/browser/invite.py:128
 msgid "Select at least one user."
 msgstr ""
 
@@ -74,7 +74,7 @@ msgid "accepted_mail_text"
 msgstr ""
 
 #. Default: "Cancel"
-#: ./ftw/participation/browser/invite.py:205
+#: ./ftw/participation/browser/invite.py:215
 #: ./ftw/participation/browser/participants.pt:44
 msgid "button_cancel"
 msgstr ""
@@ -85,12 +85,12 @@ msgid "button_delete_participants"
 msgstr ""
 
 #. Default: "Invite"
-#: ./ftw/participation/browser/invite.py:166
+#: ./ftw/participation/browser/invite.py:176
 msgid "button_invite"
 msgstr ""
 
 #. Default: "At least one of the defined addresses are not valid."
-#: ./ftw/participation/browser/invite.py:91
+#: ./ftw/participation/browser/invite.py:100
 msgid "error_invalid_addresses"
 msgstr ""
 
@@ -106,12 +106,12 @@ msgid "error_inviter_email_missing"
 msgstr ""
 
 #. Default: "The participation quota is reached, you cannot add any further participants."
-#: ./ftw/participation/browser/invite.py:127
+#: ./ftw/participation/browser/invite.py:136
 msgid "error_participation_quota_reached"
 msgstr ""
 
 #. Default: "You cannot invite so many participants any more. Can only add ${num} more participants."
-#: ./ftw/participation/browser/invite.py:131
+#: ./ftw/participation/browser/invite.py:140
 msgid "error_too_many_participants"
 msgstr ""
 
@@ -136,7 +136,7 @@ msgid "headline_sent_invitations"
 msgstr ""
 
 #. Default: "Enter one e-mail address per line"
-#: ./ftw/participation/browser/invite.py:47
+#: ./ftw/participation/browser/invite.py:48
 msgid "help_addresses"
 msgstr ""
 
@@ -151,7 +151,7 @@ msgid "help_allow_invite_users"
 msgstr ""
 
 #. Default: "Enter a comment which will be contained in the invitaiton E-Mail"
-#: ./ftw/participation/browser/invite.py:53
+#: ./ftw/participation/browser/invite.py:62
 msgid "help_comment"
 msgstr ""
 
@@ -159,8 +159,13 @@ msgstr ""
 msgid "help_participation_quota_limit"
 msgstr ""
 
+#. Default: "Select Role(s) for the choosen users"
+#: ./ftw/participation/browser/invite.py:54
+msgid "help_roles"
+msgstr ""
+
 #. Default: "Select users to invite."
-#: ./ftw/participation/browser/invite.py:39
+#: ./ftw/participation/browser/invite.py:40
 msgid "help_users"
 msgstr ""
 
@@ -180,7 +185,7 @@ msgid "info_invitation_retracted"
 msgstr ""
 
 #. Default: "The invitation mails were sent."
-#: ./ftw/participation/browser/invite.py:200
+#: ./ftw/participation/browser/invite.py:210
 msgid "info_invitations_sent"
 msgstr ""
 
@@ -224,7 +229,7 @@ msgid "invitation_mail_message"
 msgstr ""
 
 #. Default: "E-Mail Addresses"
-#: ./ftw/participation/browser/invite.py:46
+#: ./ftw/participation/browser/invite.py:47
 msgid "label_addresses"
 msgstr ""
 
@@ -239,12 +244,12 @@ msgid "label_allow_invite_users"
 msgstr ""
 
 #. Default: "Comment"
-#: ./ftw/participation/browser/invite.py:52
+#: ./ftw/participation/browser/invite.py:61
 msgid "label_comment"
 msgstr ""
 
 #. Default: "Invite Participants"
-#: ./ftw/participation/browser/invite.py:146
+#: ./ftw/participation/browser/invite.py:155
 msgid "label_invite_participants"
 msgstr ""
 
@@ -253,8 +258,13 @@ msgstr ""
 msgid "label_participation_quota_limit"
 msgstr ""
 
+#. Default: "Roles"
+#: ./ftw/participation/browser/invite.py:53
+msgid "label_roles"
+msgstr ""
+
 #. Default: "Users"
-#: ./ftw/participation/browser/invite.py:38
+#: ./ftw/participation/browser/invite.py:39
 msgid "label_users"
 msgstr ""
 
@@ -279,12 +289,12 @@ msgid "mail_invitation_accepted_subject"
 msgstr ""
 
 #. Default: "The Invitation to participate in ${title} was rejected by ${user}"
-#: ./ftw/participation/browser/reject.py:56
+#: ./ftw/participation/browser/reject.py:57
 msgid "mail_invitation_rejected_subject"
 msgstr ""
 
 #. Default: "Invitation for paticipating in ${title}"
-#: ./ftw/participation/browser/invite.py:272
+#: ./ftw/participation/browser/invite.py:282
 msgid "mail_invitation_subject"
 msgstr ""
 

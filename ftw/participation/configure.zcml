@@ -44,4 +44,10 @@
       name="ftw.participation.users"
       />
 
+  <utility component=".vocabularies.LocalRolesForDisplayFactory"
+           name="ftw.participation.roles"
+           provides="zope.schema.interfaces.IVocabularyFactory"
+           />
+
+
 </configure>

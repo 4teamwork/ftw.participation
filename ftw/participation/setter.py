@@ -65,6 +65,7 @@ class DefaultParticipationSetter(object):
 
     def roles(self):
         """List of roles to give the `self.user` on the `self.context`.
+        Reader ist default, and must be set. 
         """
-        return ('Reader',)
+        return list(self.invitation.roles) + ['Reader', ]
         

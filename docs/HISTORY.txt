@@ -4,6 +4,9 @@ Changelog
 
 1.0b1
 -----
+* Select additional roles for invitations
+  [10.02.2011, mathias.leimgruber]
+
 * Added condition for invalid invitations. 
   [04.02.2011, mathias.leimgruber]
 

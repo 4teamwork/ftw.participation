@@ -20,6 +20,7 @@ from z3c.form.validator import InvariantsValidator
 from z3c.form.validator import SimpleFieldValidator
 from z3c.form.validator import WidgetValidatorDiscriminators
 from z3c.form.validator import WidgetsValidatorDiscriminators
+from z3c.form.browser.checkbox import CheckBoxFieldWidget 
 from zope import schema
 from zope.component import provideAdapter, getUtility
 from zope.i18n import translate
@@ -46,6 +47,14 @@ class IInviteSchema(Interface):
         title=_(u'label_addresses', default=u'E-Mail Addresses'),
         description=_(u'help_addresses',
                       default=u'Enter one e-mail address per line'),
+        required=False)
+
+    roles = schema.List(
+        title=_(u'label_roles', default=u'Roles'),
+        description=_(u'help_roles',
+                      default=u'Select Role(s) for the choosen users'),
+        value_type=schema.Choice(
+            vocabulary=u'ftw.participation.roles'),
         required=False)
 
     comment = schema.Text(
@@ -147,6 +156,7 @@ class InviteForm(Form):
     ignoreContext = True
     fields = Fields(IInviteSchema)
     fields['users'].widgetFactory = AutocompleteMultiFieldWidget
+    fields['roles'].widgetFactory = CheckBoxFieldWidget
 
     def updateWidgets(self):
         super(InviteForm, self).updateWidgets()
@@ -188,12 +198,15 @@ class InviteForm(Form):
                     member = mtool.getMemberById(user)
                     addresses.append(member.getProperty('email'))
 
+            # get roles
+            roles = data.get('roles', [])
+
             # handle every email seperate
             for email in addresses:
                 email = email.strip()
                 if not email:
                     continue
-                inv = Invitation(self.context, email, inviter.getId())
+                inv = Invitation(self.context, email, inviter.getId(), roles)
                 self.send_invitation(inv, email, inviter, data.get('comment'))
 
             # notify user
