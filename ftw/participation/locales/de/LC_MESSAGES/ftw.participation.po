@@ -157,7 +157,7 @@ msgstr "Mit hilfe des Quota limits können Sie die maximale Teilnehmerzahl defin
 #. Default: "Select Role(s) for the choosen users"
 #: ./ftw/participation/browser/invite.py:54
 msgid "help_roles"
-msgstr "Sie können den neuen Teilnehmer zusätzliche Berechtigungen zuweisen. Lese-Recht wird automatisch zugewiesen."
+msgstr "Sie können den neuen Teilnehmern zusätzliche Berechtigungen zuweisen. Lese-Recht wird automatisch zugewiesen."
 
 #. Default: "Select users to invite."
 #: ./ftw/participation/browser/invite.py:40
