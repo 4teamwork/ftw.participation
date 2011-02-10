@@ -29,7 +29,7 @@ class InvitationsView(BrowserView):
             if not len(pending_iids):
                 # no pending sessions and not logged in -> go to home
                 url = self.context.portal_url()
-                return self.request.RESPONSE.redirect(url)
+                return self.request.RESPONSE.redirect(url + '/@@invitations')
 
             else:
                 # check if the email of at least one pending invitation is
