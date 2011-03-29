@@ -2,6 +2,10 @@ Changelog
 =========
 
 
+1.0c1
+-----
+
+
 1.0b2
 -----
 * Fix setters roles method, for old invitations without roles attr. 
