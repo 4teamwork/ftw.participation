@@ -22,7 +22,8 @@ List current invitations:
 
 Create a new invitaiton for self.folder:
 
-    >>> inv1 = Invitation(target=self.folder, email='foo@bar.com', inviter='admin')
+    >>> inv1 = Invitation(target=self.folder, email='foo@bar.com', inviter='admin',
+    ...                   roles=['Reader'])
     >>> inv1
     <ftw.participation.invitation.Invitation object at ...>
     >>> inv1.get_target() == self.folder
@@ -31,11 +32,14 @@ Create a new invitaiton for self.folder:
     'foo@bar.com'
     >>> inv1.inviter
     'admin'
+    >>> inv1.roles
+    ['Reader']
 
 
 Lets create another invitation for later use:
 
-    >>> inv2 = Invitation(self.folder, 'another@user.com', inviter='admin')
+    >>> inv2 = Invitation(self.folder, 'another@user.com', inviter='admin',
+    ...                   roles=['Reader', 'Contributor'])
 
 
 Try to add inv1 to the storage. This should fail (False) since it was
@@ -71,7 +75,7 @@ We should get both invitations when we ask for them:
 
 
 Some more tests:
-    
+
     >>> inv1 == storage.get_invitation_by_iid(inv1.iid)
     True
     >>> inv2 == storage.get_invitation_by_iid(inv2.iid)
@@ -91,6 +95,6 @@ Session stuff:
 
     >>> inv1.email == inv2.email
     True
-    
+
     >>> set(storage.get_invitations_for_email(inv1.email)) == set((inv1, inv2))
     True
