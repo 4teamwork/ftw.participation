@@ -6,3 +6,5 @@
 buildout.cfg
 bin
 develop-eggs
+.installed.cfg
+.mr.developer.cfg
