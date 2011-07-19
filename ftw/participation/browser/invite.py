@@ -232,7 +232,7 @@ class InviteForm(Form):
 
         properties = getUtility(IPropertiesTool)
         # prepare from address for header
-        header_from = Header(properties.email_from_name.decode('utf-8'),
+        header_from = Header(properties.email_from_name,
                              'iso-8859-1')
         header_from.append(u'<%s>' % properties.email_from_address.
                            decode('utf-8'),
@@ -263,7 +263,7 @@ class InviteForm(Form):
         # make the mail
         msg = MIMEMultipart('alternative')
         msg['Subject'] = header_subject
-        msg['From'] = header_from
+        msg['From'] = header_from.encode('iso-8859-1')
         msg['To'] = email
 
         # render and embedd html / text

@@ -4,7 +4,9 @@ Changelog
 
 1.0c2
 -----
-
+* Issue #504 Umlaut Probleme bei Beteiligungen
+  Fixed unicode-error in email header.
+  https://extranet.4teamwork.ch/intranet/10-interne-projekte/4teamwork-egov/tracker-4teamwork-egov/504/
 
 1.0c1
 -----
