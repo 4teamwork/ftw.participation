@@ -93,13 +93,14 @@ class AcceptInvitation(BrowserView):
                     'no email address defined.')
             IStatusMessage(self.request).addStatusMessage(msg, type='error')
             return
-        header_to = Header(to_member.getProperty('fullname',
-                                                 to_member.getId()).decode('utf8'),
-                           'iso-8859-1')
-        header_to.append(u'<%s>' % to_member.getProperty('email'))
+        to_str = to_member.getProperty('fullname', to_member.getId())
+        if isinstance(to_str, unicode):
+            to_str = to_str.encode('utf8')
+        to_str += ' <%s>' % to_member.getProperty('email')
+        header_to = Header(to_str, 'windows-1252')
 
         # Subject
-        header_subject = Header(unicode(self.get_subject()), 'iso-8859-1')
+        header_subject = Header(unicode(self.get_subject()), 'windows-1252')
 
         # Options for template
         options = {
