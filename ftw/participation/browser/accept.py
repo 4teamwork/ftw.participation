@@ -79,11 +79,11 @@ class AcceptInvitation(BrowserView):
         properties = getUtility(IPropertiesTool)
         mtool = getToolByName(self.context, 'portal_membership')
         # prepare from address for header
-        header_from = Header(properties.email_from_name,
-                             'iso-8859-1').encode('iso-8859-1')
-        header_from.append(u'<%s>' % properties.email_from_address.
-                           decode('utf-8'),
-                           'iso-8859-1')
+        from_str = properties.email_from_name
+        if isinstance(from_str, unicode):
+            from_str = from_str.encode('utf8')
+        from_str += ' <%s>' % properties.email_from_address
+        header_from = Header(from_str, 'windows-1252')
 
         # To
         to_member = mtool.getMemberById(self.invitation.inviter)
