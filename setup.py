@@ -11,25 +11,37 @@ tests_require = (
 
 setup(name='ftw.participation',
       version=version,
-      description="Invite other users (register or unregistered) to a " + \
-          'context (Maintainer: %s)' % maintainer,
-      long_description=open("README.txt").read() + "\n" + \
-          open(os.path.join("docs", "HISTORY.txt")).read(),
+      description='Invite other users (registered or unregistered) to a ' + \
+          'context in plone.',
+      long_description=open('README.txt').read() + '\n' + \
+          open(os.path.join('docs', 'HISTORY.txt')).read(),
+
+
       # Get more strings from
       # http://pypi.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
-        "Programming Language :: Python",
+        'Framework :: Plone',
+        'Framework :: Plone :: 4.0',
+        'Framework :: Plone :: 4.1',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: GNU General Public License (GPL)',
+        'Programming Language :: Python',
+        'Programming Language :: Python :: 2.6',
+        'Topic :: Software Development :: Libraries :: Python Modules',
         ],
-      keywords='ftw participation',
-      author='%s, 4teamwork GmbH' % maintainer,
+
+      keywords='ftw participation plone',
+      author='4teamwork GmbH',
       author_email='mailto:info@4teamwork.ch',
       maintainer=maintainer,
-      url='http://psc.4teamwork.ch/4teamwork/ftw/ftw-participation',
+      url='https://github.com/4teamwork/ftw.participation',
       license='GPL2',
+
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['ftw'],
       include_package_data=True,
       zip_safe=False,
+
       install_requires=[
         'archetypes.schemaextender',
         'plone.app.registry',
@@ -39,11 +51,12 @@ setup(name='ftw.participation',
         'setuptools',
         'z3c.form',
         ],
+
       tests_require=tests_require,
       extras_require=dict(tests=tests_require),
-      entry_points="""
+      entry_points='''
       # -*- Entry points: -*-
       [z3c.autoinclude.plugin]
       target = plone
-      """,
+      ''',
       )
