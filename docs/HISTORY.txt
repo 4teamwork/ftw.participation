@@ -2,8 +2,9 @@ Changelog
 =========
 
 
-1.0c2
------
+1.1
+---
+
 * Issue #504 Umlaut Probleme bei Beteiligungen
   Fixed unicode-error in email header.
   https://extranet.4teamwork.ch/intranet/10-interne-projekte/4teamwork-egov/tracker-4teamwork-egov/504/
@@ -14,18 +15,18 @@ Changelog
 
 1.0b2
 -----
-* Fix setters roles method, for old invitations without roles attr. 
+* Fix setters roles method, for old invitations without roles attr.
   [21.03.2011, mathias.leimgruber]
 
 1.0b1
 -----
-* Set "came_from" if user was invited. 
+* Set "came_from" if user was invited.
   [10.02.2011, mathias.leimgruber]
 
 * Select additional roles for invitations
   [10.02.2011, mathias.leimgruber]
 
-* Added condition for invalid invitations. 
+* Added condition for invalid invitations.
   [04.02.2011, mathias.leimgruber]
 
 1.0a3

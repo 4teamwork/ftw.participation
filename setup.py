@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = open('ftw/participation/version.txt').read().strip()
+version = '1.1dev'
 maintainer = 'Jonas Baumann'
 
 tests_require = (
