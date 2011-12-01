@@ -1,6 +1,5 @@
-
-Introduction
-============
+ftw.participation
+=================
 
 
 With `ftw.participation` users can invite other users to a participate in
@@ -23,7 +22,7 @@ he may be logged in with another user ID.
 
 
 Activating
-==========
+----------
 
 First you need to import the generic setup profile, which adds some actions, a
 browser layer and other stuff.
@@ -40,7 +39,7 @@ invitation.
 
 
 Using Quotas
-============
+------------
 
 Providing the interface `ftw.participation.interfaces.IParticipationQuotaSupport`
 adds a "Maximum amount of participaants" field to the schema which defines how
@@ -56,7 +55,7 @@ invitation on the "My invitations" view.
 
 
 Customizing email messages
-==========================
+--------------------------
 
 If a person is invitied to a context he gets a e-mail notification. If this person accepts
 or rejects the invitation the inviter is notified by e-mail. Those e-mails are multipart
@@ -64,3 +63,33 @@ emails containing a HTML part and a plaintext fallback part.
 
 The messages may be customized eather by overwriting the translations or by customizing the
 mail templates in `ftw.participation.browser`.
+
+
+Installing
+----------
+
+- Just add ``ftw.participation`` to the eggs in your buildout configuration:
+
+::
+
+    [instance]
+    eggs +=
+        ftw.participation
+
+
+- Install the generic setup profile.
+
+
+Links
+-----
+
+- Main github project repository: https://github.com/4teamwork/ftw.participation
+- Issue tracker: https://github.com/4teamwork/ftw.participation/issues
+- Package on pypi: http://pypi.python.org/pypi/ftw.participation
+- Continous integration: https://jenkins.4teamwork.ch/job/ftw.participation/
+
+
+Maintainer
+----------
+
+This package is produced and maintained by `4teamwork <http://www.4teamwork.ch/>`_ company.
