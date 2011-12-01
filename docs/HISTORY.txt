@@ -2,45 +2,47 @@ Changelog
 =========
 
 
-1.1
----
+1.1 (unreleased)
+----------------
 
-* Issue #504 Umlaut Probleme bei Beteiligungen
-  Fixed unicode-error in email header.
-  https://extranet.4teamwork.ch/intranet/10-interne-projekte/4teamwork-egov/tracker-4teamwork-egov/504/
-
-1.0c1
------
+* Fixed unicode-error in email header.
+  [jinfanger]
 
 
-1.0b2
------
+1.0b2 (2011-03-29)
+------------------
+
 * Fix setters roles method, for old invitations without roles attr.
-  [21.03.2011, mathias.leimgruber]
+  [mathias.leimgruber]
 
-1.0b1
------
+1.0b1 (2011-02-10)
+------------------
+
 * Set "came_from" if user was invited.
-  [10.02.2011, mathias.leimgruber]
+  [mathias.leimgruber]
 
 * Select additional roles for invitations
-  [10.02.2011, mathias.leimgruber]
+  [mathias.leimgruber]
 
 * Added condition for invalid invitations.
-  [04.02.2011, mathias.leimgruber]
+  [mathias.leimgruber]
 
-1.0a3
------
+
+1.0a3 (2010-12-22)
+------------------
+
 * Fix in participation.pt - don't show groups
-  [20.12.2010, mathias.leimgruber]
+  [mathias.leimgruber]
 
-1.0a2
------
+
+1.0a2 (2010-11-30)
+------------------
+
 * load plone.app.workflow
-  [22.11.2010, mathias.leimgruber]
+  [mathias.leimgruber]
 
-1.0a1
------
+1.0a1 (2010-10-26)
+------------------
 
 * Initial implementation
-  [03.08.2010, jbaumann]
+  [jbaumann]
