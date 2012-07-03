@@ -8,6 +8,8 @@ tests_require = (
     'zope.testing',
     'collective.testcaselayer',
     'Products.PloneTestCase',
+    'plone.app.testing',
+    'zope.globalrequest', # Because of TinyMCE
     )
 
 setup(name='ftw.participation',
