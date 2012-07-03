@@ -35,5 +35,4 @@ class TestInvitation(TestCase):
             TEST_USER_ID_2, TEST_USER_PW_2, ))
 
         self.browser.open(url)
-        import ipdb; ipdb.set_trace()
         self.assertIn('Invitations', self.browser.contents)
