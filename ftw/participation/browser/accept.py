@@ -21,7 +21,7 @@ class AcceptInvitation(BrowserView):
 
     """
 
-    def __call__(self, iid=None):
+    def __call__(self, iid=None, redirect=True):
         if not iid:
             iid = self.request.get('iid')
 
@@ -40,7 +40,8 @@ class AcceptInvitation(BrowserView):
         del self.invitation
 
         # redirect context (where the user now has access)
-        return self.request.RESPONSE.redirect(self.target.absolute_url())
+        if redirect:
+            return self.request.RESPONSE.redirect(self.target.absolute_url())
 
     def load(self, iid):
         """Loads the storage, the invitation and the target and does some

@@ -5,6 +5,10 @@ Changelog
 1.0.2 (unreleased)
 ------------------
 
+- Accept view: add optional argument for disabling the redirect.
+  This is necessary when the view is called in another process, such as registration.
+  [jone]
+
 - Fix redirection loop: redirect to root when there are no invitations.
   [jone]
 
