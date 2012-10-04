@@ -5,6 +5,10 @@ Changelog
 1.0.2 (unreleased)
 ------------------
 
+
+- Extend invitation send message by email addresses.
+  [mathias.leimgruber]
+
 - Accept view: add optional argument for disabling the redirect.
   This is necessary when the view is called in another process, such as registration.
   [jone]
