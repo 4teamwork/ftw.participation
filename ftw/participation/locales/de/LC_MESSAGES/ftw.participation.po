@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-02-10 09:21+0000\n"
+"POT-Creation-Date: 2012-10-04 16:25+0000\n"
 "PO-Revision-Date: 2010-09-08 18:05+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -69,7 +69,7 @@ msgid "accepted_mail_text"
 msgstr "Ihre Einladung um an ${context_title} teilzunehmen wurde vom User ${invited_name} akzeptiert"
 
 #. Default: "Cancel"
-#: ./ftw/participation/browser/invite.py:215
+#: ./ftw/participation/browser/invite.py:222
 #: ./ftw/participation/browser/participants.pt:44
 msgid "button_cancel"
 msgstr "Abbrechen"
@@ -90,7 +90,7 @@ msgid "error_invalid_addresses"
 msgstr "Mindestens eine der eingegebenen Adressen ist ungültig"
 
 #. Default: "Could not find the invitation."
-#: ./ftw/participation/browser/accept.py:60
+#: ./ftw/participation/browser/accept.py:61
 #: ./ftw/participation/browser/retract.py:45
 msgid "error_invitation_not_found"
 msgstr "Die Einladung konnte nicht gefunden werden"
@@ -179,10 +179,10 @@ msgstr "Sie haben die Einladung abgelehnt"
 msgid "info_invitation_retracted"
 msgstr "Sie haben die Einladung widerrufen"
 
-#. Default: "The invitation mails were sent."
-#: ./ftw/participation/browser/invite.py:210
+#. Default: "The invitation mails were sent to ${emails}."
+#: ./ftw/participation/browser/invite.py:216
 msgid "info_invitations_sent"
-msgstr "Die Einladungen wurden per E-Mail versendet."
+msgstr "Die Einladungen wurden per E-Mail an ${emails} versendet."
 
 #. Default: "Inviter"
 #: ./ftw/participation/browser/invitations.pt:36
@@ -279,7 +279,7 @@ msgid "link_reject_invitation"
 msgstr "Nein, ich möchte nicht Teilnehmen"
 
 #. Default: "The Invitation to participate in ${title} was accepted by ${user}"
-#: ./ftw/participation/browser/accept.py:150
+#: ./ftw/participation/browser/accept.py:154
 msgid "mail_invitation_accepted_subject"
 msgstr "Die Einladung um an ${title} teilzunehmen wurde von ${user} akzeptiert"
 
@@ -289,7 +289,7 @@ msgid "mail_invitation_rejected_subject"
 msgstr "Die Einladung um an ${title} teilzunehmen wurde von ${user} abgelehnt"
 
 #. Default: "Invitation for paticipating in ${title}"
-#: ./ftw/participation/browser/invite.py:282
+#: ./ftw/participation/browser/invite.py:289
 msgid "mail_invitation_subject"
 msgstr "Einladung zur Teilnahme an ${title}"
 
