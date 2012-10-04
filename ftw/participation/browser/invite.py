@@ -202,16 +202,20 @@ class InviteForm(Form):
             roles = data.get('roles', [])
 
             # handle every email seperate
+            emails = []  # used for info msg
             for email in addresses:
                 email = email.strip()
                 if not email:
                     continue
                 inv = Invitation(self.context, email, inviter.getId(), roles)
                 self.send_invitation(inv, email, inviter, data.get('comment'))
+                emails.append(email)
 
             # notify user
+            emails.sort()
             msg = _(u'info_invitations_sent',
-                    default=u'The invitation mails were sent.')
+                    default=u'The invitation mails were sent to ${emails}.',
+                    mapping={'emails': ', '.join(emails), })
             IStatusMessage(self.request).addStatusMessage(msg, type='info')
             return self.redirect()
 
