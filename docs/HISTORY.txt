@@ -12,6 +12,12 @@ Changelog
 ------------------
 
 
+- Fixed javascript to select and deselect all checkboxes.
+  [Julian Infanger]
+
+- Added default classes to buttons in invitations view, so they are styled in theme.
+  [Julian Infanger]
+
 - Extend invitation send message by email addresses.
   [mathias.leimgruber]
 
