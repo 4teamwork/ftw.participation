@@ -4,11 +4,10 @@ jQuery(function($) {
        function() {
          var parents = $(this).parents('table:first').find('input');
          if ($(this).attr('checked') == false) {
-           parents.attr('checked', null);
+           parents.attr('checked', '');
          }
          else {
            parents.attr('checked', 'checked');
          }
        });
    });
-
