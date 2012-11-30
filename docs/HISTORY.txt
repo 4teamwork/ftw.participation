@@ -5,7 +5,11 @@ Changelog
 1.0.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Use fieldsets for a better ui experience.
+  [mathias.leimgruber]
+
+- Some german translations.
+  [mathias.leimgruber]
 
 
 1.0.3 (2012-10-16)

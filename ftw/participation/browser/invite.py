@@ -30,7 +30,6 @@ import os.path
 import re
 
 
-
 class IInviteSchema(Interface):
     """Schema interface for invite form
     """
@@ -153,6 +152,10 @@ provideAdapter(NumberOfAdressesAndUsersValidator)
 
 class InviteForm(Form):
     label = _(u'label_invite_participants', default=u'Invite Participants')
+
+    description = _(u'text_invite_new',
+                    default=u'Use this form to invide new user')
+
     ignoreContext = True
     fields = Fields(IInviteSchema)
     fields['users'].widgetFactory = AutocompleteMultiFieldWidget
@@ -172,6 +175,10 @@ class InviteForm(Form):
             # disable users field
             del self.widgets['users']
             self.widgets['addresses'].required = True
+
+    def updateActions(self):
+        super(InviteForm, self).updateActions()
+        self.actions['button_invite'].addClass("context")
 
     @buttonAndHandler(_(u'button_invite', default=u'Invite'))
     def handle_invite(self, action):
