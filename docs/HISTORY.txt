@@ -5,6 +5,9 @@ Changelog
 1.0.4 (unreleased)
 ------------------
 
+- Added class for button in participants tab.
+  [Julian Infanger]
+
 - Use fieldsets for a better ui experience.
   [mathias.leimgruber]
 
