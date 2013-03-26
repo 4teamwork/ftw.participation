@@ -3,7 +3,7 @@
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       metal:use-macro="here/main_template/macros/master"
-      
+
       i18n:domain="ftw.participation">
 
   <body>
@@ -27,7 +27,7 @@
 
             <form tal:attributes="action string:${here/absolute_url}/@@invite_participants">
               <input type="submit" name="form.invite" value="Invite participants"
-                     i18n:attributes="value link_invite_participants" />            
+                     i18n:attributes="value link_invite_participants" />
             </form>
           </fieldset>
 
@@ -56,6 +56,7 @@
               </div>
 
               <input type="submit" name="form.delete" value="Delete Participants"
+                     class="context"
                      i18n:attributes="value button_delete_participants" />
 
               <input type="submit" name="form.cancel" value="Cancel"
