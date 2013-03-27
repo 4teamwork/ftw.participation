@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.0.5 (unreleased)
+1.0.5 (2013-03-27)
 ------------------
 
 - Added class for button in participants tab.
