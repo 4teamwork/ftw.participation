@@ -5,14 +5,13 @@ Changelog
 1.0.5 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Added class for button in participants tab.
+  [Julian Infanger]
+
 
 
 1.0.4 (2013-01-21)
 ------------------
-
-- Added class for button in participants tab.
-  [Julian Infanger]
 
 - Use fieldsets for a better ui experience.
   [mathias.leimgruber]
