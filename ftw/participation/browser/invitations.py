@@ -39,7 +39,9 @@ class InvitationsView(BrowserView):
                 for iid in pending_iids:
                     invitation = self.storage.get_invitation_by_iid(iid)
                     if len(passearch.searchUsers(email=invitation.email)) > 0:
-                        url = os.path.join(self.context.portal_url(), '?came_from=@@invitations')
+                        url = os.path.join(
+                            self.context.portal_url(),
+                            'login_form?came_from=@@invitations')
                         return self.request.RESPONSE.redirect(url)
                 # if we cannot find it we redirect to the invite_join_form
                 url = os.path.join(self.context.portal_url(),
