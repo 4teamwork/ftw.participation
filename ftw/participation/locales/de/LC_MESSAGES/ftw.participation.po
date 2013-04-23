@@ -333,7 +333,7 @@ msgstr "Keine offenen Einladungen. Alle Benutzer haben Ihre Einladungen angenomm
 #. Default: "Remove a participant"
 #: ./ftw/participation/browser/participants.pt:37
 msgid "text_participation_delete"
-msgstr "Wähen Sie die Personen aus, welche Sie entfernen möchten."
+msgstr "Wählen Sie die Personen aus, welche Sie entfernen möchten."
 
 #. Default: "Invite new people to this area and give them permissions to read, add, edit. or manage content."
 #: ./ftw/participation/browser/participants.pt:24
