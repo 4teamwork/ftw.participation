@@ -5,6 +5,9 @@ Changelog
 1.0.6 (unreleased)
 ------------------
 
+- Fixed typo in translation.
+  [Julian Infanger]
+
 - Fix redirect to login form when hitting @@invitations anonymously.
   [jone]
 
