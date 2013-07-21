@@ -1,7 +1,7 @@
 from Products.CMFCore.utils import getToolByName
 from ftw.participation.interfaces import IInvitation, IInvitationStorage
 from persistent import Persistent
-from zope.app.component.hooks import getSite
+from zope.component.hooks import getSite
 from zope.interface import implements
 
 
