@@ -1,7 +1,8 @@
+from ftw.participation import _
+from ftw.participation.interfaces import IInvitationStorage
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
-from ftw.participation import _
 from zExceptions import Forbidden
 
 
@@ -52,13 +53,14 @@ class ManageParticipants(BrowserView):
         """
         mtool = getToolByName(self.context, 'portal_membership')
         authenticated_member = mtool.getAuthenticatedMember()
+        users = []
         for userid, roles in self.context.get_local_roles():
             member = mtool.getMemberById(userid)
             # skip groups
             if member is not None:
                 email = member.getProperty('email', '')
                 name = member.getProperty('fullname', '')
-                item = dict(member=member, userid=userid, roles=roles,
+                item = dict(userid=userid, roles=roles,
                             readonly=userid == authenticated_member.getId())
                 if name and email:
                     item['name'] = '%s (%s)' % (name, email)
@@ -66,4 +68,25 @@ class ManageParticipants(BrowserView):
                     item['name'] = name
                 else:
                     item['name'] = userid
-                yield item
+                users.append(item)
+        return users
+
+    def get_pending_invitations(self):
+        portal = getToolByName(self.context, 'portal_url').getPortalObject()
+        storage = IInvitationStorage(portal)
+
+        invitations = []
+        for invitation in storage.get_invitations_for_context(self.context):
+
+            item = dict(name=invitation.email,
+                        roles=invitation.roles,
+                        inviter=invitation.inviter)
+            invitations.append(item)
+
+        return invitations
+
+    def get_users(self):
+        result = self.get_participants() + self.get_pending_invitations()
+        result.sort(key=lambda x: x['name'].lower())
+        return result
+
