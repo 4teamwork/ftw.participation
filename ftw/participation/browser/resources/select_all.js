@@ -10,4 +10,9 @@ jQuery(function($) {
            parents.attr('checked', 'checked');
          }
        });
-   });
+
+  $('[action*=invite_participants]').prepOverlay(
+    {'subtype':'ajax',
+     'filter': '#content > *',
+     'closeselector': '#form-buttons-button_cancel'});
+  });

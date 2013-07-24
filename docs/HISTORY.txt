@@ -5,6 +5,9 @@ Changelog
 1.0.7 (unreleased)
 ------------------
 
+- Open invite form in a overlay.
+  [mathias.leimgruber]
+
 - Show all participants and pending invitations on participants
   overview.
   [mathias.leimgruber]

@@ -348,7 +348,7 @@ msgstr "Ihre einladung an ${context_title} teilzunehmen wurde vom Benutzer ${inv
 #: ./ftw/participation/browser/participants.pt:37
 #, fuzzy
 msgid "text_infos_participants"
-msgstr "Allgemeinde Informationen über Teilnehmer von diesem Bereich."
+msgstr "Allgemeine Informationen über Teilnehmer von diesem Bereich."
 
 #. Default: "Use this form to invide new user"
 #: ./ftw/participation/browser/invite.py:156
