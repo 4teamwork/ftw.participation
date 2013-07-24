@@ -1,8 +1,24 @@
+from ftw.participation import _
+from ftw.participation.interfaces import IInvitationStorage
+from plone.app.workflow.interfaces import ISharingPageRole
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
-from ftw.participation import _
 from zExceptions import Forbidden
+from zope.component import queryUtility
+from zope.i18n import translate
+
+
+def get_friendly_role_name(names, request):
+    friendly_names = []
+
+    for name in names:
+        utility = queryUtility(ISharingPageRole, name=name)
+        if utility is None:
+            friendly_names.append(name)
+        else:
+            friendly_names.append(translate(utility.title, context=request))
+    return ', '.join(friendly_names)
 
 
 class ManageParticipants(BrowserView):
@@ -30,7 +46,8 @@ class ManageParticipants(BrowserView):
                 obj_local_roles = dict(obj.get_local_roles())
 
                 # do we have to change something?
-                obj_to_delete = tuple(set(del_userids) & set(obj_local_roles.keys()))
+                obj_to_delete = tuple(
+                    set(del_userids) & set(obj_local_roles.keys()))
                 if len(obj_to_delete) > 0:
                     obj.manage_delLocalRoles(userids=obj_to_delete)
 
@@ -52,13 +69,15 @@ class ManageParticipants(BrowserView):
         """
         mtool = getToolByName(self.context, 'portal_membership')
         authenticated_member = mtool.getAuthenticatedMember()
+        users = []
         for userid, roles in self.context.get_local_roles():
             member = mtool.getMemberById(userid)
             # skip groups
             if member is not None:
                 email = member.getProperty('email', '')
                 name = member.getProperty('fullname', '')
-                item = dict(member=member, userid=userid, roles=roles,
+                item = dict(userid=userid,
+                            roles=get_friendly_role_name(roles, self.request),
                             readonly=userid == authenticated_member.getId())
                 if name and email:
                     item['name'] = '%s (%s)' % (name, email)
@@ -66,4 +85,26 @@ class ManageParticipants(BrowserView):
                     item['name'] = name
                 else:
                     item['name'] = userid
-                yield item
+                users.append(item)
+        return users
+
+    def get_pending_invitations(self):
+        portal = getToolByName(self.context, 'portal_url').getPortalObject()
+        storage = IInvitationStorage(portal)
+
+        invitations = []
+        for invitation in storage.get_invitations_for_context(self.context):
+
+            item = dict(name=invitation.email,
+                        roles=get_friendly_role_name(invitation.roles,
+                                                     self.request),
+                        inviter=invitation.inviter)
+            invitations.append(item)
+
+        return invitations
+
+    def get_users(self):
+        result = self.get_participants() + self.get_pending_invitations()
+        result.sort(key=lambda x: x['name'].lower())
+        return result
+
