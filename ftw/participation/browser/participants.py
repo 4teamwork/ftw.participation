@@ -1,9 +1,24 @@
 from ftw.participation import _
 from ftw.participation.interfaces import IInvitationStorage
+from plone.app.workflow.interfaces import ISharingPageRole
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
 from zExceptions import Forbidden
+from zope.component import queryUtility
+from zope.i18n import translate
+
+
+def get_friendly_role_name(names, request):
+    friendly_names = []
+
+    for name in names:
+        utility = queryUtility(ISharingPageRole, name=name)
+        if utility is None:
+            friendly_names.append(name)
+        else:
+            friendly_names.append(translate(utility.title, context=request))
+    return ', '.join(friendly_names)
 
 
 class ManageParticipants(BrowserView):
@@ -31,7 +46,8 @@ class ManageParticipants(BrowserView):
                 obj_local_roles = dict(obj.get_local_roles())
 
                 # do we have to change something?
-                obj_to_delete = tuple(set(del_userids) & set(obj_local_roles.keys()))
+                obj_to_delete = tuple(
+                    set(del_userids) & set(obj_local_roles.keys()))
                 if len(obj_to_delete) > 0:
                     obj.manage_delLocalRoles(userids=obj_to_delete)
 
@@ -60,7 +76,8 @@ class ManageParticipants(BrowserView):
             if member is not None:
                 email = member.getProperty('email', '')
                 name = member.getProperty('fullname', '')
-                item = dict(userid=userid, roles=roles,
+                item = dict(userid=userid,
+                            roles=get_friendly_role_name(roles, self.request),
                             readonly=userid == authenticated_member.getId())
                 if name and email:
                     item['name'] = '%s (%s)' % (name, email)
@@ -79,7 +96,8 @@ class ManageParticipants(BrowserView):
         for invitation in storage.get_invitations_for_context(self.context):
 
             item = dict(name=invitation.email,
-                        roles=invitation.roles,
+                        roles=get_friendly_role_name(invitation.roles,
+                                                     self.request),
                         inviter=invitation.inviter)
             invitations.append(item)
 
