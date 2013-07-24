@@ -33,30 +33,51 @@
 
 
           <fieldset>
-            <legend i18n:translate="legend_delete_participant">Delete participant</legend>
-            <p i18n:translate="text_participation_delete">
-              Remove a participant
+            <legend i18n:translate="legend_infos_participant">Informations about participants</legend>
+            <p i18n:translate="text_infos_participants">
+              General informations about the people who participate on this project. You are also able to remove users from this project.
             </p>
 
 
             <form action="" method="post"
                   tal:attributes="action form_action|string:${here/absolute_url}/@@participants">
 
-              <div id="participants" tal:repeat="item view/get_participants">
+              <table class="listing">
+                <tr>
+                  <th>&nbsp;</th>
+                  <th i18n:translate="label_user">User</th>
+                  <th i18n:translate="label_local_roles">Roles</th>
+                  <th i18n:translate="label_invited_by">Invited by</th>
+                  <th i18n:translate="label_state">State</th>
+                </tr>
 
-                <div class="participant">
-                  <input type="checkbox" name="userids:list"
-                         tal:attributes="value item/userid;
-                                         id string:box_${item/userid};
-                                         disabled item/readonly;" />
-                  <label tal:attributes="for string:box_${item/userid}"
-                         tal:content="item/name" />
-                </div>
+                <tal:loop repeat="item view/get_users">
 
-              </div>
+                  <tr tal:define="userid python:item.get('userid', None)">
+                    <td>
+                      <input type="checkbox" name="userids:list"
+                             tal:condition="userid"
+                             tal:attributes="value userid;
+                                             id string:box_${userid};
+                                             disabled item/readonly;" />
+
+                    </td>
+                    <td tal:content="item/name" />
+                    <td tal:content="item/roles" />
+                    <td tal:content="python:item.get('inviter', '&nbsp;')" />
+                    <td tal:condition="userid" i18n:translate="label_accepted">
+                      Accepted
+                    </td>
+                    <td tal:condition="not:userid" i18n:translate="label_pending">
+                      Pending
+                    </td>
+                  </tr>
+
+                </tal:loop>
+              </table>
 
               <input type="submit" name="form.delete" value="Delete Participants"
-                     class="context"
+                     class="destructive"
                      i18n:attributes="value button_delete_participants" />
 
               <input type="submit" name="form.cancel" value="Cancel"
