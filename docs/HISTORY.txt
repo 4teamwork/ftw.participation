@@ -5,6 +5,10 @@ Changelog
 1.0.7 (unreleased)
 ------------------
 
+- Remove unnecessary informations on participants view,
+  add better description
+  [mathias.leimgruber]
+
 - Open invite form in a overlay.
   [mathias.leimgruber]
 
