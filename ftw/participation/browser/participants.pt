@@ -18,22 +18,6 @@
         </h1>
 
         <metal:form-macro define-macro="form">
-
-          <fieldset>
-            <legend i18n:translate="legend_new_participant">New participant</legend>
-            <p i18n:translate="text_participation_invite">
-              Invite new people to this area and give them permissions to read, add, edit. or manage content.
-            </p>
-
-            <form tal:attributes="action string:${here/absolute_url}/@@invite_participants">
-              <input type="submit" name="form.invite" value="Invite participants"
-                     i18n:attributes="value link_invite_participants" />
-            </form>
-          </fieldset>
-
-
-          <fieldset>
-            <legend i18n:translate="legend_infos_participant">Informations about participants</legend>
             <p i18n:translate="text_infos_participants">
               General informations about the people who participate on this project. You are also able to remove users from this project.
             </p>
@@ -76,6 +60,13 @@
                 </tal:loop>
               </table>
 
+              <a tal:attributes="href string:${here/absolute_url}/@@invite_participants"
+                 i18n:attributes="title link_invite_participants"
+                 i18n:translate="link_invite_participants"
+                 class="button">
+                Invite participants
+              </a>
+
               <input type="submit" name="form.delete" value="Delete Participants"
                      class="destructive"
                      i18n:attributes="value button_delete_participants" />
@@ -85,7 +76,7 @@
                      tal:condition="not:hide_cancel_button|nothing" />
 
             </form>
-        </fieldset>
+
         </metal:form-macro>
 
       </metal:main-macro>

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-07-24 13:21+0000\n"
+"POT-Creation-Date: 2013-07-25 16:17+0000\n"
 "PO-Revision-Date: 2010-09-08 18:05+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -69,12 +69,12 @@ msgstr "Ihre Einladung um an ${context_title} teilzunehmen wurde vom User ${invi
 
 #. Default: "Cancel"
 #: ./ftw/participation/browser/invite.py:229
-#: ./ftw/participation/browser/participants.pt:83
+#: ./ftw/participation/browser/participants.pt:75
 msgid "button_cancel"
 msgstr "Abbrechen"
 
 #. Default: "Delete Participants"
-#: ./ftw/participation/browser/participants.pt:79
+#: ./ftw/participation/browser/participants.pt:71
 msgid "button_delete_participants"
 msgstr "Personen löschen"
 
@@ -223,7 +223,7 @@ msgid "invitation_mail_message"
 msgstr "Nachricht von ${inviter_name}:"
 
 #. Default: "Accepted"
-#: ./ftw/participation/browser/participants.pt:68
+#: ./ftw/participation/browser/participants.pt:53
 msgid "label_accepted"
 msgstr "Angenommen"
 
@@ -253,12 +253,12 @@ msgid "label_invite_participants"
 msgstr "Personen einladen"
 
 #. Default: "Invited by"
-#: ./ftw/participation/browser/participants.pt:50
+#: ./ftw/participation/browser/participants.pt:35
 msgid "label_invited_by"
 msgstr "Eingeladen von"
 
 #. Default: "Roles"
-#: ./ftw/participation/browser/participants.pt:49
+#: ./ftw/participation/browser/participants.pt:34
 msgid "label_local_roles"
 msgstr "Rollen"
 
@@ -268,7 +268,7 @@ msgid "label_participation_quota_limit"
 msgstr "Maximale Anzahl Teilnehmer"
 
 #. Default: "Pending"
-#: ./ftw/participation/browser/participants.pt:71
+#: ./ftw/participation/browser/participants.pt:56
 msgid "label_pending"
 msgstr "offen"
 
@@ -278,12 +278,12 @@ msgid "label_roles"
 msgstr "Berechtigungen"
 
 #. Default: "State"
-#: ./ftw/participation/browser/participants.pt:51
+#: ./ftw/participation/browser/participants.pt:36
 msgid "label_state"
 msgstr "Status"
 
 #. Default: "User"
-#: ./ftw/participation/browser/participants.pt:48
+#: ./ftw/participation/browser/participants.pt:33
 msgid "label_user"
 msgstr "Benutzer"
 
@@ -292,23 +292,13 @@ msgstr "Benutzer"
 msgid "label_users"
 msgstr "Benutzer"
 
-#. Default: "Informations about participants"
-#: ./ftw/participation/browser/participants.pt:36
-msgid "legend_infos_participant"
-msgstr "Informationen über Teilnehmer"
-
-#. Default: "New participant"
-#: ./ftw/participation/browser/participants.pt:23
-msgid "legend_new_participant"
-msgstr "Weitere Personen hinzufügen"
-
 #. Default: "Yes, I wan't to participate"
 #: ./ftw/participation/browser/invitations.pt:50
 msgid "link_accept_invitation"
 msgstr "Ja, ich möchte teilnehmen"
 
 #. Default: "Invite participants"
-#: ./ftw/participation/browser/participants.pt:29
+#: ./ftw/participation/browser/participants.pt:64
 msgid "link_invite_participants"
 msgstr "Personen einladen"
 
@@ -345,10 +335,9 @@ msgid "rejected_mail_text"
 msgstr "Ihre einladung an ${context_title} teilzunehmen wurde vom Benutzer ${invited_name} abgelehnt (${invited_email})."
 
 #. Default: "General informations about the people who participate on this project. You are also able to remove users from this project."
-#: ./ftw/participation/browser/participants.pt:37
-#, fuzzy
+#: ./ftw/participation/browser/participants.pt:22
 msgid "text_infos_participants"
-msgstr "Allgemeine Informationen über Teilnehmer von diesem Bereich."
+msgstr "Stellen Sie Ihr Team für den aktuellen Teamraum zusammen. Die Tabelle zeigt alle involvierten Personen. Klicken sie auf \"Personen einladen\" um Ihr Team zu vergrössern."
 
 #. Default: "Use this form to invide new user"
 #: ./ftw/participation/browser/invite.py:156
@@ -364,11 +353,6 @@ msgstr "Sie haben keine Einladungen erhalten"
 #: ./ftw/participation/browser/invitations.pt:76
 msgid "text_no_sent_invitations"
 msgstr "Keine offenen Einladungen. Alle Benutzer haben Ihre Einladungen angenommen oder Abgelehnt"
-
-#. Default: "Invite new people to this area and give them permissions to read, add, edit. or manage content."
-#: ./ftw/participation/browser/participants.pt:24
-msgid "text_participation_invite"
-msgstr "Klicken Sie auf \"Personen einladen\", damit neue Personen einfach und unkompliziert in diesem Bereich Rechte erhalten."
 
 #. Default: "You were invited to particpate in the objects below. Accept or reject the invitation - the invitor will be notified."
 #: ./ftw/participation/browser/invitations.pt:27
