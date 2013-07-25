@@ -1,0 +1,25 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="ftw.participation">
+
+    <!-- 1 -> 1007 -->
+    <genericsetup:upgradeStep
+        title="Add allow_multiple_roles entry to registry"
+        description=""
+        source="1"
+        destination="1007"
+        handler="ftw.participation.upgrades.to1007.UpgradeRegistry"
+        profile="ftw.participation:default"
+        />
+
+    <genericsetup:registerProfile
+        name="1007"
+        title="ftw.participation.upgrades.1007"
+        description=""
+        directory="profiles/1007"
+        for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
+        provides="Products.GenericSetup.interfaces.BASE"
+        />
+
+</configure>
