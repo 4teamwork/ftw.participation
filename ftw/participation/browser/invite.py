@@ -1,6 +1,3 @@
-from Products.CMFCore.interfaces import IPropertiesTool
-from Products.CMFCore.utils import getToolByName
-from Products.statusmessages.interfaces import IStatusMessage
 from email.header import Header
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -12,15 +9,19 @@ from ftw.participation.invitation import Invitation
 from plone.formwidget.autocomplete.widget import AutocompleteMultiFieldWidget
 from plone.registry.interfaces import IRegistry
 from plone.z3cform.layout import wrap_form
+from Products.CMFCore.interfaces import IPropertiesTool
+from Products.CMFCore.utils import getToolByName
+from Products.statusmessages.interfaces import IStatusMessage
+from z3c.form.browser.checkbox import CheckBoxFieldWidget
+from z3c.form.browser.radio import RadioFieldWidget
 from z3c.form.button import buttonAndHandler
 from z3c.form.field import Fields
 from z3c.form.form import Form
 from z3c.form.util import getSpecification
 from z3c.form.validator import InvariantsValidator
 from z3c.form.validator import SimpleFieldValidator
-from z3c.form.validator import WidgetValidatorDiscriminators
 from z3c.form.validator import WidgetsValidatorDiscriminators
-from z3c.form.browser.checkbox import CheckBoxFieldWidget 
+from z3c.form.validator import WidgetValidatorDiscriminators
 from zope import schema
 from zope.component import provideAdapter, getUtility
 from zope.i18n import translate
@@ -39,7 +40,7 @@ class IInviteSchema(Interface):
         description=_(u'help_users',
                       default=u'Select users to invite.'),
         value_type=schema.Choice(
-            vocabulary=u'ftw.participation.users'),#plone.principalsource.Users'),
+            vocabulary=u'ftw.participation.users'),
         required=False)
 
     addresses = schema.Text(
@@ -159,7 +160,17 @@ class InviteForm(Form):
     ignoreContext = True
     fields = Fields(IInviteSchema)
     fields['users'].widgetFactory = AutocompleteMultiFieldWidget
-    fields['roles'].widgetFactory = CheckBoxFieldWidget
+
+    def update(self):
+        registry = getUtility(IRegistry)
+        config = registry.forInterface(IParticipationRegistry)
+
+        if config.allow_multiple_roles:
+            self.fields['roles'].widgetFactory = CheckBoxFieldWidget
+        else:
+            self.fields['roles'].widgetFactory = RadioFieldWidget
+
+        super(InviteForm, self).update()
 
     def updateWidgets(self):
         super(InviteForm, self).updateWidgets()

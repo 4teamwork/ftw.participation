@@ -18,6 +18,7 @@
   <!-- include sub module zcmls -->
   <include package=".browser" />
 
+  <include package=".upgrades" />
 
   <!-- register translations -->
   <i18n:registerTranslations directory="locales" />
