@@ -5,6 +5,10 @@ Changelog
 1.0.7 (unreleased)
 ------------------
 
+- Possibility to configure if only one or multiple roles can be passed
+  on invite form.
+  [mathias.leimgruber]
+
 - Remove unnecessary informations on participants view,
   add better description
   [mathias.leimgruber]

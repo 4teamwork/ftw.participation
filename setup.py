@@ -6,6 +6,7 @@ maintainer = 'Jonas Baumann'
 
 tests_require = (
     'zope.testing',
+    'ftw.upgrade',
     'collective.testcaselayer',
     'Products.PloneTestCase',
     'plone.app.testing',

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<registry>
+  <record name="ftw.participation.interfaces.IParticipationRegistry.allow_multiple_roles" interface="ftw.participation.interfaces.IParticipationRegistry" field="allow_multiple_roles">
+    <field type="plone.registry.field.Bool">
+      <default>True</default>
+      <description>help_allow_invite_users</description>
+      <title>label_multiple_roles</title>
+    </field>
+    <value>True</value>
+  </record>
+
+</registry>
