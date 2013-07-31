@@ -5,6 +5,9 @@ Changelog
 1.0.7 (unreleased)
 ------------------
 
+- Allow granting "Reader" role when single roles is configured.
+  [jone]
+
 - Possibility to configure if only one or multiple roles can be passed
   on invite form.
   [mathias.leimgruber]
@@ -48,11 +51,6 @@ Changelog
 - Some german translations.
   [mathias.leimgruber]
 
-
-1.0.3 (2012-10-16)
-------------------
-
-- Nothing changed yet.
 
 
 1.0.2 (2012-10-10)

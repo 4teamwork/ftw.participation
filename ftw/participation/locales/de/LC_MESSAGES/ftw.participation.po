@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-07-25 16:17+0000\n"
+"POT-Creation-Date: 2013-07-31 12:57+0000\n"
 "PO-Revision-Date: 2010-09-08 18:05+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10,6 +10,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 "Preferred-Encodings: utf-8 latin1\n"
+"Domain: DOMAIN\n"
 
 #: ./ftw/participation/browser/invitations.pt:62
 msgid "Accept"
@@ -152,11 +153,6 @@ msgstr "Dieser Kommentar wird ins Einladungs-E-Mail eingefügt."
 #: ./ftw/participation/quota.py:37
 msgid "help_participation_quota_limit"
 msgstr "Mit hilfe des Quota limits können Sie die maximale Teilnehmerzahl definieren"
-
-#. Default: "Select Role(s) for the choosen users"
-#: ./ftw/participation/browser/invite.py:53
-msgid "help_roles"
-msgstr "Sie können den eingeladenen Personen zusätzliche Rechte nebst dem Lese-Recht zuteilen"
 
 #. Default: "Select users to invite."
 #: ./ftw/participation/browser/invite.py:39

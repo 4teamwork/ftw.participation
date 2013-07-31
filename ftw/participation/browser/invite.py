@@ -51,8 +51,6 @@ class IInviteSchema(Interface):
 
     roles = schema.List(
         title=_(u'label_roles', default=u'Roles'),
-        description=_(u'help_roles',
-                      default=u'Select Role(s) for the choosen users'),
         value_type=schema.Choice(
             vocabulary=u'ftw.participation.roles'),
         required=False)
