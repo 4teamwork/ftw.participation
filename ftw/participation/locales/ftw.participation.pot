@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-07-25 16:17+0000\n"
+"POT-Creation-Date: 2013-07-31 12:57+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -157,11 +157,6 @@ msgstr ""
 
 #: ./ftw/participation/quota.py:37
 msgid "help_participation_quota_limit"
-msgstr ""
-
-#. Default: "Select Role(s) for the choosen users"
-#: ./ftw/participation/browser/invite.py:53
-msgid "help_roles"
 msgstr ""
 
 #. Default: "Select users to invite."

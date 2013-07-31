@@ -1,9 +1,12 @@
+from Acquisition import aq_inner
+from Products.CMFCore.utils import getToolByName
+from ftw.participation.interfaces import IParticipationRegistry
+from plone.app.workflow.interfaces import ISharingPageRole
+from plone.registry.interfaces import IRegistry
+from zope.component import getUtilitiesFor
+from zope.component import getUtility
 from zope.interface import implements
 from zope.schema.interfaces import IVocabularyFactory
-from Acquisition import aq_inner
-from plone.app.workflow.interfaces import ISharingPageRole
-from Products.CMFCore.utils import getToolByName
-from zope.component import getUtilitiesFor
 from zope.schema.vocabulary import SimpleTerm
 from zope.schema.vocabulary import SimpleVocabulary
 
@@ -13,8 +16,17 @@ class LocalRolesForDisplay(object):
 
     implements(IVocabularyFactory)
 
-    def __call__(self, context, role_filter=['Reader', 'Reviewer', ]):
+    def __call__(self, context, role_filter=None, filter_reader_role=True):
         """Get a list of roles, similar like @@sharing"""
+
+        if role_filter is None:
+            role_filter = ['Reviewer', ]
+
+        registry = getUtility(IRegistry)
+        config = registry.forInterface(IParticipationRegistry)
+        if filter_reader_role and config.allow_multiple_roles:
+            role_filter = role_filter + ['Reader']
+
         context = aq_inner(context)
         portal_membership = getToolByName(context, 'portal_membership')
 
