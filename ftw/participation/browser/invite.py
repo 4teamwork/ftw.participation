@@ -149,6 +149,23 @@ WidgetsValidatorDiscriminators(NumberOfAdressesAndUsersValidator,
 provideAdapter(NumberOfAdressesAndUsersValidator)
 
 
+class RolesValidator(SimpleFieldValidator):
+    """Validator for validating the e-mail addresses field
+    """
+
+    def validate(self, roles):
+        registry = getUtility(IRegistry)
+        config = registry.forInterface(IParticipationRegistry)
+
+        if not config.allow_multiple_roles and not roles:
+            msg = _(u'error_no_roles', default=u'Please select a role')
+            raise Invalid(msg)
+
+WidgetValidatorDiscriminators(RolesValidator,
+                               field=IInviteSchema['roles'])
+provideAdapter(RolesValidator)
+
+
 class InviteForm(Form):
     label = _(u'label_invite_participants', default=u'Invite Participants')
 
@@ -184,6 +201,9 @@ class InviteForm(Form):
             # disable users field
             del self.widgets['users']
             self.widgets['addresses'].required = True
+
+        if not config.allow_multiple_roles:
+            self.widgets['roles'].required = True
 
     def updateActions(self):
         super(InviteForm, self).updateActions()
