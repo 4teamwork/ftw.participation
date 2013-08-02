@@ -5,6 +5,9 @@ Changelog
 1.0.7 (unreleased)
 ------------------
 
+- Set roles field on invitation form to required if multiple roles is disabled.
+  [mathias.leimgruber]
+
 - Allow granting "Reader" role when single roles is configured.
   [jone]
 
