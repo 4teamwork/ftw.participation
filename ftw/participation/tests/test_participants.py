@@ -63,3 +63,25 @@ class TestParticipation(TestCase):
                             inviter=TEST_USER_NAME)]
 
         self.assertEquals(expect, self.view.get_pending_invitations())
+
+    def test_sorted_result(self):
+        regtool = getToolByName(self.portal, 'portal_registration')
+        regtool.addMember('usera', 'secret',
+                          properties={'username': 'usera',
+                                      'fullname': '\xc3\x9csera',
+                                      'email': 'user@email.com'})
+
+        regtool.addMember('inviter', 'secret',
+                          properties={'username': 'inviter',
+                                      'fullname': 'invit\xc3\xb6r',
+                                      'email': 'user@email.com'})
+
+        self.demo_folder.manage_setLocalRoles('inviter', ['Owner'])
+
+        Invitation(
+            target=self.demo_folder,
+            email='user@email.com',
+            inviter=TEST_USER_NAME,
+            roles=['Reader'])
+
+        self.assertTrue(self.view.get_users())
