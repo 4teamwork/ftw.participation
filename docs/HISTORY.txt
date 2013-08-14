@@ -5,6 +5,9 @@ Changelog
 1.0.7 (unreleased)
 ------------------
 
+- Fix UnicodeDecodeError in participants listing.
+  [mathias.leimgruber]
+
 - Set roles field on invitation form to required if multiple roles is disabled.
   [mathias.leimgruber]
 
