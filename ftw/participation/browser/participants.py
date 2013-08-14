@@ -80,7 +80,8 @@ class ManageParticipants(BrowserView):
                             roles=get_friendly_role_name(roles, self.request),
                             readonly=userid == authenticated_member.getId())
                 if name and email:
-                    item['name'] = '%s (%s)' % (name, email)
+                    item['name'] = u'%s (%s)' % (name.decode('utf-8'),
+                                                 email.decode('utf-8'))
                 elif name:
                     item['name'] = name
                 else:
