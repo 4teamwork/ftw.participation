@@ -1,10 +1,13 @@
 from ftw.participation.interfaces import IParticipationSupport
 from ftw.participation.invitation import Invitation
 from ftw.participation.tests.layer import FTW_PARTICIPATION_INTEGRATION_TESTING
+from plone.app.testing import login
+from plone.app.testing import logout
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import TEST_USER_NAME
 from Products.CMFCore.utils import getToolByName
 from unittest2 import TestCase
+from zExceptions import Forbidden
 from zope.interface import alsoProvides
 
 
@@ -17,6 +20,8 @@ class TestParticipation(TestCase):
 
         self.portal = self.layer['portal']
         self.portal_url = self.portal.portal_url()
+
+        login(self.portal, TEST_USER_NAME)
 
         self.demo_folder = self.portal.get(self.portal.invokeFactory(
             'Folder', 'demo-folder'))
@@ -64,7 +69,7 @@ class TestParticipation(TestCase):
                             inviter=invitation.inviter,
                             type_='invitations',
                             iid=invitation.iid,
-                            readonly=False)]
+                            readonly=True)]
 
         self.assertEquals(expect, self.view.get_pending_invitations())
 
@@ -104,3 +109,86 @@ class TestParticipation(TestCase):
         self.assertTrue(self.view.get_pending_invitations(),
                         'It should no be possible to remove invitations if '
                         'the current user is not the inviter')
+
+    def test_remove_user(self):
+        regtool = getToolByName(self.portal, 'portal_registration')
+        regtool.addMember('usera', 'secret',
+                  properties={'username': 'usera',
+                              'fullname': 'Usera',
+                              'email': 'user@email.com'})
+
+        self.portal.portal_membership.setLocalRoles(
+            obj=self.demo_folder,
+            member_ids=['usera', ],
+            member_role="Reader",
+            reindex=True)
+
+        assert len(self.view.get_participants()) == 2, 'Expect 2 participants'
+
+        form = {'userids': ['usera'],
+                'form.delete': True}
+
+        self.view.request.form = form
+        self.view()
+
+        self.assertEquals(1, len(self.view.get_participants()),
+            'Expect only one participant the owner')
+
+    def test_remove_user_forbidden(self):
+        regtool = getToolByName(self.portal, 'portal_registration')
+        regtool.addMember('usera', 'secret',
+                  properties={'username': 'usera',
+                              'fullname': 'Usera',
+                              'email': 'user@email.com'})
+
+        self.portal.portal_membership.setLocalRoles(
+            obj=self.demo_folder,
+            member_ids=['usera', ],
+            member_role="Reader",
+            reindex=True)
+
+        logout()
+        login(self.portal, 'usera')
+
+        assert len(self.view.get_participants()) == 2, 'Expect 2 participants'
+
+        form = {'userids': ['usera'],
+                'form.delete': True}
+        self.view.request.form = form
+
+        self.assertRaises(Forbidden, self.view, *[])
+
+    def test_remove_invitation(self):
+        invitation = Invitation(target=self.demo_folder,
+                                email='user@email.com',
+                                inviter=TEST_USER_ID,
+                                roles=['Reader'])
+
+        assert len(self.view.get_pending_invitations()) == 1
+
+        form = {'invitations': [invitation.iid],
+                'form.delete': True}
+
+        self.view.request.form = form
+        self.view()
+
+        self.assertEquals(0, len(self.view.get_pending_invitations()),
+            'Expect no invitation')
+
+    def test_remove_invitation_forbidden(self):
+        invitation = Invitation(target=self.demo_folder,
+                                email='user@email.com',
+                                inviter='dummyuser',
+                                roles=['Reader'])
+
+        assert len(self.view.get_pending_invitations()) == 1
+
+        form = {'invitations': [invitation.iid],
+                'form.delete': True}
+
+        self.view.request.form = form
+        self.assertRaises(Forbidden, self.view, *[])
+
+        self.assertEquals(1, len(self.view.get_participants()),
+            'Expect one invitation')
+

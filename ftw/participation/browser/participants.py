@@ -28,38 +28,61 @@ class ManageParticipants(BrowserView):
     def __call__(self):
         form = self.request.form
 
-        del_userids = form.get('userids')
-        if form.get('form.delete') and del_userids:
-            deletable = [p['userid'] for p in filter(
-                    lambda p: not p['readonly'],
-                    self.get_participants())]
+        del_userids = form.get('userids', [])
+        del_invitations = form.get('invitations', [])
 
-            # we should not remove readonly participants (like myself)
-            for userid in del_userids:
-                if userid not in deletable:
-                    raise Forbidden
+        if form.get('form.delete') and (del_userids or del_invitations):
+            self.remove_users(del_userids)
+            self.remove_invitations(del_invitations)
 
-            # now we need to remove the local roles recursively
-            query = dict(path='/'.join(self.context.getPhysicalPath()))
-            for brain in self.context.portal_catalog(query):
-                obj = brain.getObject()
-                obj_local_roles = dict(obj.get_local_roles())
-
-                # do we have to change something?
-                obj_to_delete = tuple(
-                    set(del_userids) & set(obj_local_roles.keys()))
-                if len(obj_to_delete) > 0:
-                    obj.manage_delLocalRoles(userids=obj_to_delete)
-
-            # we need to reindex the object security
-            self.context.reindexObjectSecurity()
             IStatusMessage(self.request).addStatusMessage(_(u"Changes saved."),
-                                                          type='info')
+                                                              type='info')
 
         elif form.get('form.cancel'):
             return self.request.RESPONSE.redirect(self.cancel_url())
 
         return super(ManageParticipants, self).__call__()
+
+    def remove_invitations(self, iids):
+        storage = IInvitationStorage(self.context)
+
+        mtool = getToolByName(self.context, 'portal_membership')
+        member = mtool.getAuthenticatedMember()
+
+        for iid in iids:
+            invitation = storage.get_invitation_by_iid(iid)
+            if invitation is None:
+                continue
+
+            if invitation.inviter != member.getId():
+                raise Forbidden
+
+            storage.remove_invitation(invitation)
+
+    def remove_users(self, userids):
+        deletable = [p['userid'] for p in filter(
+                lambda p: not p['readonly'],
+                self.get_participants())]
+
+        # we should not remove readonly participants (like myself)
+        for userid in userids:
+            if userid not in deletable:
+                raise Forbidden
+
+        # now we need to remove the local roles recursively
+        query = dict(path='/'.join(self.context.getPhysicalPath()))
+        for brain in self.context.portal_catalog(query):
+            obj = brain.getObject()
+            obj_local_roles = dict(obj.get_local_roles())
+
+            # do we have to change something?
+            obj_to_delete = tuple(
+                set(userids) & set(obj_local_roles.keys()))
+            if len(obj_to_delete) > 0:
+                obj.manage_delLocalRoles(userids=obj_to_delete)
+
+        # we need to reindex the object security
+        self.context.reindexObjectSecurity()
 
     def cancel_url(self):
         return self.context.absolute_url()
@@ -104,7 +127,7 @@ class ManageParticipants(BrowserView):
                         roles=get_friendly_role_name(invitation.roles,
                                                      self.request),
                         inviter=invitation.inviter,
-                        readonly=member.getId() == invitation.inviter,
+                        readonly=not member.getId() == invitation.inviter,
                         type_='invitations',
                         iid=invitation.iid)
             invitations.append(item)

@@ -42,7 +42,7 @@
                     <td>
                       <input type="checkbox"
                              tal:condition="id_"
-                             tal:attributes="name string:${type_}:list
+                             tal:attributes="name string:${type_}:list;
                                              value id_;
                                              id string:box_${id_};
                                              disabled item/readonly;" />
@@ -51,10 +51,10 @@
                     <td tal:content="item/name" />
                     <td tal:content="item/roles" />
                     <td tal:content="python:item.get('inviter', '&nbsp;')" />
-                    <td tal:condition="userid" i18n:translate="label_accepted">
+                    <td tal:condition="python:item.get('userid', None)" i18n:translate="label_accepted">
                       Accepted
                     </td>
-                    <td tal:condition="not:userid" i18n:translate="label_pending">
+                    <td tal:condition="python: item.get('iid', None)" i18n:translate="label_pending">
                       Pending
                     </td>
                   </tr>
