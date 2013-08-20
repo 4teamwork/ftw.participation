@@ -78,7 +78,8 @@ class ManageParticipants(BrowserView):
                 name = member.getProperty('fullname', '')
                 item = dict(userid=userid,
                             roles=get_friendly_role_name(roles, self.request),
-                            readonly=userid == authenticated_member.getId())
+                            readonly=userid == authenticated_member.getId(),
+                            type_='userids')
                 if name and email:
                     item['name'] = u'%s (%s)' % (name.decode('utf-8'),
                                                  email.decode('utf-8'))
@@ -93,13 +94,19 @@ class ManageParticipants(BrowserView):
         portal = getToolByName(self.context, 'portal_url').getPortalObject()
         storage = IInvitationStorage(portal)
 
+        mtool = getToolByName(self.context, 'portal_membership')
+        member = mtool.getAuthenticatedMember()
+
         invitations = []
         for invitation in storage.get_invitations_for_context(self.context):
 
             item = dict(name=invitation.email,
                         roles=get_friendly_role_name(invitation.roles,
                                                      self.request),
-                        inviter=invitation.inviter)
+                        inviter=invitation.inviter,
+                        readonly=member.getId() == invitation.inviter,
+                        type_='invitations',
+                        iid=invitation.iid)
             invitations.append(item)
 
         return invitations

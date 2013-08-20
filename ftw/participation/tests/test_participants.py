@@ -43,24 +43,28 @@ class TestParticipation(TestCase):
         expect = [{'name': TEST_USER_ID,
                    'userid': TEST_USER_ID,
                    'readonly': True,
-                   'roles': 'Owner'},
+                   'roles': 'Owner',
+                   'type_': 'userids'},
                   {'name': 'Usera (user@email.com)',
                    'userid': 'usera',
                    'readonly': False,
-                   'roles': u'Can view'}, ]
+                   'roles': u'Can view',
+                   'type_': 'userids'}, ]
 
         self.assertEquals(expect, self.view.get_participants())
 
     def test_get_pending_invitations(self):
-        Invitation(
-            target=self.demo_folder,
-            email='user@email.com',
-            inviter=TEST_USER_NAME,
-            roles=['Reader'])
+        invitation = Invitation(target=self.demo_folder,
+                                email='user@email.com',
+                                inviter=TEST_USER_NAME,
+                                roles=['Reader'])
 
         expect = [dict(name='user@email.com',
                             roles=u'Can view',
-                            inviter=TEST_USER_NAME)]
+                            inviter=invitation.inviter,
+                            type_='invitations',
+                            iid=invitation.iid,
+                            readonly=False)]
 
         self.assertEquals(expect, self.view.get_pending_invitations())
 
@@ -85,3 +89,18 @@ class TestParticipation(TestCase):
             roles=['Reader'])
 
         self.assertTrue(self.view.get_users())
+
+    def test_readonly_user_cannot_remove_itself(self):
+        self.assertTrue(self.view.get_participants()[0]['readonly'],
+                        'The user should not be able to remove itself')
+
+    def test_readonly_if_not_inviter(self):
+        Invitation(
+            target=self.demo_folder,
+            email='user@email.com',
+            inviter='dummyuser',
+            roles=['Reader'])
+
+        self.assertTrue(self.view.get_pending_invitations(),
+                        'It should no be possible to remove invitations if '
+                        'the current user is not the inviter')
