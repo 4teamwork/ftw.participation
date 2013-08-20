@@ -1,6 +1,6 @@
 from ftw.participation.interfaces import IParticipationSupport
 from ftw.participation.invitation import Invitation
-from ftw.participation.tests.layer import FTW_PARTICIPATION_INTEGRARION_TESTING
+from ftw.participation.tests.layer import FTW_PARTICIPATION_INTEGRATION_TESTING
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import TEST_USER_NAME
 from Products.CMFCore.utils import getToolByName
@@ -10,7 +10,7 @@ from zope.interface import alsoProvides
 
 class TestParticipation(TestCase):
 
-    layer = FTW_PARTICIPATION_INTEGRARION_TESTING
+    layer = FTW_PARTICIPATION_INTEGRATION_TESTING
 
     def setUp(self):
         super(TestParticipation, self).setUp()
