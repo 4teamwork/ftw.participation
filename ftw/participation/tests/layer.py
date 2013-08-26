@@ -8,7 +8,6 @@ from plone.app.testing import applyProfile
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import IntegrationTesting
 from plone.app.testing import setRoles, TEST_USER_ID, TEST_USER_NAME, login
-from OFS.Application import AppInitializer
 from Testing.ZopeTestCase.utils import setupCoreSessions
 import transaction
 
@@ -34,8 +33,6 @@ class FtwParticipationLayer(PloneSandboxLayer):
         xmlconfig.file('configure.zcml', ftw.participation,
                        context=configurationContext)
 
-        z2.installProduct(app, 'ftw.participation')
-
         # Invoke SESSION
         setupCoreSessions(app)
         transaction.commit()
@@ -53,5 +50,5 @@ FTW_PARTICIPATION_FIXTURE = FtwParticipationLayer()
 FTW_PARTICIPATION_FUNCTIONAL_TESTING = FunctionalTesting(
     bases=(FTW_PARTICIPATION_FIXTURE,), name="FtwParticipation:Functional")
 
-FTW_PARTICIPATION_INTEGRARION_TESTING = IntegrationTesting(
+FTW_PARTICIPATION_INTEGRATION_TESTING = IntegrationTesting(
     bases=(FTW_PARTICIPATION_FIXTURE,), name="FtwParticipation:Integration")

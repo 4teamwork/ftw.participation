@@ -5,6 +5,9 @@ Changelog
 1.0.7 (unreleased)
 ------------------
 
+- Add possibility to remove pending invitations on participants view.
+  [mathias.leimgruber]
+
 - Fix UnicodeDecodeError in participants listing.
   [mathias.leimgruber]
 
