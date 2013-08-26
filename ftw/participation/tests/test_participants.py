@@ -28,6 +28,8 @@ class TestParticipation(TestCase):
         alsoProvides(self.demo_folder, IParticipationSupport)
 
         self.view = self.demo_folder.restrictedTraverse('@@participants')
+        self.layer['request'].set('ACTUAL_URL', '/'.join((
+                    self.demo_folder.absolute_url(), '@@participants')))
 
     def test_view_available(self):
         self.assertIsNotNone(self.view, 'Participants view is not available')
@@ -191,4 +193,3 @@ class TestParticipation(TestCase):
 
         self.assertEquals(1, len(self.view.get_participants()),
             'Expect one invitation')
-
