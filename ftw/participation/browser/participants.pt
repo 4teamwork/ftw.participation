@@ -37,22 +37,24 @@
 
                 <tal:loop repeat="item view/get_users">
 
-                  <tr tal:define="userid python:item.get('userid', None)">
+                  <tr tal:define="id_ python:item.get('userid', item.get('iid', None));
+                                  type_ item/type_">
                     <td>
-                      <input type="checkbox" name="userids:list"
-                             tal:condition="userid"
-                             tal:attributes="value userid;
-                                             id string:box_${userid};
+                      <input type="checkbox"
+                             tal:condition="id_"
+                             tal:attributes="name string:${type_}:list;
+                                             value id_;
+                                             id string:box_${id_};
                                              disabled item/readonly;" />
 
                     </td>
                     <td tal:content="item/name" />
                     <td tal:content="item/roles" />
                     <td tal:content="python:item.get('inviter', '&nbsp;')" />
-                    <td tal:condition="userid" i18n:translate="label_accepted">
+                    <td tal:condition="python:item.get('userid', None)" i18n:translate="label_accepted">
                       Accepted
                     </td>
-                    <td tal:condition="not:userid" i18n:translate="label_pending">
+                    <td tal:condition="python: item.get('iid', None)" i18n:translate="label_pending">
                       Pending
                     </td>
                   </tr>

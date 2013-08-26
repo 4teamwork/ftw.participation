@@ -6,7 +6,6 @@ maintainer = 'Jonas Baumann'
 
 tests_require = (
     'zope.testing',
-    'ftw.upgrade',
     'collective.testcaselayer',
     'Products.PloneTestCase',
     'plone.app.testing',
@@ -46,6 +45,7 @@ setup(name='ftw.participation',
 
       install_requires=[
         'archetypes.schemaextender',
+        'ftw.upgrade',
         'plone.app.registry',
         'plone.formwidget.autocomplete',
         'plone.principalsource',
