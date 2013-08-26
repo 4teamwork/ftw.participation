@@ -33,8 +33,6 @@ class FtwParticipationLayer(PloneSandboxLayer):
         xmlconfig.file('configure.zcml', ftw.participation,
                        context=configurationContext)
 
-        z2.installProduct(app, 'ftw.participation')
-
         # Invoke SESSION
         setupCoreSessions(app)
         transaction.commit()
