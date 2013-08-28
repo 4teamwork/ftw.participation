@@ -115,6 +115,7 @@ class ManageParticipants(BrowserView):
 
     def get_pending_invitations(self):
         portal = getToolByName(self.context, 'portal_url').getPortalObject()
+        mtool = getToolByName(self.context, 'portal_membership')
         storage = IInvitationStorage(portal)
 
         mtool = getToolByName(self.context, 'portal_membership')
@@ -122,11 +123,16 @@ class ManageParticipants(BrowserView):
 
         invitations = []
         for invitation in storage.get_invitations_for_context(self.context):
+            inviter = mtool.getMemberById(invitation.inviter)
+            if inviter:
+                inviter_name = inviter.getProperty('fullname', invitation.inviter)
+            else:
+                inviter_name = invitation.inviter
 
             item = dict(name=invitation.email,
                         roles=get_friendly_role_name(invitation.roles,
                                                      self.request),
-                        inviter=invitation.inviter,
+                        inviter=inviter_name,
                         readonly=not member.getId() == invitation.inviter,
                         type_='invitations',
                         iid=invitation.iid)
@@ -138,4 +144,3 @@ class ManageParticipants(BrowserView):
         result = self.get_participants() + self.get_pending_invitations()
         result.sort(key=lambda x: x['name'].lower())
         return result
-
