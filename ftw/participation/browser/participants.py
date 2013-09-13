@@ -107,9 +107,9 @@ class ManageParticipants(BrowserView):
                     item['name'] = u'%s (%s)' % (name.decode('utf-8'),
                                                  email.decode('utf-8'))
                 elif name:
-                    item['name'] = name
+                    item['name'] = name.decode('utf-8')
                 else:
-                    item['name'] = userid
+                    item['name'] = userid.decode('utf-8')
                 users.append(item)
         return users
 
