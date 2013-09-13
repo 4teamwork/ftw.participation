@@ -5,7 +5,8 @@ Changelog
 1.1.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix unicode decode error on participants view.
+  [jone]
 
 
 1.1.1 (2013-08-28)
