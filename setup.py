@@ -10,6 +10,8 @@ tests_require = (
     'Products.PloneTestCase',
     'plone.app.testing',
     'zope.globalrequest', # Because of TinyMCE
+    'ftw.builder',
+    'ftw.testing [splinter]',
     )
 
 setup(name='ftw.participation',
