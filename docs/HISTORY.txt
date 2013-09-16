@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.1.2 (unreleased)
+1.1.2 (2013-09-16)
 ------------------
 
 - Fix unicode decode error on participants view.
