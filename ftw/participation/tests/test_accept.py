@@ -11,7 +11,7 @@ from unittest2 import TestCase
 from zope.component import getUtility
 from zope.interface import alsoProvides
 import email
-
+import re
 
 class TestAcceptInvitation(TestCase):
 
@@ -116,3 +116,20 @@ class TestAcceptInvitation(TestCase):
         self.assertItemsEqual(
             ['Contributor'],
             dict(self.folder.get_local_roles()).get('felix.leiter'))
+
+    def test_accept_mail(self):
+        invitation = Invitation(target=self.folder,
+                                email='felix@leiter.com',
+                                inviter='james.bond',
+                                roles=['Reader'])
+
+        view = self.portal.restrictedTraverse('accept_invitation')
+        view(iid=invitation.iid)
+        mail = Mailing(self.portal).pop()
+        self.assertIn('Content-Type: text/plain; charset="utf-8"', mail)
+        self.assertIn('Content-Type: text/html; charset="utf-8"', mail)
+        self.assertIn('Content-Type: text/html; charset="utf-8"', mail)
+        regex = re.compile(r'Subject: =\?utf-?8\?q\?The_Invitation_to_participate_in_Plone_site_was_accepted_by_Lei')
+        match = regex.search(mail)
+        self.assertTrue(match)
+        self.assertIn('To: =?utf-8?q?Bond_James?= <james@bond.com>', mail)

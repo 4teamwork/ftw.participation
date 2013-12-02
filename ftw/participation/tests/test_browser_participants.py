@@ -47,14 +47,16 @@ class TestParticipantsView(TestCase):
                    inviter=fraenzi.getId(),
                    roles=['Reader'])
 
-        transaction.commit()
-
-        Plone().login()
-        ParticipantsView().visit_on(self.folder)
-        self.assertEquals(['ja1-4rgen@ra1-4egsegger.com',
-                           u'M\xfcLler Fr\xe4Nzi (fra-nzi@ma1-4ller.com)',
-                           'test_user_1_'],
-                          ParticipantsView().participant_fullnames)
+        create(Builder('invitation')
+               .inviting(juergen)
+               .to(self.folder)
+               .invited_by(fraenzi))
+        
+        browser.login().visit(self.folder, view='participants')
+        self.assertEquals([u'Doe John (john@doe.com)',
+                           u'jurgen@ruegsegger.com',
+                           u'M\xfcLler Fr\xe4Nzi (franzi@muller.com)'],
+                          participants_view.users_column())
 
     def test_user_with_umlaut_and_no_email_is_working(self):
         fraenzi = create(Builder('user')
