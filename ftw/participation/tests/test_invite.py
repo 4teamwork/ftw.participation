@@ -20,13 +20,14 @@ class TestInviteForm(TestCase):
     layer = FTW_PARTICIPATION_FUNCTIONAL_TESTING
 
     def setUp(self):
-        self.folder = create(Builder('folder'))
+        self.folder = create(Builder('folder').titled('F\xc3\xb6lder'))
         alsoProvides(self.folder, IParticipationSupport)
-        Mailing(self.layer['portal']).set_up()
+        self.portal = self.layer['portal']
+        Mailing(self.portal).set_up()
         transaction.commit()
 
     def tearDown(self):
-        Mailing(self.layer['portal']).tear_down()
+        Mailing(self.portal).tear_down()
 
     @browsing
     def test_multiple_roles_selectable(self, browser):
@@ -45,12 +46,14 @@ class TestInviteForm(TestCase):
 
     @browsing
     def test_inviting_a_user_by_email(self, browser):
+        self.portal.portal_properties.email_from_name = 'M\xc3\xa4i Site'
+        transaction.commit()
         self.assertEquals([], self.get_invitations(email='hugo@boss.com'))
 
         browser.login().visit(self.folder, view='invite_participants')
         browser.fill({'E-Mail Addresses': 'hugo@boss.com',
                       'Roles': ['Contributor'],
-                      'Comment': 'Hi there'})
+                      'Comment': u'Hi th\xf6re'})
         browser.find('Invite').click()
         statusmessages.assert_no_error_messages()
         statusmessages.assert_message(
@@ -60,6 +63,15 @@ class TestInviteForm(TestCase):
                           'Expected one invitation to be available for hugo@boss.com')
         invitation, = self.get_invitations(email='hugo@boss.com')
         self.assertEquals(['Contributor'], invitation.roles)
+        mail = Mailing(self.portal).pop()
+        self.assertIn('From: =?utf-8?q?M=C3=A4i_Site?= <test@localhost>', mail)
+        self.assertIn('To: hugo@boss.com', mail)
+        self.assertIn('Content-Type: text/plain; charset="utf-8"', mail)
+        self.assertIn('Content-Type: text/html; charset="utf-8"', mail)
+        self.assertIn('=?utf-8?q?Invitation_for_paticipating_in_F=C3=B6lder?=',
+                      mail)
+        self.assertIn('Hi th=C3=B6re', mail)
+
 
     @browsing
     def test_query_users(self, browser):
@@ -70,13 +82,14 @@ class TestInviteForm(TestCase):
 
     @browsing
     def test_inviting_a_user_by_userid(self, browser):
-        user = create(Builder('user').named('Hugo', 'Boss'))
+        self.portal.portal_properties.email_from_name = 'M\xc3\xa4i Site'
+        user = create(Builder('user').named('H\xc3\xbcgo', 'Boss'))
         self.assertEquals([], self.get_invitations(user=user))
 
         browser.login().visit(self.folder, view='invite_participants')
         browser.fill({'Users': [user.getId()],
                       'Roles': ['Contributor'],
-                      'Comment': 'Join us'})
+                      'Comment': u'Hi th\xf6re'})
         browser.find('Invite').click()
         statusmessages.assert_no_error_messages()
         statusmessages.assert_message(
@@ -86,6 +99,14 @@ class TestInviteForm(TestCase):
                           'Expected one invitation to be available for hugo@boss.com')
         invitation, = self.get_invitations(email='hugo@boss.com')
         self.assertEquals(['Contributor'], invitation.roles)
+        mail = Mailing(self.portal).pop()
+        self.assertIn('From: =?utf-8?q?M=C3=A4i_Site?= <test@localhost>', mail)
+        self.assertIn('To: hugo@boss.com', mail)
+        self.assertIn('Content-Type: text/plain; charset="utf-8"', mail)
+        self.assertIn('Content-Type: text/html; charset="utf-8"', mail)
+        self.assertIn('=?utf-8?q?Invitation_for_paticipating_in_F=C3=B6lder?=',
+                      mail)
+        self.assertIn('Hi th=C3=B6re', mail)
 
     def get_invitations(self, email=None, user=None):
         assert email or user, '"email" or "user" argument required'

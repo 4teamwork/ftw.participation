@@ -55,6 +55,7 @@ setup(name='ftw.participation',
         'plone.z3cform',
         'setuptools',
         'z3c.form',
+        'ftw.builder',
         ],
 
       tests_require=tests_require,
