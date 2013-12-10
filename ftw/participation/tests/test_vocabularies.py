@@ -1,10 +1,13 @@
 from ftw.participation.interfaces import IParticipationRegistry
 from ftw.participation.tests.layer import FTW_PARTICIPATION_INTEGRATION_TESTING
+from plone.app.workflow.interfaces import ISharingPageRole
 from plone.app.workflow.permissions import DelegateContributorRole
 from plone.registry.interfaces import IRegistry
 from unittest2 import TestCase
+from zope.component import getSiteManager
 from zope.component import getUtility
 from zope.i18nmessageid import Message
+from zope.interface import implements
 from zope.schema.interfaces import IVocabularyFactory
 
 
@@ -12,6 +15,12 @@ def as_dict(vocabulary):
     """Converts a simple vocabulary to a dict, using the tokens as key.
     """
     return dict([(term.token, term.title) for term in vocabulary])
+
+
+class Tester(object):
+    implements(ISharingPageRole)
+
+    title = 'Can test'
 
 
 class TestLocalRolesForDisplay(TestCase):
@@ -57,6 +66,13 @@ class TestLocalRolesForDisplay(TestCase):
         contributor = as_dict(self.factory(self.portal))['Contributor']
         self.assertEquals(Message, type(contributor))
         self.assertEquals('Can add', contributor.default)
+
+    def test_roles_without_permission_are_listed(self):
+        getSiteManager().registerUtility(provided=ISharingPageRole,
+                                         factory=Tester,
+                                         name='Tester')
+        self.assertIn('Tester',
+                      as_dict(self.factory(self.portal)))
 
     @property
     def factory(self):

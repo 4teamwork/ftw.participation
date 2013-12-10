@@ -27,20 +27,29 @@ class LocalRolesForDisplay(object):
         if filter_reader_role and config.allow_multiple_roles:
             role_filter = role_filter + ['Reader']
 
+        roles = []
+        for name, utility in self.get_role_utilities(context, role_filter):
+            roles.append(SimpleTerm(name, name, utility.title))
+
+        roles.sort(lambda x, y: cmp(x.title, y.title))
+        return SimpleVocabulary(roles)
+
+    def get_role_utilities(self, context, exclude):
         context = aq_inner(context)
         portal_membership = getToolByName(context, 'portal_membership')
 
-        roles = []
         for name, utility in getUtilitiesFor(ISharingPageRole):
-            if name not in role_filter:
-                permission = utility.required_permission
-                if permission is None or portal_membership.checkPermission(
-                    permission,
-                    context):
-                    roles.append(
-                        SimpleTerm(name, name, utility.title))
-        # Sort
-        roles.sort(lambda x, y: cmp(x.title, y.title))
-        return SimpleVocabulary(roles)
+            if name in exclude:
+                continue
+
+            permission = getattr(utility, 'required_permission', None)
+            if not permission:
+                allowed = True
+            else:
+                allowed = portal_membership.checkPermission(permission, context)
+
+            if allowed:
+                yield name, utility
+
 
 LocalRolesForDisplayFactory = LocalRolesForDisplay()
