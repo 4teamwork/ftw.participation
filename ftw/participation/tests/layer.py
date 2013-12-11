@@ -34,13 +34,13 @@ class FtwParticipationLayer(PloneSandboxLayer):
     defaultBases = (PLONE_FIXTURE, BUILDER_LAYER)
 
     def setUpZope(self, app, configurationContext):
-        xmlconfig.string(
-            '<configure xmlns="http://namespaces.zope.org/zope">'
-            '  <include package="z3c.autoinclude" file="meta.zcml" />'
-            '  <includePlugins package="plone" />'
-            '  <includePluginsOverrides package="plone" />'
-            '</configure>',
-            context=configurationContext)
+        import ftw.participation
+        xmlconfig.file('configure.zcml', ftw.participation,
+                       context=configurationContext)
+
+        import plone.formwidget.autocomplete
+        xmlconfig.file('configure.zcml', plone.formwidget.autocomplete,
+                       context=configurationContext)
 
         # Invoke SESSION
         setupCoreSessions(app)
