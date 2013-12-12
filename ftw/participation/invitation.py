@@ -1,6 +1,7 @@
-from Products.CMFCore.utils import getToolByName
+from AccessControl.unauthorized import Unauthorized
 from ftw.participation.interfaces import IInvitation, IInvitationStorage
 from persistent import Persistent
+from Products.CMFCore.utils import getToolByName
 from zope.app.component.hooks import getSite
 from zope.interface import implements
 
@@ -42,4 +43,7 @@ class Invitation(Persistent):
             return None
         site = getSite()
         reference_tool = getToolByName(site, 'reference_catalog')
-        return reference_tool.lookupObject(self._target)
+        try:
+            return reference_tool.lookupObject(self._target)
+        except Unauthorized:
+            return None

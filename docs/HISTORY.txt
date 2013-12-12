@@ -2,6 +2,17 @@ Changelog
 =========
 
 
+1.0.3.1 (2012-10-16)
+------------------
+
+- Fix participation-tab.
+  It returns all worspaces with open invitations and tries to lookup
+  the object (workspace). If a user does not have permission to workspace A
+  with open invitations, but with owner permission on workspace B, it will fail
+  if he opens the participation-tab.
+  [elioschmutz]
+
+
 1.0.3 (2012-10-16)
 ------------------
 
