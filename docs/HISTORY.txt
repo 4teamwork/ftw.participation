@@ -2,8 +2,8 @@ Changelog
 =========
 
 
-1.0.3.1 (2012-10-16)
-------------------
+1.0.3.1 (2013-12-16)
+--------------------
 
 - Fix participation-tab.
   It returns all worspaces with open invitations and tries to lookup
