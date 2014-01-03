@@ -11,6 +11,7 @@ tests_require = (
     'plone.app.testing',
     'zope.globalrequest', # Because of TinyMCE
     'ftw.builder',
+    'ftw.testbrowser',
     'ftw.testing [splinter]',
     )
 
