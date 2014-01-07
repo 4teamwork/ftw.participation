@@ -91,8 +91,8 @@ class ManageParticipants(BrowserView):
         """Returns some items for the template. Participants are local_roles..
         """
         mtool = getToolByName(self.context, 'portal_membership')
-        authenticated_member = mtool.getAuthenticatedMember()
         users = []
+
         for userid, roles in self.context.get_local_roles():
             member = mtool.getMemberById(userid)
             # skip groups
@@ -101,7 +101,7 @@ class ManageParticipants(BrowserView):
                 name = member.getProperty('fullname', '')
                 item = dict(userid=userid,
                             roles=get_friendly_role_name(roles, self.request),
-                            readonly=userid == authenticated_member.getId(),
+                            readonly=self.cannot_remove_user(userid),
                             type_='userids')
                 if name and email:
                     item['name'] = u'%s (%s)' % (name.decode('utf-8'),
@@ -112,6 +112,20 @@ class ManageParticipants(BrowserView):
                     item['name'] = userid.decode('utf-8')
                 users.append(item)
         return users
+
+    def cannot_remove_user(self, userid):
+        mtool = getToolByName(self.context, 'portal_membership')
+        user = mtool.getMemberById(userid)
+
+        if not user:
+            return False
+
+        elif 'Owner' in user.getRolesInContext(self.context):
+            return True
+
+        else:
+            authenticated_member = mtool.getAuthenticatedMember()
+            return userid == authenticated_member.getId()
 
     def get_pending_invitations(self):
         portal = getToolByName(self.context, 'portal_url').getPortalObject()

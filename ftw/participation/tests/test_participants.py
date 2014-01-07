@@ -1,3 +1,5 @@
+from ftw.builder import Builder
+from ftw.builder import create
 from ftw.participation.interfaces import IParticipationSupport
 from ftw.participation.invitation import Invitation
 from ftw.participation.tests.layer import FTW_PARTICIPATION_INTEGRATION_TESTING
@@ -100,6 +102,20 @@ class TestParticipation(TestCase):
     def test_readonly_user_cannot_remove_itself(self):
         self.assertTrue(self.view.get_participants()[0]['readonly'],
                         'The user should not be able to remove itself')
+
+    def test_readonly_if_user_is_owner(self):
+        user = create(Builder('user').with_roles('Owner', on=self.demo_folder))
+
+        self.assertTrue(self.view.cannot_remove_user(user.getId()),
+                        'It should not be possible to remove a owner')
+
+    def test_not_readonly_if_only_local_roles_exists_and_no_user(self):
+        userid = 'dummyid'
+        self.demo_folder.manage_setLocalRoles(userid, ['Reader'])
+
+        self.assertFalse(self.view.cannot_remove_user(userid),
+                        'It should be possible to remove local roles if the '
+                        'user does not longer exists')
 
     def test_readonly_if_not_inviter(self):
         Invitation(

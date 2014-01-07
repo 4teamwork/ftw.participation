@@ -5,7 +5,8 @@ Changelog
 1.1.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Owners cannot be removed with the participants view.
+  [mathias.leimgruber]
 
 
 1.1.2 (2013-09-16)
