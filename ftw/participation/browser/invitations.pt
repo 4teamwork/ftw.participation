@@ -20,7 +20,7 @@
           <h2 i18n:translate="headline_received_invitations">Your received invitations</h2>
 
           <tal:NO_RECEIVED_INVITATIONS tal:condition="not:received_invitations">
-            <p class="no-invitations" i18N:translate="text_no_received_invitations">You have no received invitations.</p>
+            <p class="no-invitations" i18n:translate="text_no_received_invitations">You have no received invitations.</p>
           </tal:NO_RECEIVED_INVITATIONS>
 
           <tal:HAS_RECEIVED_INVITATIONS tal:condition="received_invitations">
