@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-08-02 15:45+0000\n"
+"POT-Creation-Date: 2014-01-27 13:14+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,7 +21,7 @@ msgstr ""
 msgid "Accept"
 msgstr ""
 
-#: ./ftw/participation/browser/participants.py:56
+#: ./ftw/participation/browser/participants.py:38
 msgid "Changes saved."
 msgstr ""
 
@@ -75,12 +75,12 @@ msgstr ""
 
 #. Default: "Cancel"
 #: ./ftw/participation/browser/invite.py:258
-#: ./ftw/participation/browser/participants.pt:74
+#: ./ftw/participation/browser/participants.pt:77
 msgid "button_cancel"
 msgstr ""
 
 #. Default: "Delete Participants"
-#: ./ftw/participation/browser/participants.pt:70
+#: ./ftw/participation/browser/participants.pt:73
 msgid "button_delete_participants"
 msgstr ""
 
@@ -160,6 +160,11 @@ msgstr ""
 msgid "help_comment"
 msgstr ""
 
+#. Default: "Allow to pass multiple roles to a invited user."
+#: ./ftw/participation/interfaces.py:35
+msgid "help_multiple_roles"
+msgstr ""
+
 #: ./ftw/participation/quota.py:37
 msgid "help_participation_quota_limit"
 msgstr ""
@@ -229,7 +234,7 @@ msgid "invitation_mail_message"
 msgstr ""
 
 #. Default: "Accepted"
-#: ./ftw/participation/browser/participants.pt:52
+#: ./ftw/participation/browser/participants.pt:54
 msgid "label_accepted"
 msgstr ""
 
@@ -279,7 +284,7 @@ msgid "label_participation_quota_limit"
 msgstr ""
 
 #. Default: "Pending"
-#: ./ftw/participation/browser/participants.pt:55
+#: ./ftw/participation/browser/participants.pt:57
 msgid "label_pending"
 msgstr ""
 
@@ -308,7 +313,8 @@ msgstr ""
 msgid "link_accept_invitation"
 msgstr ""
 
-#: ./ftw/participation/browser/participants.pt:63
+#. Default: "Invite participants"
+#: ./ftw/participation/browser/participants.pt:65
 msgid "link_invite_participants"
 msgstr ""
 

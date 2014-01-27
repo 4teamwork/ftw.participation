@@ -5,6 +5,9 @@ Changelog
 1.1.4 (unreleased)
 ------------------
 
+- Update German translations.
+  [jone]
+
 - Add dexterity support.
   [jone]
 
