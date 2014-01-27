@@ -5,6 +5,9 @@ Changelog
 1.1.4 (unreleased)
 ------------------
 
+- Add French translations.
+  [jone]
+
 - Update German translations.
   [jone]
 
