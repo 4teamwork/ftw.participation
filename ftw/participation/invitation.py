@@ -1,6 +1,7 @@
 from Products.CMFCore.utils import getToolByName
 from ftw.participation.interfaces import IInvitation, IInvitationStorage
 from persistent import Persistent
+from plone.uuid.interfaces import IUUID
 from zope.component.hooks import getSite
 from zope.interface import implements
 
@@ -33,7 +34,7 @@ class Invitation(Persistent):
     def set_target(self, obj):
         """Sets the target to the given `obj`. Internally we store UIDs.
         """
-        self._target = obj.UID()
+        self._target = IUUID(obj)
 
     def get_target(self):
         """Returns the currently stored target or `None`
@@ -41,5 +42,11 @@ class Invitation(Persistent):
         if '_target' not in dir(self):
             return None
         site = getSite()
-        reference_tool = getToolByName(site, 'reference_catalog')
-        return reference_tool.lookupObject(self._target)
+        catalog = getToolByName(site, 'portal_catalog')
+
+        result = catalog.unrestrictedSearchResults(UID=self._target)
+        if len(result) != 1:
+            return None
+        else:
+            brain, = result
+            return site.unrestrictedTraverse(brain.getPath())
