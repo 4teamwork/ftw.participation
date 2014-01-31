@@ -65,6 +65,7 @@
               <a tal:attributes="href string:${here/absolute_url}/@@invite_participants"
                  i18n:attributes="title link_invite_participants"
                  i18n:translate="link_invite_participants"
+                 title="Invite participants"
                  class="button">
                 Invite participants
               </a>

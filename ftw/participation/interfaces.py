@@ -32,7 +32,7 @@ class IParticipationRegistry(Interface):
     allow_multiple_roles = schema.Bool(
         title=_(u'label_multiple_roles',
                 default=u'Allow to give multiple roles'),
-        description=_(u'help_allow_invite_users',
+        description=_(u'help_multiple_roles',
                       default=u'Allow to pass multiple roles to a invited '
                                'user.'),
         default=True)
