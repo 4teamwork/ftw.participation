@@ -8,3 +8,8 @@ def table():
 
 def users_column():
     return map(itemgetter('User'), table())
+
+
+def checkboxes_visible():
+    form = browser.forms['manage-participants']
+    return 'userids:list' in form.values.keys()

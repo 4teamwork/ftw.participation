@@ -8,7 +8,8 @@
 
   <body>
     <div metal:fill-slot="main">
-      <metal:main-macro define-macro="main">
+      <metal:main-macro define-macro="main"
+                        tal:define="can_manage view/can_manage">
 
         <h1 i18n:translate="headline_participants" class="documentFirstHeading">
           Participants of
@@ -24,12 +25,13 @@
 
 
             <form action="" method="post"
-                  tal:attributes="action form_action|string:${here/absolute_url}/@@participants">
+                  tal:attributes="action form_action|string:${here/absolute_url}/@@participants"
+                  name="manage-participants">
 
               <table class="listing">
                   <thead>
                       <tr>
-                          <th>&nbsp;</th>
+                          <th tal:condition="can_manage">&nbsp;</th>
                           <th i18n:translate="label_user">User</th>
                           <th i18n:translate="label_local_roles">Roles</th>
                           <th i18n:translate="label_invited_by">Invited by</th>
@@ -42,7 +44,7 @@
 
                           <tr tal:define="id_ python:item.get('userid', item.get('iid', None));
                                           type_ item/type_">
-                              <td>
+                              <td tal:condition="can_manage">
                                   <input type="checkbox"
                                          tal:condition="id_"
                                          tal:attributes="name string:${type_}:list;
@@ -70,13 +72,15 @@
                  i18n:attributes="title link_invite_participants"
                  i18n:translate="link_invite_participants"
                  title="Invite participants"
+                 tal:condition="can_manage"
                  class="button">
                 Invite participants
               </a>
 
               <input type="submit" name="form.delete" value="Delete Participants"
                      class="destructive"
-                     i18n:attributes="value button_delete_participants" />
+                     i18n:attributes="value button_delete_participants"
+                     tal:condition="can_manage" />
 
               <input type="submit" name="form.cancel" value="Cancel"
                      i18n:attributes="value button_cancel"

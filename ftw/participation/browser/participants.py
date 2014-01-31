@@ -1,9 +1,10 @@
-from ftw.participation import _
-from ftw.participation.interfaces import IInvitationStorage
-from plone.app.workflow.interfaces import ISharingPageRole
+from AccessControl import getSecurityManager
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
+from ftw.participation import _
+from ftw.participation.interfaces import IInvitationStorage
+from plone.app.workflow.interfaces import ISharingPageRole
 from zExceptions import Forbidden
 from zope.component import queryUtility
 from zope.i18n import translate
@@ -43,7 +44,18 @@ class ManageParticipants(BrowserView):
 
         return super(ManageParticipants, self).__call__()
 
+    def can_manage(self):
+        sm = getSecurityManager()
+        return sm.checkPermission('Sharing page: Delegate roles',
+                                  self.context)
+
+    def require_manage(self):
+        if not self.can_manage():
+            raise Forbidden
+
     def remove_invitations(self, iids):
+        self.require_manage()
+
         storage = IInvitationStorage(self.context)
 
         mtool = getToolByName(self.context, 'portal_membership')
@@ -60,6 +72,8 @@ class ManageParticipants(BrowserView):
             storage.remove_invitation(invitation)
 
     def remove_users(self, userids):
+        self.require_manage()
+
         deletable = [p['userid'] for p in filter(
                 lambda p: not p['readonly'],
                 self.get_participants())]
@@ -114,6 +128,9 @@ class ManageParticipants(BrowserView):
         return users
 
     def cannot_remove_user(self, userid):
+        if not self.can_manage():
+            return True
+
         mtool = getToolByName(self.context, 'portal_membership')
         user = mtool.getMemberById(userid)
 

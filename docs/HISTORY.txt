@@ -5,6 +5,13 @@ Changelog
 1.1.4 (unreleased)
 ------------------
 
+- Make participants view available for normal users.
+  The view removes the management UI (invite / remove participants) when
+  the user has not enough privileges.
+  The link to the participants view is still protected, a link can be placed
+  on integration level when needed.
+  [jone]
+
 - Add French and English translations.
   [jone]
 

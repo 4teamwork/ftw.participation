@@ -8,6 +8,7 @@ from ftw.testbrowser.pages import plone
 from ftw.testing.mailing import Mailing
 from plone.app.testing import login
 from unittest2 import TestCase
+from zExceptions import Forbidden
 import transaction
 
 
@@ -122,3 +123,62 @@ class TestParticipantsView(TestCase):
         browser.login().visit(self.folder, view='participants')
         browser.find('Cancel').click()
         self.assertRegexpMatches(browser.url, r'/the-folder$')
+
+    @browsing
+    def test_checkboxes_only_visible_for_privileged_users(self, browser):
+        browser.login(self.john.getId()).visit(self.folder,
+                                               view='participants')
+        self.assertTrue(participants_view.checkboxes_visible())
+
+        hugo = create(Builder('user')
+                      .named('Hugo', 'Boss')
+                      .with_roles('Reader', on=self.folder))
+        browser.login(hugo.getId()).visit(self.folder, view='participants')
+        self.assertFalse(participants_view.checkboxes_visible())
+
+    @browsing
+    def test_delete_button_only_visible_for_privileged_users(self, browser):
+        browser.login(self.john.getId()).visit(self.folder,
+                                               view='participants')
+        self.assertTrue(browser.find('Delete Participants'))
+
+        hugo = create(Builder('user')
+                      .named('Hugo', 'Boss')
+                      .with_roles('Reader', on=self.folder))
+        browser.login(hugo.getId()).visit(self.folder, view='participants')
+        self.assertFalse(browser.find('Delete Participants'))
+
+    @browsing
+    def test_invite_link_only_visible_for_privileged_users(self, browser):
+        browser.login(self.john.getId()).visit(self.folder,
+                                               view='participants')
+        self.assertTrue(browser.find('Invite participants'))
+
+        hugo = create(Builder('user')
+                      .named('Hugo', 'Boss')
+                      .with_roles('Reader', on=self.folder))
+        browser.login(hugo.getId()).visit(self.folder, view='participants')
+        self.assertFalse(browser.find('Invite participants'))
+
+    @browsing
+    def test_unprivileged_users_cannot_delete_participants(self, browser):
+        # This is a security test.
+        # Since normal users do not see the UI for deletion, we use a
+        # privileged user for renering the UI and switch to a non-privileged
+        # user for sending the delete request.
+
+        jane = create(Builder('user')
+                      .named('Jane', 'Doe')
+                      .with_roles('Reader', on=self.folder))
+
+        hugo = create(Builder('user')
+                      .named('Hugo', 'Boss')
+                      .with_roles('Reader', on=self.folder))
+
+        browser.login(self.john.getId()).visit(self.folder,
+                                               view='participants')
+        browser.fill({'userids:list': [jane.getId()]})
+        browser.login(hugo.getId())
+
+        with self.assertRaises(Forbidden):
+            browser.find('Delete Participants').click()
