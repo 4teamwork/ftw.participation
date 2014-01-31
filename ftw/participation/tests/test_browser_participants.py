@@ -1,4 +1,3 @@
-from ftw.participation.interfaces import IInvitationStorage
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.participation.interfaces import IParticipationSupport

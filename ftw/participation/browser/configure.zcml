@@ -3,114 +3,114 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="ftw.participation">
 
-  <!-- resource directory -->
-  <browser:resourceDirectory
-      name="ftw.participation"
-      directory="resources"
-      layer="ftw.participation.interfaces.IParticipationBrowserLayer"
-      />
+    <!-- resource directory -->
+    <browser:resourceDirectory
+        name="ftw.participation"
+        directory="resources"
+        layer="ftw.participation.interfaces.IParticipationBrowserLayer"
+        />
 
 
-  <include package="plone.app.workflow" />
-  <!-- pages -->
-  <browser:page
-      for="ftw.participation.interfaces.IParticipationSupport"
-      name="invite_participants"
-      class=".invite.InviteParticipantsView"
-      permission="plone.DelegateRoles"
-      />
+    <include package="plone.app.workflow" />
+    <!-- pages -->
+    <browser:page
+        for="ftw.participation.interfaces.IParticipationSupport"
+        name="invite_participants"
+        class=".invite.InviteParticipantsView"
+        permission="plone.DelegateRoles"
+        />
 
-  <browser:page
-      for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
-      name="invitations"
-      class=".invitations.InvitationsView"
-      permission="zope2.View"
-      />
+    <browser:page
+        for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
+        name="invitations"
+        class=".invitations.InvitationsView"
+        permission="zope2.View"
+        />
 
-  <browser:page
-      for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
-      name="welcome_invited"
-      class=".welcome.WelcomeInvitedView"
-      permission="zope2.View"
-      />
+    <browser:page
+        for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
+        name="welcome_invited"
+        class=".welcome.WelcomeInvitedView"
+        permission="zope2.View"
+        />
 
-  <browser:page
-      for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
-      name="accept_invitation"
-      class=".accept.AcceptInvitation"
-      permission="zope2.View"
-      />
+    <browser:page
+        for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
+        name="accept_invitation"
+        class=".accept.AcceptInvitation"
+        permission="zope2.View"
+        />
 
-  <browser:page
-      for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
-      name="reject_invitation"
-      class=".reject.RejectInvitation"
-      permission="zope2.View"
-      />
+    <browser:page
+        for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
+        name="reject_invitation"
+        class=".reject.RejectInvitation"
+        permission="zope2.View"
+        />
 
-  <browser:page
-      for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
-      name="retract_invitation"
-      class=".retract.RetractInvitation"
-      permission="zope2.View"
-      />
+    <browser:page
+        for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
+        name="retract_invitation"
+        class=".retract.RetractInvitation"
+        permission="zope2.View"
+        />
 
-  <browser:page
-      for="*"
-      name="participation_active"
-      class=".active.ParticipationActive"
-      permission="zope2.View"
-      />
+    <browser:page
+        for="*"
+        name="participation_active"
+        class=".active.ParticipationActive"
+        permission="zope2.View"
+        />
 
-  <browser:page
-      for="ftw.participation.interfaces.IParticipationSupport"
-      name="participants"
-      class=".participants.ManageParticipants"
-      permission="zope2.View"
-      template="participants.pt"
-      />
+    <browser:page
+        for="ftw.participation.interfaces.IParticipationSupport"
+        name="participants"
+        class=".participants.ManageParticipants"
+        permission="zope2.View"
+        template="participants.pt"
+        />
 
-  <!-- mail templates -->
-  <browser:page
-      for="ftw.participation.interfaces.IParticipationSupport"
-      name="invitation_mail_html"
-      permission="zope2.View"
-      template="mail_templates/invitation_mail_html.pt"
-      />
+    <!-- mail templates -->
+    <browser:page
+        for="ftw.participation.interfaces.IParticipationSupport"
+        name="invitation_mail_html"
+        permission="zope2.View"
+        template="mail_templates/invitation_mail_html.pt"
+        />
 
-  <browser:page
-      for="ftw.participation.interfaces.IParticipationSupport"
-      name="invitation_mail_text"
-      permission="zope2.View"
-      template="mail_templates/invitation_mail_text.pt"
-      />
+    <browser:page
+        for="ftw.participation.interfaces.IParticipationSupport"
+        name="invitation_mail_text"
+        permission="zope2.View"
+        template="mail_templates/invitation_mail_text.pt"
+        />
 
-  <browser:page
-      for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
-      name="invitation_accepted_mail_html"
-      permission="zope2.View"
-      template="mail_templates/invitation_accepted_mail_html.pt"
-      />
+    <browser:page
+        for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
+        name="invitation_accepted_mail_html"
+        permission="zope2.View"
+        template="mail_templates/invitation_accepted_mail_html.pt"
+        />
 
-  <browser:page
-      for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
-      name="invitation_accepted_mail_text"
-      permission="zope2.View"
-      template="mail_templates/invitation_accepted_mail_text.pt"
-      />
+    <browser:page
+        for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
+        name="invitation_accepted_mail_text"
+        permission="zope2.View"
+        template="mail_templates/invitation_accepted_mail_text.pt"
+        />
 
-  <browser:page
-      for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
-      name="invitation_rejected_mail_html"
-      permission="zope2.View"
-      template="mail_templates/invitation_rejected_mail_html.pt"
-      />
+    <browser:page
+        for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
+        name="invitation_rejected_mail_html"
+        permission="zope2.View"
+        template="mail_templates/invitation_rejected_mail_html.pt"
+        />
 
-  <browser:page
-      for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
-      name="invitation_rejected_mail_text"
-      permission="zope2.View"
-      template="mail_templates/invitation_rejected_mail_text.pt"
-      />
+    <browser:page
+        for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
+        name="invitation_rejected_mail_text"
+        permission="zope2.View"
+        template="mail_templates/invitation_rejected_mail_text.pt"
+        />
 
 </configure>

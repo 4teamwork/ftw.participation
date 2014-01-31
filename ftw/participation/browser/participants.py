@@ -139,7 +139,8 @@ class ManageParticipants(BrowserView):
         for invitation in storage.get_invitations_for_context(self.context):
             inviter = mtool.getMemberById(invitation.inviter)
             if inviter:
-                inviter_name = inviter.getProperty('fullname', invitation.inviter)
+                inviter_name = inviter.getProperty('fullname',
+                                                   invitation.inviter)
             else:
                 inviter_name = invitation.inviter
 

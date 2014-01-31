@@ -78,4 +78,3 @@ class ParticipationQuotaHelper(object):
         """Returns True if the participation quota is reached.
         """
         return self.allowed_number_of_invitations() > 0
-        

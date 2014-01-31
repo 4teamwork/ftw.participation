@@ -13,7 +13,6 @@ from zope.component import getMultiAdapter, getUtility
 from zope.i18n import translate
 
 
-
 class AcceptInvitation(BrowserView):
     """Accept a invitation. This either called directly from the browser (with
     a url like .../@@accept_invitations?iid=XXX) or through the invitations
@@ -63,8 +62,6 @@ class AcceptInvitation(BrowserView):
             IStatusMessage(self.request).addStatusMessage(msg, type='error')
             raise Redirect(self.context.portal_url())
 
-
-
     def set_participation(self):
         """Sets up participation up.
         """
@@ -109,10 +106,13 @@ class AcceptInvitation(BrowserView):
         options = {
             'invitation': self.invitation,
             'inviter': to_member,
-            'inviter_name': to_member.getProperty('fullname', to_member.getId()),
+            'inviter_name': to_member.getProperty('fullname',
+                                                  to_member.getId()),
             'invited': self.member,
-            'invited_name': self.member.getProperty('fullname', self.member.getId()),
-            'invited_email': self.member.getProperty('email', self.member.getId()),
+            'invited_name': self.member.getProperty('fullname',
+                                                    self.member.getId()),
+            'invited_email': self.member.getProperty('email',
+                                                     self.member.getId()),
             'target': self.target,
             }
 
@@ -134,26 +134,30 @@ class AcceptInvitation(BrowserView):
 
         # send the email
         mh = getToolByName(self.context, 'MailHost')
-        mh.send(msg, mto=to_member.getProperty('email'), mfrom=from_str.decode('utf8').encode('windows-1252'))
+        mh.send(msg, mto=to_member.getProperty('email'),
+                mfrom=from_str.decode('utf8').encode('windows-1252'))
 
     def get_mail_body_html_view(self):
-        return self.context.unrestrictedTraverse('@@invitation_accepted_mail_html')
+        return self.context.unrestrictedTraverse(
+            '@@invitation_accepted_mail_html')
 
     def get_mail_body_text_view(self):
-        return self.context.unrestrictedTraverse('@@invitation_accepted_mail_text')
+        return self.context.unrestrictedTraverse(
+            '@@invitation_accepted_mail_text')
 
     def get_subject(self):
         """Returns the translated subject of the email.
         """
         member = getToolByName(self.context,
                                'portal_membership').getAuthenticatedMember()
-        fullname = member.getProperty('fullname', member.getId()).decode('utf-8')
+        fullname = member.getProperty('fullname',
+                                      member.getId()).decode('utf-8')
         context_title = self.context.pretty_title_or_id().decode('utf-8')
         # -- i18ndude hint --
         if 0:
             _(u'mail_invitation_accepted_subject',
-              default=u'The Invitation to participate in ${title} ' +\
-                  u'was accepted by ${user}',
+              default=u'The Invitation to participate in ${title} '
+              u'was accepted by ${user}',
               mapping=dict(title=context_title,
                            user=fullname))
         # / -- i18ndude hint --
@@ -161,7 +165,7 @@ class AcceptInvitation(BrowserView):
         return translate(u'mail_invitation_accepted_subject',
                          domain='ftw.participation',
                          context=self.request,
-                         default=u'The Invitation to participate in ${title} ' +\
-                             u'was accepted by ${user}',
+                         default=u'The Invitation to participate in ${title} '
+                         u'was accepted by ${user}',
                          mapping=dict(title=context_title,
                                       user=fullname))

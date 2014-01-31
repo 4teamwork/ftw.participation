@@ -46,7 +46,8 @@ class LocalRolesForDisplay(object):
             if not permission:
                 allowed = True
             else:
-                allowed = portal_membership.checkPermission(permission, context)
+                allowed = portal_membership.checkPermission(
+                    permission, context)
 
             if allowed:
                 yield name, utility

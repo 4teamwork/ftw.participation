@@ -2,7 +2,6 @@ from ftw.participation.tests.layer import FTW_PARTICIPATION_FUNCTIONAL_TESTING
 from ftw.participation.tests.layer import TEST_USER_ID_2, TEST_USER_PW_2
 from plone.testing.z2 import Browser
 from unittest2 import TestCase
-from ftw.participation.interfaces import IInvitationStorage
 from ftw.participation.invitation import Invitation
 import transaction
 

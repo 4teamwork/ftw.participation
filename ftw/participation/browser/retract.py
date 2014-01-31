@@ -41,9 +41,9 @@ class RetractInvitation(AcceptInvitation):
         # sanity check
         mtool = getToolByName(self.context, 'portal_membership')
         self.member = mtool.getAuthenticatedMember()
-        if not self.invitation or self.invitation.inviter != self.member.getId():
+        if not self.invitation \
+                or self.invitation.inviter != self.member.getId():
             msg = _(u'error_invitation_not_found',
                     default=u'Could not find the invitation.')
             IStatusMessage(self.request).addStatusMessage(msg, type='error')
             raise Redirect(self.context.portal_url())
-

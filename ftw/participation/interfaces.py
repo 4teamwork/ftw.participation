@@ -38,7 +38,6 @@ class IParticipationRegistry(Interface):
         default=True)
 
 
-
 class IInvitation(Interface):
     """Marker interface for invitations
     """
@@ -73,6 +72,7 @@ class IParticipationQuotaSupport(Interface):
     the schema.
 
     """
+
 
 class IParticipationQuotaHelper(Interface):
     """Helper adapter for the participation quota.

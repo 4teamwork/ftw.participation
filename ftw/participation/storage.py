@@ -106,7 +106,7 @@ class InvitationStorage(object):
         `default` is returend.
         """
         # guess the email if its `None`
-        if email == None:
+        if email is None:
             mtool = getToolByName(self.context, 'portal_membership')
             member = mtool.getAuthenticatedMember()
             email = member.getProperty('email', member.getId())
@@ -125,7 +125,7 @@ class InvitationStorage(object):
         is returned.
         """
         # guess the `userid` if its `None`
-        if userid == None:
+        if userid is None:
             mtool = getToolByName(self.context, 'portal_membership')
             member = mtool.getAuthenticatedMember()
             userid = member.getId()
@@ -185,7 +185,7 @@ class InvitationStorage(object):
         details.
         """
         # guess the email, if it's not defined
-        if email == None:
+        if email is None:
             mtool = getToolByName(self.context, 'portal_membership')
             member = mtool.getAuthenticatedMember()
             if member == AccessControl.SpecialUsers.nobody:

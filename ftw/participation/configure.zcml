@@ -6,49 +6,49 @@
     xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="ftw.participation">
 
-  <!-- include dependencies -->
-  <include package="plone.browserlayer" />
-  <include package="archetypes.schemaextender" />
+    <!-- include dependencies -->
+    <include package="plone.browserlayer" />
+    <include package="archetypes.schemaextender" />
 
-  <!-- auto include -->
-  <include package="z3c.autoinclude" file="meta.zcml" />
-  <includeDependencies package="." />
-
-
-  <!-- include sub module zcmls -->
-  <include package=".browser" />
-
-  <include package=".upgrades" />
-
-  <!-- register translations -->
-  <i18n:registerTranslations directory="locales" />
+    <!-- auto include -->
+    <include package="z3c.autoinclude" file="meta.zcml" />
+    <includeDependencies package="." />
 
 
-  <!-- Register the installation GenericSetup extension profile -->
-  <genericsetup:registerProfile
-      name="default"
-      title="ftw.participation"
-      directory="profiles/default"
-      description="Participation and invitation support"
-      provides="Products.GenericSetup.interfaces.EXTENSION"
-      />
+    <!-- include sub module zcmls -->
+    <include package=".browser" />
 
-  <!-- register adapters -->
-  <adapter factory=".storage.InvitationStorage" />
-  <adapter factory=".setter.DefaultParticipationSetter" />
-  <adapter factory=".quota.ParticipationQuotaExtender" />
-  <adapter factory=".quota.ParticipationQuotaHelper" />
+    <include package=".upgrades" />
 
-  <utility
-      provides="zope.schema.interfaces.IVocabularyFactory"
-      component=".source.ParticipationUsersFactory"
-      name="ftw.participation.users"
-      />
+    <!-- register translations -->
+    <i18n:registerTranslations directory="locales" />
 
-  <utility component=".vocabularies.LocalRolesForDisplayFactory"
-           name="ftw.participation.roles"
-           provides="zope.schema.interfaces.IVocabularyFactory"
-           />
+
+    <!-- Register the installation GenericSetup extension profile -->
+    <genericsetup:registerProfile
+        name="default"
+        title="ftw.participation"
+        directory="profiles/default"
+        description="Participation and invitation support"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+
+    <!-- register adapters -->
+    <adapter factory=".storage.InvitationStorage" />
+    <adapter factory=".setter.DefaultParticipationSetter" />
+    <adapter factory=".quota.ParticipationQuotaExtender" />
+    <adapter factory=".quota.ParticipationQuotaHelper" />
+
+    <utility
+        provides="zope.schema.interfaces.IVocabularyFactory"
+        component=".source.ParticipationUsersFactory"
+        name="ftw.participation.users"
+        />
+
+    <utility component=".vocabularies.LocalRolesForDisplayFactory"
+             name="ftw.participation.roles"
+             provides="zope.schema.interfaces.IVocabularyFactory"
+             />
 
 
 </configure>

@@ -65,17 +65,20 @@ class InvitationsView(BrowserView):
                 # handle accepted invitations
                 if self.request.get('accept', False):
                     for iid in self.request.get('received_invitations', []):
-                        self.context.unrestrictedTraverse('@@accept_invitation')(iid)
+                        self.context.unrestrictedTraverse(
+                            '@@accept_invitation')(iid)
 
                 # handle rejected invitations
                 if self.request.get('reject', False):
                     for iid in self.request.get('received_invitations', []):
-                        self.context.unrestrictedTraverse('@@reject_invitation')(iid)
+                        self.context.unrestrictedTraverse(
+                            '@@reject_invitation')(iid)
 
                 # hande reetracted invitations
                 if self.request.get('retract', False):
                     for iid in self.request.get('sent_invitations', []):
-                        self.context.unrestrictedTraverse('@@retract_invitation')(iid)
+                        self.context.unrestrictedTraverse(
+                            '@@retract_invitation')(iid)
 
         return self.template()
 

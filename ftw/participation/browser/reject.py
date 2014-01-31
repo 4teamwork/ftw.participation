@@ -37,12 +37,13 @@ class RejectInvitation(AcceptInvitation):
                                             '@@invitations'))
         return self.request.RESPONSE.redirect(url)
 
-    
     def get_mail_body_html_view(self):
-        return self.context.unrestrictedTraverse('@@invitation_rejected_mail_html')
+        return self.context.unrestrictedTraverse(
+            '@@invitation_rejected_mail_html')
 
     def get_mail_body_text_view(self):
-        return self.context.unrestrictedTraverse('@@invitation_rejected_mail_text')
+        return self.context.unrestrictedTraverse(
+            '@@invitation_rejected_mail_text')
 
     def get_subject(self):
         """Returns the translated subject of the email.
@@ -55,8 +56,8 @@ class RejectInvitation(AcceptInvitation):
         # -- i18ndude hint --
         if 0:
             _(u'mail_invitation_rejected_subject',
-              default=u'The Invitation to participate in ${title} ' +\
-                  u'was rejected by ${user}',
+              default=u'The Invitation to participate in ${title} '
+              u'was rejected by ${user}',
               mapping=dict(title=context_title,
                            user=fullname))
         # / -- i18ndude hint --
@@ -64,8 +65,7 @@ class RejectInvitation(AcceptInvitation):
         return translate(u'mail_invitation_rejected_subject',
                          domain='ftw.participation',
                          context=self.request,
-                         default=u'The Invitation to participate in ${title} ' +\
-                             u'was rejected by ${user}',
+                         default=u'The Invitation to participate in ${title} '
+                         u'was rejected by ${user}',
                          mapping=dict(title=context_title,
                                       user=fullname))
-
