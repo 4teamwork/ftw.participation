@@ -5,13 +5,14 @@ from collective.testcaselayer import ptc as tcl_ptc
 from ftw.builder.testing import BUILDER_LAYER
 from ftw.builder.testing import functional_session_factory
 from ftw.builder.testing import set_builder_session_factory
-from ftw.testing import FunctionalSplinterTesting
+from plone.app.testing import FunctionalTesting
 from plone.app.testing import IntegrationTesting
 from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import PloneSandboxLayer
 from plone.app.testing import applyProfile
 from plone.app.testing import setRoles, TEST_USER_ID, TEST_USER_NAME, login
 from zope.configuration import xmlconfig
+import ftw.participation.tests.builders
 import transaction
 
 
@@ -60,7 +61,7 @@ FTW_PARTICIPATION_FIXTURE = FtwParticipationLayer()
 FTW_PARTICIPATION_INTEGRATION_TESTING = IntegrationTesting(
     bases=(FTW_PARTICIPATION_FIXTURE,), name="FtwParticipation:Integration")
 
-FTW_PARTICIPATION_FUNCTIONAL_TESTING = FunctionalSplinterTesting(
+FTW_PARTICIPATION_FUNCTIONAL_TESTING = FunctionalTesting(
     bases=(FTW_PARTICIPATION_FIXTURE,
            set_builder_session_factory(functional_session_factory)),
     name="FtwParticipation:Functional")
