@@ -1,11 +1,12 @@
-from plone.app.testing import login
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.participation.interfaces import IParticipationSupport
 from ftw.participation.tests.layer import FTW_PARTICIPATION_FUNCTIONAL_TESTING
 from ftw.participation.tests.pages import participants_view
 from ftw.testbrowser import browsing
+from ftw.testbrowser.pages import plone
 from ftw.testing.mailing import Mailing
+from plone.app.testing import login
 from unittest2 import TestCase
 import transaction
 
@@ -22,6 +23,7 @@ class TestParticipantsView(TestCase):
 
         login(self.layer['portal'], self.john.getId())
         self.folder = create(Builder('folder')
+                             .titled('The Folder')
                              .providing(IParticipationSupport))
 
     def tearDown(self):
@@ -92,3 +94,31 @@ class TestParticipantsView(TestCase):
         self.assertEquals([u'Doe John (john@doe.com)',
                            u'M\xfcLler Fr\xe4Nzi'],
                           participants_view.users_column())
+
+    @browsing
+    def test_owner_can_remove_participants(self, browser):
+        hugo = create(Builder('user')
+                      .named('Hugo', 'Boss')
+                      .with_roles('Reader', on=self.folder))
+        hugos_name = u'Boss Hugo (hugo@boss.com)'
+
+        browser.login(self.john.getId()).visit(self.folder,
+                                               view='participants')
+        self.assertIn(hugos_name, participants_view.users_column())
+
+        browser.fill({'userids:list': [hugo.getId()]})
+        browser.find('Delete Participants').click()
+        self.assertNotIn(hugos_name, participants_view.users_column())
+
+    @browsing
+    def test_owner_can_invite_new_users(self, browser):
+        browser.login(self.john.getId()).visit(self.folder,
+                                               view='participants')
+        browser.find('Invite participants').click()
+        self.assertEquals('invite_participants', plone.view())
+
+    @browsing
+    def test_cancel_redirects_to_default_view(self, browser):
+        browser.login().visit(self.folder, view='participants')
+        browser.find('Cancel').click()
+        self.assertRegexpMatches(browser.url, r'/the-folder$')
