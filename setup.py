@@ -12,7 +12,7 @@ tests_require = (
     'zope.globalrequest', # Because of TinyMCE
     'ftw.builder',
     'ftw.testbrowser',
-    'ftw.testing [splinter]',
+    'ftw.testing',
     )
 
 setup(name='ftw.participation',
