@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.1.4 (unreleased)
+1.2.0 (2014-02-03)
 ------------------
 
 - Make participants view available for normal users.
