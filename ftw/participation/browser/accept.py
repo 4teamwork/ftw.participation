@@ -77,10 +77,8 @@ class AcceptInvitation(BrowserView):
         properties = getUtility(IPropertiesTool)
         mtool = getToolByName(self.context, 'portal_membership')
         # prepare from address for header
-        from_str = properties.email_from_name
-        if isinstance(from_str, unicode):
-            from_str = from_str.encode('utf8')
-        from_str += ' <%s>' % properties.email_from_address
+        from_str = Header(properties.email_from_name, 'utf-8')
+        from_str.append('<%s>' % properties.email_from_address)
 
         # To
         to_member = mtool.getMemberById(self.invitation.inviter)
@@ -93,16 +91,16 @@ class AcceptInvitation(BrowserView):
         to_str = to_member.getProperty('fullname', to_member.getId())
         if isinstance(to_str, unicode):
             to_str = to_str.encode('utf8')
-        to_str += ' <%s>' % to_member.getProperty('email')
-        header_to = Header(to_str.decode('utf8'), 'windows-1252')
-
+        header_to = Header(to_str, 'utf-8')
+        header_to.append(u'<%s>' % to_member.getProperty(
+                'email').decode('utf-8'))
         # Subject
         subject = self.get_subject()
         if isinstance(subject, unicode):
             subject = subject.encode('utf8')
-        header_subject = Header(subject.decode('utf8'), 'windows-1252')
+        header_subject = Header(subject, 'utf8')
 
-        # Options for template
+        # Options for templated
         options = {
             'invitation': self.invitation,
             'inviter': to_member,
@@ -119,23 +117,21 @@ class AcceptInvitation(BrowserView):
         # make the mail
         msg = MIMEMultipart('alternative')
         msg['Subject'] = header_subject
-        #msg['From'] = header_from
-        msg['To'] = header_to
-
+        msg['From'] = str(from_str)
+        msg['To'] = str(header_to)
         # get the body views
         html_view = self.get_mail_body_html_view()
         text_view = self.get_mail_body_text_view()
 
         # render and emmbed body
-        text_body = text_view(**options).encode('windows-1252')
-        msg.attach(MIMEText(text_body, 'plain', 'windows-1252'))
-        html_body = html_view(**options).encode('windows-1252')
-        msg.attach(MIMEText(html_body, 'html', 'windows-1252'))
+        text_body = text_view(**options).encode('utf-8')
+        msg.attach(MIMEText(text_body, 'plain', 'utf-8'))
+        html_body = html_view(**options).encode('utf-8')
+        msg.attach(MIMEText(html_body, 'html', 'utf-8'))
 
         # send the email
         mh = getToolByName(self.context, 'MailHost')
-        mh.send(msg, mto=to_member.getProperty('email'),
-                mfrom=from_str.decode('utf8').encode('windows-1252'))
+        mh.send(msg)
 
     def get_mail_body_html_view(self):
         return self.context.unrestrictedTraverse(

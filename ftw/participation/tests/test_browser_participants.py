@@ -76,7 +76,7 @@ class TestParticipantsView(TestCase):
                .inviting(juergen)
                .to(self.folder)
                .invited_by(fraenzi))
-
+        
         browser.login().visit(self.folder, view='participants')
         self.assertEquals([u'Doe John (john@doe.com)',
                            u'jurgen@ruegsegger.com',
