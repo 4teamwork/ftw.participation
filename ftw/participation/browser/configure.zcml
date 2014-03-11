@@ -70,6 +70,13 @@
         template="participants.pt"
         />
 
+    <browser:page
+        for="ftw.participation.interfaces.IParticipationSupport"
+        name="change_roles"
+        class=".changeroles.ChangeRolesForm"
+        permission="plone.DelegateRoles"
+        />
+
     <!-- mail templates -->
     <browser:page
         for="ftw.participation.interfaces.IParticipationSupport"

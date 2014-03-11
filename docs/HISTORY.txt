@@ -5,8 +5,12 @@ Changelog
 1.2.2 (unreleased)
 ------------------
 
+- Add possibility to change the roles thru the participants view.
+  [mathias.leimgruber]
+
 - Fix view-registrations if accessing e.g. on subsites.
   [elioschmutz]
+
 
 1.2.1 (2014-02-10)
 ------------------
