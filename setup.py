@@ -14,6 +14,7 @@ tests_require = (
     'ftw.testbrowser',
     'ftw.testing',
     'ftw.builder',
+    'ftw.tabbedview',
     )
 
 setup(name='ftw.participation',

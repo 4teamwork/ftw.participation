@@ -1,6 +1,7 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="ftw.participation">
 
     <!-- resource directory -->
@@ -67,7 +68,6 @@
         name="participants"
         class=".participants.ManageParticipants"
         permission="zope2.View"
-        template="participants.pt"
         />
 
     <browser:page
@@ -119,5 +119,15 @@
         permission="zope2.View"
         template="mail_templates/invitation_rejected_mail_text.pt"
         />
+
+    <!-- ftw.workspace tab -->
+    <configure zcml:condition="installed ftw.tabbedview">
+        <browser:page
+            for="*"
+            name="tabbedview_view-participants"
+            class=".participants-tab.ParticipantsTab"
+            permission="zope2.View"
+            />
+    </configure>
 
 </configure>
