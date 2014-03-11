@@ -36,6 +36,7 @@
                           <th i18n:translate="label_local_roles">Roles</th>
                           <th i18n:translate="label_invited_by">Invited by</th>
                           <th i18n:translate="label_state">State</th>
+                          <th i18n:translate="label_change_role" tal:condition="view/can_manage">Change role</th>
                       </tr>
                   </thead>
 
@@ -62,6 +63,13 @@
                               <td tal:condition="python: item.get('iid', None)" i18n:translate="label_pending">
                                   Pending
                               </td>
+                              <td tal:condition="view/can_manage">
+                                <a class="ChangeRoles"
+                                   tal:attributes="href string:./change_roles?form.widgets.memberid=${id_}"
+                                   i18n:translate="label_change">
+                                  change
+                                </a>
+                              </td>
                           </tr>
 
                       </tal:loop>
@@ -87,6 +95,16 @@
                      tal:condition="not:hide_cancel_button|nothing" />
 
             </form>
+
+
+            <script type="text/javascript">
+              jQuery(function($) {
+                $('a.ChangeRoles').prepOverlay(
+                  {'subtype':'ajax',
+                   'filter': '#content-core',
+                   'closeselector': '#form-buttons-button_cancel'});
+              });
+            </script>
 
         </metal:form-macro>
 

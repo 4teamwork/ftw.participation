@@ -3,6 +3,7 @@ from ftw.builder import create
 from ftw.participation.interfaces import IParticipationSupport
 from ftw.participation.invitation import Invitation
 from ftw.participation.tests.layer import FTW_PARTICIPATION_INTEGRATION_TESTING
+from ftw.testbrowser import browsing
 from plone.app.testing import login
 from plone.app.testing import logout
 from plone.app.testing import TEST_USER_ID

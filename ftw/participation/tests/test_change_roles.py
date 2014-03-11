@@ -76,3 +76,30 @@ class TestParticipantsView(TestCase):
         with self.assertRaises(BadRequest):
             data = {'form.widgets.memberid': 'invalid_member_id'}
             browser.login().visit(self.folder, view='change_roles', data=data)
+
+    @browsing
+    def test_show_change_link_if_user_can_change_local_roles(self, browser):
+        create(Builder('user')
+               .named('John', 'Doe')
+               .with_roles('Member')
+               .with_roles('Reader', 'Contributor', 'Editor',
+                           on=self.folder))
+
+        browser.login().visit(self.folder, view='@@participants')
+
+        self.assertEquals('change',
+                          browser.css('table').first.lists()[1][-1])
+        self.assertEquals('change',
+                          browser.css('a.ChangeRoles').first.text,
+                          'Expect a change link')
+
+    @browsing
+    def test_do_not_show_change_link(self, browser):
+        john = create(Builder('user')
+                      .named('John', 'Doe')
+                      .with_roles('Member')
+                      .with_roles('Reader', on=self.folder))
+
+        browser.login(john.getId()).visit(self.folder, view='@@participants')
+        self.assertFalse(browser.css('a.ChangeRoles'),
+                         'Do not expect a change link.')
