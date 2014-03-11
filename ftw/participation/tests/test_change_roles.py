@@ -122,7 +122,6 @@ class TestParticipantsView(TestCase):
         data = {'form.widgets.memberid': john.getId()}
         browser.login().visit(self.folder, view='change_roles', data=data)
 
-        checkboxes = browser.css('[type="checkbox"]')
+        checkboxes = browser.css('#content input[type="checkbox"]')
         self.assertEquals(1, len(checkboxes), 'Expect only one checkbox')
-
-        self.assertEquals('Editor', checkboxes.fist.value)
+        self.assertEquals('Editor', checkboxes.first.node.attrib['value'])
