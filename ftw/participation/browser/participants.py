@@ -1,10 +1,11 @@
 from AccessControl import getSecurityManager
-from Products.CMFCore.utils import getToolByName
-from Products.Five.browser import BrowserView
-from Products.statusmessages.interfaces import IStatusMessage
 from ftw.participation import _
 from ftw.participation.interfaces import IInvitationStorage
 from plone.app.workflow.interfaces import ISharingPageRole
+from Products.CMFCore.utils import getToolByName
+from Products.Five.browser import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from Products.statusmessages.interfaces import IStatusMessage
 from zExceptions import Forbidden
 from zope.component import queryUtility
 from zope.i18n import translate
@@ -26,6 +27,9 @@ class ManageParticipants(BrowserView):
     """Manage Participants
     """
 
+    template = ViewPageTemplateFile('participants.pt')
+    form = ViewPageTemplateFile('participants_form.pt')
+
     def __call__(self):
         form = self.request.form
 
@@ -42,7 +46,10 @@ class ManageParticipants(BrowserView):
         elif form.get('form.cancel'):
             return self.request.RESPONSE.redirect(self.cancel_url())
 
-        return super(ManageParticipants, self).__call__()
+        return self.template()
+
+    def render_form(self):
+        return self.form()
 
     def can_manage(self):
         sm = getSecurityManager()
