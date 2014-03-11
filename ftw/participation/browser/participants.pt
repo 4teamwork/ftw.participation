@@ -36,7 +36,7 @@
                           <th i18n:translate="label_local_roles">Roles</th>
                           <th i18n:translate="label_invited_by">Invited by</th>
                           <th i18n:translate="label_state">State</th>
-                          <th i18n:translate="label_change_role" tal:condition="view/can_manage">Change role</th>
+                          <th tal:condition="view/can_manage">&nbsp;</th>
                       </tr>
                   </thead>
 

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-01-27 13:14+0000\n"
+"POT-Creation-Date: 2014-03-11 14:32+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10,13 +10,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 "Preferred-Encodings: utf-8 latin1\n"
-"Domain: DOMAIN\n"
 
 #: ./ftw/participation/browser/invitations.pt:62
 msgid "Accept"
 msgstr ""
 
-#: ./ftw/participation/browser/participants.py:38
+#: ./ftw/participation/browser/participants.py:39
 msgid "Changes saved."
 msgstr ""
 
@@ -69,13 +68,14 @@ msgid "accepted_mail_text"
 msgstr ""
 
 #. Default: "Cancel"
+#: ./ftw/participation/browser/changeroles.py:101
 #: ./ftw/participation/browser/invite.py:258
-#: ./ftw/participation/browser/participants.pt:77
+#: ./ftw/participation/browser/participants.pt:93
 msgid "button_cancel"
 msgstr ""
 
 #. Default: "Delete Participants"
-#: ./ftw/participation/browser/participants.pt:73
+#: ./ftw/participation/browser/participants.pt:88
 msgid "button_delete_participants"
 msgstr ""
 
@@ -84,19 +84,24 @@ msgstr ""
 msgid "button_invite"
 msgstr ""
 
+#. Default: "Save"
+#: ./ftw/participation/browser/changeroles.py:88
+msgid "button_save"
+msgstr ""
+
 #. Default: "At least one of the defined addresses are not valid."
 #: ./ftw/participation/browser/invite.py:98
 msgid "error_invalid_addresses"
 msgstr ""
 
 #. Default: "Could not find the invitation."
-#: ./ftw/participation/browser/accept.py:61
-#: ./ftw/participation/browser/retract.py:45
+#: ./ftw/participation/browser/accept.py:60
+#: ./ftw/participation/browser/retract.py:46
 msgid "error_invitation_not_found"
 msgstr ""
 
 #. Default: "Invitor could not be notified: he has no email address defined."
-#: ./ftw/participation/browser/accept.py:91
+#: ./ftw/participation/browser/accept.py:86
 msgid "error_inviter_email_missing"
 msgstr ""
 
@@ -121,7 +126,7 @@ msgid "headline_invitations"
 msgstr ""
 
 #. Default: "Participants of ${title}"
-#: ./ftw/participation/browser/participants.pt:15
+#: ./ftw/participation/browser/participants.pt:16
 msgid "headline_participants"
 msgstr ""
 
@@ -170,7 +175,7 @@ msgid "help_users"
 msgstr ""
 
 #. Default: "You have accepted the invitation."
-#: ./ftw/participation/browser/accept.py:34
+#: ./ftw/participation/browser/accept.py:33
 msgid "info_invitation_accepted"
 msgstr ""
 
@@ -229,7 +234,7 @@ msgid "invitation_mail_message"
 msgstr ""
 
 #. Default: "Accepted"
-#: ./ftw/participation/browser/participants.pt:54
+#: ./ftw/participation/browser/participants.pt:60
 msgid "label_accepted"
 msgstr ""
 
@@ -248,6 +253,16 @@ msgstr ""
 msgid "label_allow_invite_users"
 msgstr ""
 
+#. Default: "change"
+#: ./ftw/participation/browser/participants.pt:67
+msgid "label_change"
+msgstr ""
+
+#. Default: "Change roles"
+#: ./ftw/participation/browser/changeroles.py:49
+msgid "label_changerole_form"
+msgstr ""
+
 #. Default: "Comment"
 #: ./ftw/participation/browser/invite.py:59
 msgid "label_comment"
@@ -259,12 +274,12 @@ msgid "label_invite_participants"
 msgstr "Invite participants"
 
 #. Default: "Invited by"
-#: ./ftw/participation/browser/participants.pt:34
+#: ./ftw/participation/browser/participants.pt:37
 msgid "label_invited_by"
 msgstr ""
 
 #. Default: "Roles"
-#: ./ftw/participation/browser/participants.pt:33
+#: ./ftw/participation/browser/participants.pt:36
 msgid "label_local_roles"
 msgstr ""
 
@@ -279,22 +294,23 @@ msgid "label_participation_quota_limit"
 msgstr ""
 
 #. Default: "Pending"
-#: ./ftw/participation/browser/participants.pt:57
+#: ./ftw/participation/browser/participants.pt:63
 msgid "label_pending"
 msgstr ""
 
 #. Default: "Roles"
+#: ./ftw/participation/browser/changeroles.py:39
 #: ./ftw/participation/browser/invite.py:53
 msgid "label_roles"
 msgstr ""
 
 #. Default: "State"
-#: ./ftw/participation/browser/participants.pt:35
+#: ./ftw/participation/browser/participants.pt:38
 msgid "label_state"
 msgstr "Status"
 
 #. Default: "User"
-#: ./ftw/participation/browser/participants.pt:32
+#: ./ftw/participation/browser/participants.pt:35
 msgid "label_user"
 msgstr ""
 
@@ -309,7 +325,7 @@ msgid "link_accept_invitation"
 msgstr "Yes, I'd like to participate"
 
 #. Default: "Invite participants"
-#: ./ftw/participation/browser/participants.pt:65
+#: ./ftw/participation/browser/participants.pt:79
 msgid "link_invite_participants"
 msgstr ""
 
@@ -324,7 +340,7 @@ msgid "mail_invitation_accepted_subject"
 msgstr ""
 
 #. Default: "The Invitation to participate in ${title} was rejected by ${user}"
-#: ./ftw/participation/browser/reject.py:57
+#: ./ftw/participation/browser/reject.py:58
 msgid "mail_invitation_rejected_subject"
 msgstr ""
 
@@ -346,7 +362,7 @@ msgid "rejected_mail_text"
 msgstr ""
 
 #. Default: "General informations about the people who participate on this project. You are also able to remove users from this project."
-#: ./ftw/participation/browser/participants.pt:21
+#: ./ftw/participation/browser/participants.pt:22
 msgid "text_infos_participants"
 msgstr ""
 
@@ -376,6 +392,8 @@ msgid "text_sent_invitations"
 msgstr ""
 
 #. Default: "The invitation has expired."
-#: ./ftw/participation/browser/invitations.py:105
+#: ./ftw/participation/browser/invitations.py:108
 msgid "warning_invitaiton_expired"
 msgstr ""
+
+
