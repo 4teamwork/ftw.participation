@@ -5,6 +5,7 @@ from ftw.participation.tests.layer import FTW_PARTICIPATION_FUNCTIONAL_TESTING
 from ftw.testbrowser import browsing
 from unittest2 import TestCase
 from zExceptions import BadRequest
+import transaction
 
 
 class TestParticipantsView(TestCase):
@@ -103,3 +104,25 @@ class TestParticipantsView(TestCase):
         browser.login(john.getId()).visit(self.folder, view='@@participants')
         self.assertFalse(browser.css('a.ChangeRoles'),
                          'Do not expect a change link.')
+
+    @browsing
+    def test_change_role_view_respects_the_delegate_permissions(self, browser):
+        john = create(Builder('user')
+                      .named('John', 'Doe')
+                      .with_roles('Member')
+                      .with_roles('Reader', on=self.folder))
+
+        # Remove delegate contributor role permission
+        self.layer['portal'].manage_permission(
+            'Sharing page: Delegate Contributor role',
+            roles=[],
+            acquire=False)
+        transaction.commit()
+
+        data = {'form.widgets.memberid': john.getId()}
+        browser.login().visit(self.folder, view='change_roles', data=data)
+
+        checkboxes = browser.css('[type="checkbox"]')
+        self.assertEquals(1, len(checkboxes), 'Expect only one checkbox')
+
+        self.assertEquals('Editor', checkboxes.fist.value)
