@@ -21,35 +21,35 @@
         />
 
     <browser:page
-        for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
+        for="plone.app.layout.navigation.interfaces.INavigationRoot"
         name="invitations"
         class=".invitations.InvitationsView"
         permission="zope2.View"
         />
 
     <browser:page
-        for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
+        for="plone.app.layout.navigation.interfaces.INavigationRoot"
         name="welcome_invited"
         class=".welcome.WelcomeInvitedView"
         permission="zope2.View"
         />
 
     <browser:page
-        for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
+        for="plone.app.layout.navigation.interfaces.INavigationRoot"
         name="accept_invitation"
         class=".accept.AcceptInvitation"
         permission="zope2.View"
         />
 
     <browser:page
-        for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
+        for="plone.app.layout.navigation.interfaces.INavigationRoot"
         name="reject_invitation"
         class=".reject.RejectInvitation"
         permission="zope2.View"
         />
 
     <browser:page
-        for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
+        for="plone.app.layout.navigation.interfaces.INavigationRoot"
         name="retract_invitation"
         class=".retract.RetractInvitation"
         permission="zope2.View"
@@ -86,28 +86,28 @@
         />
 
     <browser:page
-        for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
+        for="plone.app.layout.navigation.interfaces.INavigationRoot"
         name="invitation_accepted_mail_html"
         permission="zope2.View"
         template="mail_templates/invitation_accepted_mail_html.pt"
         />
 
     <browser:page
-        for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
+        for="plone.app.layout.navigation.interfaces.INavigationRoot"
         name="invitation_accepted_mail_text"
         permission="zope2.View"
         template="mail_templates/invitation_accepted_mail_text.pt"
         />
 
     <browser:page
-        for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
+        for="plone.app.layout.navigation.interfaces.INavigationRoot"
         name="invitation_rejected_mail_html"
         permission="zope2.View"
         template="mail_templates/invitation_rejected_mail_html.pt"
         />
 
     <browser:page
-        for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
+        for="plone.app.layout.navigation.interfaces.INavigationRoot"
         name="invitation_rejected_mail_text"
         permission="zope2.View"
         template="mail_templates/invitation_rejected_mail_text.pt"

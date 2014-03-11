@@ -8,6 +8,7 @@ from ftw.participation.tests.pages import inviteform
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import statusmessages
 from ftw.testing.mailing import Mailing
+from plone.app.layout.navigation.interfaces import INavigationRoot
 from plone.registry.interfaces import IRegistry
 from unittest2 import TestCase
 from zope.component import getUtility
@@ -107,6 +108,29 @@ class TestInviteForm(TestCase):
         self.assertIn('=?utf-8?q?Invitation_for_paticipating_in_F=C3=B6lder?=',
                       mail)
         self.assertIn('Hi th=C3=B6re', mail)
+
+    @browsing
+    def test_get_invitations_from_context_providing_inavigationroot(
+            self,
+            browser):
+        self.portal.portal_properties.email_from_name = 'M\xc3\xa4i Site'
+        transaction.commit()
+
+        subfolder = create(Builder('folder')
+                           .within(self.portal)
+                           .providing(INavigationRoot))
+
+        user = create(Builder('user').named('H\xc3\xbcgo', 'Boss'))
+        browser.login().visit(self.folder, view='invite_participants')
+        browser.fill({'Users': [user.getId()],
+                      'Roles': ['Contributor'],
+                      'Comment': u'Hi th\xf6re'})
+        browser.find('Invite').click()
+
+        browser.login().visit(subfolder, view='invitations')
+        self.assertEquals(
+            ['hugo@boss.com'],
+            browser.css('.invited-users-listing tbody .inv-user').text)
 
     def get_invitations(self, email=None, user=None):
         assert email or user, '"email" or "user" argument required'
