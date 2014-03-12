@@ -50,7 +50,7 @@ setup(name='ftw.participation',
 
       install_requires=[
         'archetypes.schemaextender',
-        'ftw.upgrade',
+        'ftw.upgrade>=1.6.0',
         'plone.app.registry',
         'plone.formwidget.autocomplete',
         'plone.principalsource',
