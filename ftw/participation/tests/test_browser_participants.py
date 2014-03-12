@@ -62,7 +62,7 @@ class TestParticipantsView(TestCase):
                        'Roles': 'Can view',
                        'Invited by': 'Boss Hugo',
                        'Status': 'Pending',
-                       u'': u'change'},
+                       u'': u''},
                       participants_view.table())
 
     @browsing

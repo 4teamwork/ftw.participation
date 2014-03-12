@@ -125,3 +125,18 @@ class TestParticipantsView(TestCase):
         checkboxes = browser.css('#content input[type="checkbox"]')
         self.assertEquals(1, len(checkboxes), 'Expect only one checkbox')
         self.assertEquals('Editor', checkboxes.first.node.attrib['value'])
+
+    @browsing
+    def test_no_change_link_if_user_has_not_yet_accepted(self, browser):
+        john = create(Builder('user'))
+        hugo = create(Builder('user').named('hugo', 'b'))
+        create(Builder('invitation')
+               .inviting(john)
+               .to(self.folder)
+               .invited_by(hugo))
+
+        browser.login().visit(self.folder, view='@@participants')
+        table = browser.css('table').first.lists()
+
+        self.assertEquals('Pending', table[1][-2])
+        self.assertEquals('', table[1][-1])

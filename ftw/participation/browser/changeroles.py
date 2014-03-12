@@ -108,8 +108,8 @@ class ChangeRolesForm(Form):
         return self.request.RESPONSE.redirect(url)
 
     def save_local_roles(self, data):
+        # Remove all managed roles
         user_roles = get_user_local_roles(data['memberid'], self.context)
-        # Remove all manages roles
         managed_roles = extract_roles(self.context)
         filtered = filter(lambda role: role not in managed_roles, user_roles)
 
