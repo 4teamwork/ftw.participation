@@ -77,7 +77,10 @@
     </form>
 
     <script type="text/javascript">
+
       jQuery(function($) {
+
+        // Change local roles
         $('a.ChangeRoles').prepOverlay(
           {subtype:'ajax',
            filter: '#content > *',
@@ -94,7 +97,15 @@
                 return window.location.href;
             },
            'closeselector': '#form-buttons-button_cancel'});
+
+          // Invite
+        $('[href*=invite_participants]').prepOverlay(
+          {'subtype':'ajax',
+           'filter': '#content > *',
+           'closeselector': '#form-buttons-button_cancel'});
+
       });
+
     </script>
 
 </metal:form-macro>
