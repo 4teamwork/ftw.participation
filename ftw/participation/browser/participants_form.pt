@@ -79,8 +79,20 @@
     <script type="text/javascript">
       jQuery(function($) {
         $('a.ChangeRoles').prepOverlay(
-          {'subtype':'ajax',
-           'filter': '#content-core',
+          {subtype:'ajax',
+           filter: '#content > *',
+           formselector: '#form',
+            noform: function(){
+              if ($('body.template-tabbed_view').length === 0){
+                return 'redirect';
+              } else {
+                tabbedview.reload_view();
+                return 'close'
+              }
+            },
+            redirect: function(){
+                return window.location.href;
+            },
            'closeselector': '#form-buttons-button_cancel'});
       });
     </script>
