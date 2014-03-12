@@ -1,4 +1,4 @@
-<metal:form-macro define-macro="form">
+<metal:form-macro define-macro="form" i18n:domain="ftw.participation">
     <p i18n:translate="text_infos_participants">
       General informations about the people who participate on this project. You are also able to remove users from this project.
     </p>
@@ -79,16 +79,22 @@
     <script type="text/javascript">
 
       jQuery(function($) {
+        var contentfilter = '#content > *,dl.portalMessage.error,dl.portalMessage.info';
+
+        function display_message(el){
+          $('.portalMessage:first').replaceWith($('.portalMessage', el));
+        }
 
         // Change local roles
         $('a.ChangeRoles').prepOverlay(
           {subtype:'ajax',
-           filter: '#content > *',
+           filter: contentfilter,
            formselector: '#form',
-            noform: function(){
+            noform: function(el){
               if ($('body.template-tabbed_view').length === 0){
                 return 'redirect';
               } else {
+                display_message(el);
                 tabbedview.reload_view();
                 return 'close'
               }
@@ -101,13 +107,14 @@
         // Invite
         $('[href*=invite_participants]').prepOverlay(
           {'subtype':'ajax',
-           'filter': '#content > *',
+           'filter': contentfilter,
            formselector: '#form',
            'closeselector': '#form-buttons-button_cancel',
-            noform: function(){
+            noform: function(el){
               if ($('body.template-tabbed_view').length === 0){
                 return 'redirect';
               } else {
+                display_message(el);
                 tabbedview.reload_view();
                 return 'close'
               }
@@ -126,7 +133,8 @@
             var $form = $(this).closest('form');
             var data = $form.serializeArray();
             data.push({name: 'form.delete', value: 1});
-            $.post($form.attr('action'), data, function(){
+            $.post($form.attr('action'), data, function(data){
+              display_message(data);
               tabbedview.reload_view();
             });
           });

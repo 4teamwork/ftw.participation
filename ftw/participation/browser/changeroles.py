@@ -2,6 +2,7 @@ from ftw.participation import _
 from ftw.participation.interfaces import IParticipationRegistry
 from plone.registry.interfaces import IRegistry
 from Products.CMFCore.utils import getToolByName
+from Products.statusmessages.interfaces import IStatusMessage
 from z3c.form.browser.checkbox import CheckBoxFieldWidget
 from z3c.form.browser.radio import RadioFieldWidget
 from z3c.form.button import buttonAndHandler
@@ -116,3 +117,5 @@ class ChangeRolesForm(Form):
         filtered.extend(data['roles'])
         self.context.manage_setLocalRoles(data['memberid'], filtered)
         self.context.reindexObjectSecurity()
+        msg = _(u'message_roles_changes', default=u'Changed roles')
+        IStatusMessage(self.request).addStatusMessage(msg, type='info')

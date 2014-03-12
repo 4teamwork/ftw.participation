@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-03-11 14:32+0000\n"
+"POT-Creation-Date: 2014-03-12 10:43+0000\n"
 "PO-Revision-Date: 2010-09-08 18:05+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 msgid "Accept"
 msgstr "Akzeptieren"
 
-#: ./ftw/participation/browser/participants.py:39
+#: ./ftw/participation/browser/participants.py:43
 msgid "Changes saved."
 msgstr "Änderungen wurden Gespeichert"
 
@@ -68,14 +68,14 @@ msgid "accepted_mail_text"
 msgstr "Ihre Einladung um an ${context_title} teilzunehmen wurde vom User ${invited_name} akzeptiert"
 
 #. Default: "Cancel"
-#: ./ftw/participation/browser/changeroles.py:101
+#: ./ftw/participation/browser/changeroles.py:102
 #: ./ftw/participation/browser/invite.py:258
-#: ./ftw/participation/browser/participants.pt:93
+#: ./ftw/participation/browser/participants_form.pt:73
 msgid "button_cancel"
 msgstr "Abbrechen"
 
 #. Default: "Delete Participants"
-#: ./ftw/participation/browser/participants.pt:88
+#: ./ftw/participation/browser/participants_form.pt:68
 msgid "button_delete_participants"
 msgstr "Personen löschen"
 
@@ -85,7 +85,7 @@ msgid "button_invite"
 msgstr "Einladen"
 
 #. Default: "Save"
-#: ./ftw/participation/browser/changeroles.py:88
+#: ./ftw/participation/browser/changeroles.py:89
 msgid "button_save"
 msgstr "Speichern"
 
@@ -126,7 +126,7 @@ msgid "headline_invitations"
 msgstr "Einladungen"
 
 #. Default: "Participants of ${title}"
-#: ./ftw/participation/browser/participants.pt:16
+#: ./ftw/participation/browser/participants.pt:15
 msgid "headline_participants"
 msgstr "Teilnehmer von ${title}"
 
@@ -234,7 +234,7 @@ msgid "invitation_mail_message"
 msgstr "Nachricht von ${inviter_name}:"
 
 #. Default: "Accepted"
-#: ./ftw/participation/browser/participants.pt:60
+#: ./ftw/participation/browser/participants_form.pt:40
 msgid "label_accepted"
 msgstr "Angenommen"
 
@@ -254,12 +254,12 @@ msgid "label_allow_invite_users"
 msgstr "Existierende Benutzer beteiligen"
 
 #. Default: "change"
-#: ./ftw/participation/browser/participants.pt:67
+#: ./ftw/participation/browser/participants_form.pt:47
 msgid "label_change"
 msgstr "ändern"
 
 #. Default: "Change roles"
-#: ./ftw/participation/browser/changeroles.py:49
+#: ./ftw/participation/browser/changeroles.py:50
 msgid "label_changerole_form"
 msgstr "Rollen anpassen"
 
@@ -274,12 +274,12 @@ msgid "label_invite_participants"
 msgstr "Personen einladen"
 
 #. Default: "Invited by"
-#: ./ftw/participation/browser/participants.pt:37
+#: ./ftw/participation/browser/participants_form.pt:17
 msgid "label_invited_by"
 msgstr "Eingeladen von"
 
 #. Default: "Roles"
-#: ./ftw/participation/browser/participants.pt:36
+#: ./ftw/participation/browser/participants_form.pt:16
 msgid "label_local_roles"
 msgstr "Rollen"
 
@@ -294,23 +294,23 @@ msgid "label_participation_quota_limit"
 msgstr "Maximale Anzahl Teilnehmer"
 
 #. Default: "Pending"
-#: ./ftw/participation/browser/participants.pt:63
+#: ./ftw/participation/browser/participants_form.pt:43
 msgid "label_pending"
 msgstr "offen"
 
 #. Default: "Roles"
-#: ./ftw/participation/browser/changeroles.py:39
+#: ./ftw/participation/browser/changeroles.py:40
 #: ./ftw/participation/browser/invite.py:53
 msgid "label_roles"
 msgstr "Rollen"
 
 #. Default: "State"
-#: ./ftw/participation/browser/participants.pt:38
+#: ./ftw/participation/browser/participants_form.pt:18
 msgid "label_state"
 msgstr "Status"
 
 #. Default: "User"
-#: ./ftw/participation/browser/participants.pt:35
+#: ./ftw/participation/browser/participants_form.pt:15
 msgid "label_user"
 msgstr "Benutzer"
 
@@ -325,7 +325,7 @@ msgid "link_accept_invitation"
 msgstr "Ja, ich möchte teilnehmen"
 
 #. Default: "Invite participants"
-#: ./ftw/participation/browser/participants.pt:79
+#: ./ftw/participation/browser/participants_form.pt:59
 msgid "link_invite_participants"
 msgstr "Personen einladen"
 
@@ -349,6 +349,11 @@ msgstr "Die Einladung um an ${title} teilzunehmen wurde von ${user} abgelehnt"
 msgid "mail_invitation_subject"
 msgstr "Einladung zur Teilnahme an ${title}"
 
+#. Default: "Changed roles"
+#: ./ftw/participation/browser/changeroles.py:120
+msgid "message_roles_changes"
+msgstr "Rollen wurden angepasst."
+
 #. Default: "Hello ${inviter_name}"
 #: ./ftw/participation/browser/mail_templates/invitation_rejected_mail_html.pt:8
 #: ./ftw/participation/browser/mail_templates/invitation_rejected_mail_text.pt:2
@@ -362,7 +367,7 @@ msgid "rejected_mail_text"
 msgstr "Ihre einladung an ${context_title} teilzunehmen wurde vom Benutzer ${invited_name} abgelehnt (${invited_email})."
 
 #. Default: "General informations about the people who participate on this project. You are also able to remove users from this project."
-#: ./ftw/participation/browser/participants.pt:22
+#: ./ftw/participation/browser/participants_form.pt:2
 msgid "text_infos_participants"
 msgstr "Stellen Sie Ihr Team für den aktuellen Teamraum zusammen. Die Tabelle zeigt alle involvierten Personen. Klicken sie auf \"Personen einladen\" um Ihr Team zu vergrössern."
 

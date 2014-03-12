@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-03-11 14:32+0000\n"
+"POT-Creation-Date: 2014-03-12 10:43+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 msgid "Accept"
 msgstr ""
 
-#: ./ftw/participation/browser/participants.py:39
+#: ./ftw/participation/browser/participants.py:43
 msgid "Changes saved."
 msgstr ""
 
@@ -71,14 +71,14 @@ msgid "accepted_mail_text"
 msgstr ""
 
 #. Default: "Cancel"
-#: ./ftw/participation/browser/changeroles.py:101
+#: ./ftw/participation/browser/changeroles.py:102
 #: ./ftw/participation/browser/invite.py:258
-#: ./ftw/participation/browser/participants.pt:93
+#: ./ftw/participation/browser/participants_form.pt:73
 msgid "button_cancel"
 msgstr ""
 
 #. Default: "Delete Participants"
-#: ./ftw/participation/browser/participants.pt:88
+#: ./ftw/participation/browser/participants_form.pt:68
 msgid "button_delete_participants"
 msgstr ""
 
@@ -88,7 +88,7 @@ msgid "button_invite"
 msgstr ""
 
 #. Default: "Save"
-#: ./ftw/participation/browser/changeroles.py:88
+#: ./ftw/participation/browser/changeroles.py:89
 msgid "button_save"
 msgstr ""
 
@@ -129,7 +129,7 @@ msgid "headline_invitations"
 msgstr ""
 
 #. Default: "Participants of ${title}"
-#: ./ftw/participation/browser/participants.pt:16
+#: ./ftw/participation/browser/participants.pt:15
 msgid "headline_participants"
 msgstr ""
 
@@ -237,7 +237,7 @@ msgid "invitation_mail_message"
 msgstr ""
 
 #. Default: "Accepted"
-#: ./ftw/participation/browser/participants.pt:60
+#: ./ftw/participation/browser/participants_form.pt:40
 msgid "label_accepted"
 msgstr ""
 
@@ -257,12 +257,12 @@ msgid "label_allow_invite_users"
 msgstr ""
 
 #. Default: "change"
-#: ./ftw/participation/browser/participants.pt:67
+#: ./ftw/participation/browser/participants_form.pt:47
 msgid "label_change"
 msgstr ""
 
 #. Default: "Change roles"
-#: ./ftw/participation/browser/changeroles.py:49
+#: ./ftw/participation/browser/changeroles.py:50
 msgid "label_changerole_form"
 msgstr ""
 
@@ -277,12 +277,12 @@ msgid "label_invite_participants"
 msgstr ""
 
 #. Default: "Invited by"
-#: ./ftw/participation/browser/participants.pt:37
+#: ./ftw/participation/browser/participants_form.pt:17
 msgid "label_invited_by"
 msgstr ""
 
 #. Default: "Roles"
-#: ./ftw/participation/browser/participants.pt:36
+#: ./ftw/participation/browser/participants_form.pt:16
 msgid "label_local_roles"
 msgstr ""
 
@@ -297,23 +297,23 @@ msgid "label_participation_quota_limit"
 msgstr ""
 
 #. Default: "Pending"
-#: ./ftw/participation/browser/participants.pt:63
+#: ./ftw/participation/browser/participants_form.pt:43
 msgid "label_pending"
 msgstr ""
 
 #. Default: "Roles"
-#: ./ftw/participation/browser/changeroles.py:39
+#: ./ftw/participation/browser/changeroles.py:40
 #: ./ftw/participation/browser/invite.py:53
 msgid "label_roles"
 msgstr ""
 
 #. Default: "State"
-#: ./ftw/participation/browser/participants.pt:38
+#: ./ftw/participation/browser/participants_form.pt:18
 msgid "label_state"
 msgstr ""
 
 #. Default: "User"
-#: ./ftw/participation/browser/participants.pt:35
+#: ./ftw/participation/browser/participants_form.pt:15
 msgid "label_user"
 msgstr ""
 
@@ -328,7 +328,7 @@ msgid "link_accept_invitation"
 msgstr ""
 
 #. Default: "Invite participants"
-#: ./ftw/participation/browser/participants.pt:79
+#: ./ftw/participation/browser/participants_form.pt:59
 msgid "link_invite_participants"
 msgstr ""
 
@@ -352,6 +352,11 @@ msgstr ""
 msgid "mail_invitation_subject"
 msgstr ""
 
+#. Default: "Changed roles"
+#: ./ftw/participation/browser/changeroles.py:120
+msgid "message_roles_changes"
+msgstr ""
+
 #. Default: "Hello ${inviter_name}"
 #: ./ftw/participation/browser/mail_templates/invitation_rejected_mail_html.pt:8
 #: ./ftw/participation/browser/mail_templates/invitation_rejected_mail_text.pt:2
@@ -365,7 +370,7 @@ msgid "rejected_mail_text"
 msgstr ""
 
 #. Default: "General informations about the people who participate on this project. You are also able to remove users from this project."
-#: ./ftw/participation/browser/participants.pt:22
+#: ./ftw/participation/browser/participants_form.pt:2
 msgid "text_infos_participants"
 msgstr ""
 
