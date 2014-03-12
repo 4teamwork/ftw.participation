@@ -98,11 +98,39 @@
             },
            'closeselector': '#form-buttons-button_cancel'});
 
-          // Invite
+        // Invite
         $('[href*=invite_participants]').prepOverlay(
           {'subtype':'ajax',
            'filter': '#content > *',
-           'closeselector': '#form-buttons-button_cancel'});
+           formselector: '#form',
+           'closeselector': '#form-buttons-button_cancel',
+            noform: function(){
+              if ($('body.template-tabbed_view').length === 0){
+                return 'redirect';
+              } else {
+                tabbedview.reload_view();
+                return 'close'
+              }
+            },
+            redirect: function(){
+                return window.location.href;
+            }
+          });
+
+        // Remove/delete
+        if ($('body.template-tabbed_view').length === 1){
+          $('[name="form.delete"]').bind('click', function(e){
+            e.preventDefault();
+            e.stopPropagation();
+
+            var $form = $(this).closest('form');
+            var data = $form.serializeArray();
+            data.push({name: 'form.delete', value: 1});
+            $.post($form.attr('action'), data, function(){
+              tabbedview.reload_view();
+            });
+          });
+        }
 
       });
 
