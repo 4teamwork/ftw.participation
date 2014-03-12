@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.2.2 (unreleased)
+1.2.2 (2014-03-12)
 ------------------
 
 - Fix view-registrations if accessing e.g. on subsites.
