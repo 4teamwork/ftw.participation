@@ -183,3 +183,6 @@ class ManageParticipants(BrowserView):
         result = self.get_participants() + self.get_pending_invitations()
         result.sort(key=lambda x: x['name'].lower())
         return result
+
+    def hide_cancel_button(self):
+        return False

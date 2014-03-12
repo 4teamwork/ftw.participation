@@ -72,7 +72,7 @@
 
       <input type="submit" name="form.cancel" value="Cancel"
              i18n:attributes="value button_cancel"
-             tal:condition="not:hide_cancel_button|nothing" />
+             tal:condition="not: view/hide_cancel_button" />
 
     </form>
 
