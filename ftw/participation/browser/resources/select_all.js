@@ -11,8 +11,4 @@ jQuery(function($) {
          }
        });
 
-  $('[href*=invite_participants]').prepOverlay(
-    {'subtype':'ajax',
-     'filter': '#content > *',
-     'closeselector': '#form-buttons-button_cancel'});
   });

@@ -43,6 +43,10 @@ class FtwParticipationLayer(PloneSandboxLayer):
         xmlconfig.file('configure.zcml', plone.formwidget.autocomplete,
                        context=configurationContext)
 
+        import ftw.tabbedview
+        xmlconfig.file('configure.zcml', ftw.tabbedview,
+                       context=configurationContext)
+
         # Invoke SESSION
         setupCoreSessions(app)
         transaction.commit()
@@ -50,6 +54,7 @@ class FtwParticipationLayer(PloneSandboxLayer):
     def setUpPloneSite(self, portal):
         applyProfile(portal, 'ftw.participation:default')
         applyProfile(portal, 'plone.formwidget.autocomplete:default')
+        applyProfile(portal, 'ftw.tabbedview:default')
 
         setRoles(portal, TEST_USER_ID, ['Manager'])
         login(portal, TEST_USER_NAME)

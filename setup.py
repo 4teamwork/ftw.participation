@@ -13,6 +13,8 @@ tests_require = (
     'ftw.builder',
     'ftw.testbrowser',
     'ftw.testing',
+    'ftw.builder',
+    'ftw.tabbedview',
     )
 
 setup(name='ftw.participation',
@@ -48,14 +50,13 @@ setup(name='ftw.participation',
 
       install_requires=[
         'archetypes.schemaextender',
-        'ftw.upgrade',
+        'ftw.upgrade>=1.6.0',
         'plone.app.registry',
         'plone.formwidget.autocomplete',
         'plone.principalsource',
         'plone.z3cform',
         'setuptools',
         'z3c.form',
-        'ftw.builder',
         ],
 
       tests_require=tests_require,

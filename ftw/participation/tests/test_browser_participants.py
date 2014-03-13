@@ -41,7 +41,8 @@ class TestParticipantsView(TestCase):
                        u'User': u'Boss Hugo (hugo@boss.com)',
                        u'Roles': u'Can view, Can add',
                        u'Invited by': u'',
-                       u'Status': u'Accepted'},
+                       u'Status': u'Accepted',
+                       u'': u'change'},
                       participants_view.table())
 
     @browsing
@@ -60,7 +61,8 @@ class TestParticipantsView(TestCase):
                        'User': 'franzi@muller.com',
                        'Roles': 'Can view',
                        'Invited by': 'Boss Hugo',
-                       'Status': 'Pending'},
+                       'Status': 'Pending',
+                       u'': u''},
                       participants_view.table())
 
     @browsing
@@ -76,7 +78,7 @@ class TestParticipantsView(TestCase):
                .inviting(juergen)
                .to(self.folder)
                .invited_by(fraenzi))
-        
+
         browser.login().visit(self.folder, view='participants')
         self.assertEquals([u'Doe John (john@doe.com)',
                            u'jurgen@ruegsegger.com',

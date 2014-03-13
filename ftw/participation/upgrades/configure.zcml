@@ -1,7 +1,11 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:upgrade-step="http://namespaces.zope.org/ftw.upgrade"
     i18n_domain="ftw.participation">
+
+
+    <include package="ftw.upgrade" file="meta.zcml" />
 
     <!-- 1 -> 1007 -->
     <genericsetup:upgradeStep
@@ -20,6 +24,15 @@
         directory="profiles/1007"
         for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
         provides="Products.GenericSetup.interfaces.BASE"
+        />
+
+    <!-- 1007 > 1008 -->
+    <upgrade-step:importProfile
+        title="Remove js from jsregistry"
+        profile="ftw.participation:default"
+        source="1007"
+        destination="1008"
+        directory="profiles/1008"
         />
 
 </configure>

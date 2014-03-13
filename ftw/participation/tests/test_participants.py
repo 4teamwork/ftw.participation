@@ -31,7 +31,7 @@ class TestParticipation(TestCase):
 
         self.view = self.demo_folder.restrictedTraverse('@@participants')
         self.layer['request'].set('ACTUAL_URL', '/'.join((
-                    self.demo_folder.absolute_url(), '@@participants')))
+            self.demo_folder.absolute_url(), '@@participants')))
 
     def test_view_available(self):
         self.assertIsNotNone(self.view, 'Participants view is not available')
@@ -114,8 +114,8 @@ class TestParticipation(TestCase):
         self.demo_folder.manage_setLocalRoles(userid, ['Reader'])
 
         self.assertFalse(self.view.cannot_remove_user(userid),
-                        'It should be possible to remove local roles if the '
-                        'user does not longer exists')
+                         'It should be possible to remove local roles if the '
+                         'user does not longer exists')
 
     def test_readonly_if_not_inviter(self):
         Invitation(
@@ -131,9 +131,9 @@ class TestParticipation(TestCase):
     def test_remove_user(self):
         regtool = getToolByName(self.portal, 'portal_registration')
         regtool.addMember('usera', 'secret',
-                  properties={'username': 'usera',
-                              'fullname': 'Usera',
-                              'email': 'user@email.com'})
+                          properties={'username': 'usera',
+                                      'fullname': 'Usera',
+                                      'email': 'user@email.com'})
 
         self.portal.portal_membership.setLocalRoles(
             obj=self.demo_folder,
@@ -149,15 +149,16 @@ class TestParticipation(TestCase):
         self.view.request.form = form
         self.view()
 
-        self.assertEquals(1, len(self.view.get_participants()),
-            'Expect only one participant the owner')
+        self.assertEquals(1,
+                          len(self.view.get_participants()),
+                          'Expect only one participant the owner')
 
     def test_remove_user_forbidden(self):
         regtool = getToolByName(self.portal, 'portal_registration')
         regtool.addMember('usera', 'secret',
-                  properties={'username': 'usera',
-                              'fullname': 'Usera',
-                              'email': 'user@email.com'})
+                          properties={'username': 'usera',
+                                      'fullname': 'Usera',
+                                      'email': 'user@email.com'})
 
         self.portal.portal_membership.setLocalRoles(
             obj=self.demo_folder,
@@ -190,8 +191,9 @@ class TestParticipation(TestCase):
         self.view.request.form = form
         self.view()
 
-        self.assertEquals(0, len(self.view.get_pending_invitations()),
-            'Expect no invitation')
+        self.assertEquals(0,
+                          len(self.view.get_pending_invitations()),
+                          'Expect no invitation')
 
     def test_remove_invitation_forbidden(self):
         invitation = Invitation(target=self.demo_folder,
@@ -207,5 +209,6 @@ class TestParticipation(TestCase):
         self.view.request.form = form
         self.assertRaises(Forbidden, self.view, *[])
 
-        self.assertEquals(1, len(self.view.get_participants()),
-            'Expect one invitation')
+        self.assertEquals(1,
+                          len(self.view.get_participants()),
+                          'Expect one invitation')

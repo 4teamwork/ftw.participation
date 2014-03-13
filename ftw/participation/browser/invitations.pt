@@ -6,6 +6,12 @@
       lang="en"
       i18n:domain="ftw.participation">
 
+<head>
+  <div metal:fill-slot="javascript_head_slot" tal:omit-tag="">
+    <script type="text/javascript" tal:attributes="src string:${here/portal_url}/++resource++ftw.participation/select_all.js" />
+  </div>
+</head>
+
   <body>
     <div metal:fill-slot="main">
       <metal:main-macro define-macro="main">

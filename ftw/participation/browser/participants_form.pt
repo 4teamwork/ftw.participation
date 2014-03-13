@@ -1,0 +1,148 @@
+<metal:form-macro define-macro="form" i18n:domain="ftw.participation">
+    <p i18n:translate="text_infos_participants">
+      General informations about the people who participate on this project. You are also able to remove users from this project.
+    </p>
+
+
+    <form action="" method="post"
+          tal:attributes="action form_action|string:${here/absolute_url}/@@participants"
+          name="manage-participants">
+
+      <table class="listing">
+          <thead>
+              <tr>
+                  <th tal:condition="view/can_manage">&nbsp;</th>
+                  <th i18n:translate="label_user">User</th>
+                  <th i18n:translate="label_local_roles">Roles</th>
+                  <th i18n:translate="label_invited_by">Invited by</th>
+                  <th i18n:translate="label_state">State</th>
+                  <th tal:condition="view/can_manage">&nbsp;</th>
+              </tr>
+          </thead>
+
+          <tbody>
+              <tal:loop repeat="item view/get_users">
+
+                  <tr tal:define="id_ python:item.get('userid', item.get('iid', None));
+                                  type_ item/type_">
+                      <td tal:condition="view/can_manage">
+                          <input type="checkbox"
+                                 tal:condition="id_"
+                                 tal:attributes="name string:${type_}:list;
+                                                 value id_;
+                                                 id string:box_${id_};
+                                                 disabled item/readonly;" />
+
+                      </td>
+                      <td tal:content="item/name" />
+                      <td tal:content="item/roles" />
+                      <td tal:content="python:item.get('inviter', '&nbsp;')" />
+                      <td tal:condition="python:item.get('userid', None)" i18n:translate="label_accepted">
+                          Accepted
+                      </td>
+                      <td tal:condition="python: item.get('iid', None)" i18n:translate="label_pending">
+                          Pending
+                      </td>
+                      <td tal:condition="view/can_manage">
+                        <a tal:condition="python: item.get('userid', None) and not item.get('readonly')"
+                           class="ChangeRoles"
+                           tal:attributes="href string:./change_roles?form.widgets.memberid=${id_}"
+                           i18n:translate="label_change">
+                          change
+                        </a>
+                      </td>
+                  </tr>
+
+              </tal:loop>
+          </tbody>
+      </table>
+
+      <a tal:attributes="href string:${here/absolute_url}/@@invite_participants"
+         i18n:attributes="title link_invite_participants"
+         i18n:translate="link_invite_participants"
+         title="Invite participants"
+         tal:condition="view/can_manage"
+         class="button">
+        Invite participants
+      </a>
+
+      <input type="submit" name="form.delete" value="Delete Participants"
+             class="destructive"
+             i18n:attributes="value button_delete_participants"
+             tal:condition="view/can_manage" />
+
+      <input type="submit" name="form.cancel" value="Cancel"
+             i18n:attributes="value button_cancel"
+             tal:condition="not: view/hide_cancel_button" />
+
+    </form>
+
+    <script type="text/javascript">
+
+      jQuery(function($) {
+        var contentfilter = '#content > *,dl.portalMessage.error,dl.portalMessage.info';
+
+        function display_message(el){
+          $('.portalMessage:first').replaceWith($('.portalMessage', el));
+        }
+
+        // Change local roles
+        $('a.ChangeRoles').prepOverlay({
+          subtype:'ajax',
+          filter: contentfilter,
+          formselector: '#form',
+          noform: function(el){
+            if ($('body.template-tabbed_view').length === 0){
+              return 'redirect';
+            } else {
+              display_message(el);
+              tabbedview.reload_view();
+              return 'close';
+            }
+          },
+          redirect: function(){
+            return window.location.href;
+          },
+          'closeselector': '#form-buttons-button_cancel'});
+
+        // Invite
+        $('[href*=invite_participants]').prepOverlay({
+          subtype:'ajax',
+          filter: contentfilter,
+          formselector: '#form',
+          closeselector: '#form-buttons-button_cancel',
+          noform: function(el){
+            if ($('body.template-tabbed_view').length === 0){
+              return 'redirect';
+            } else {
+              display_message(el);
+              tabbedview.reload_view();
+              return 'close';
+            }
+          },
+          redirect: function(){
+            return window.location.href;
+          }
+        });
+
+        // Remove/delete
+        if ($('body.template-tabbed_view').length === 1){
+          $('[name="form.delete"]').bind('click', function(e){
+            e.preventDefault();
+            e.stopPropagation();
+
+            var $form = $(this).closest('form');
+            var data = $form.serializeArray();
+            data.push({name: 'form.delete', value: 1});
+            $.post($form.attr('action'), data, function(data){
+              display_message(data);
+              tabbedview.reload_view();
+            });
+          });
+        }
+
+      });
+
+    </script>
+
+</metal:form-macro>
