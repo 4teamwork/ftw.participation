@@ -8,7 +8,7 @@ from zExceptions import BadRequest
 import transaction
 
 
-class TestParticipantsView(TestCase):
+class TestChangeRoles(TestCase):
 
     layer = FTW_PARTICIPATION_FUNCTIONAL_TESTING
 
@@ -140,3 +140,14 @@ class TestParticipantsView(TestCase):
 
         self.assertEquals('Pending', table[1][-2])
         self.assertEquals('', table[1][-1])
+
+    @browsing
+    def test_user_cannot_change_its_own_roles(self, browser):
+        john = create(Builder('user')
+                      .named('John', 'Doe')
+                      .with_roles('Member')
+                      .with_roles('Manager', 'Editor', on=self.folder))
+
+        browser.login(john.getId()).visit(self.folder, view="@@participants")
+
+        self.assertEquals('', browser.css('table').first.lists()[1][-1])

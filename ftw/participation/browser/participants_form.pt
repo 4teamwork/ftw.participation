@@ -44,7 +44,7 @@
                           Pending
                       </td>
                       <td tal:condition="view/can_manage">
-                        <a tal:condition="python: item.get('userid', None)"
+                        <a tal:condition="python: item.get('userid', None) and not item.get('readonly')"
                            class="ChangeRoles"
                            tal:attributes="href string:./change_roles?form.widgets.memberid=${id_}"
                            i18n:translate="label_change">
