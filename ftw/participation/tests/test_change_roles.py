@@ -51,12 +51,18 @@ class TestChangeRoles(TestCase):
                           browser.css('[checked="checked"]').first.value)
 
     @browsing
-    def test_remove_all_roles_user_should_be_still_reader(self, browser):
+    def test_do_not_remove_unmanaged_roles(self, browser):
         john = create(Builder('user')
                       .named('John', 'Doe')
                       .with_roles('Member')
                       .with_roles('Reader', 'Contributor', 'Editor',
                                   on=self.folder))
+
+        self.folder.manage_permission(
+            'Sharing page: Delegate Reader role',
+            roles=[],
+            acquire=False)
+        transaction.commit()
 
         data = {'form.widgets.memberid': john.getId()}
         browser.login().visit(self.folder, view='change_roles', data=data)
@@ -127,7 +133,7 @@ class TestChangeRoles(TestCase):
         self.assertEquals('Editor', checkboxes.first.node.attrib['value'])
 
     @browsing
-    def test_no_change_link_if_user_has_not_yet_accepted(self, browser):
+    def test_no_change_link_on_pending_invitations(self, browser):
         john = create(Builder('user'))
         hugo = create(Builder('user').named('hugo', 'b'))
         create(Builder('invitation')
