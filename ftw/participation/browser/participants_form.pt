@@ -87,43 +87,43 @@
         }
 
         // Change local roles
-        $('a.ChangeRoles').prepOverlay(
-          {subtype:'ajax',
-           filter: contentfilter,
-           formselector: '#form',
-            noform: function(el){
-              if ($('body.template-tabbed_view').length === 0){
-                return 'redirect';
-              } else {
-                display_message(el);
-                tabbedview.reload_view();
-                return 'close'
-              }
-            },
-            redirect: function(){
-                return window.location.href;
-            },
-           'closeselector': '#form-buttons-button_cancel'});
+        $('a.ChangeRoles').prepOverlay({
+          subtype:'ajax',
+          filter: contentfilter,
+          formselector: '#form',
+          noform: function(el){
+            if ($('body.template-tabbed_view').length === 0){
+              return 'redirect';
+            } else {
+              display_message(el);
+              tabbedview.reload_view();
+              return 'close';
+            }
+          },
+          redirect: function(){
+            return window.location.href;
+          },
+          'closeselector': '#form-buttons-button_cancel'});
 
         // Invite
-        $('[href*=invite_participants]').prepOverlay(
-          {'subtype':'ajax',
-           'filter': contentfilter,
-           formselector: '#form',
-           'closeselector': '#form-buttons-button_cancel',
-            noform: function(el){
-              if ($('body.template-tabbed_view').length === 0){
-                return 'redirect';
-              } else {
-                display_message(el);
-                tabbedview.reload_view();
-                return 'close'
-              }
-            },
-            redirect: function(){
-                return window.location.href;
+        $('[href*=invite_participants]').prepOverlay({
+          subtype:'ajax',
+          filter: contentfilter,
+          formselector: '#form',
+          closeselector: '#form-buttons-button_cancel',
+          noform: function(el){
+            if ($('body.template-tabbed_view').length === 0){
+              return 'redirect';
+            } else {
+              display_message(el);
+              tabbedview.reload_view();
+              return 'close';
             }
-          });
+          },
+          redirect: function(){
+            return window.location.href;
+          }
+        });
 
         // Remove/delete
         if ($('body.template-tabbed_view').length === 1){
