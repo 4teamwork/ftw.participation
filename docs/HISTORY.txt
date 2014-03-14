@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.2.3 (unreleased)
+1.3.0 (2014-03-14)
 ------------------
 
 - Add possibility to change the roles thru the participants view.
