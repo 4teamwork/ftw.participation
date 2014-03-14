@@ -16,7 +16,7 @@ class DefaultParticipationSetter(object):
     """
 
     adapts(interfaces.IParticipationSupport,
-           interfaces.IParticipationBrowserLayer,
+           Interface,
            interfaces.IInvitation,
            Interface)
 
