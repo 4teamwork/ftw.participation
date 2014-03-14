@@ -1,5 +1,8 @@
 from ftw.participation import interfaces
+from ftw.participation.interfaces import IParticipationRegistry
+from plone.registry.interfaces import IRegistry
 from zope.component import adapts
+from zope.component import getUtility
 from zope.interface import Interface
 from zope.interface import implements
 import AccessControl
@@ -16,7 +19,7 @@ class DefaultParticipationSetter(object):
     """
 
     adapts(interfaces.IParticipationSupport,
-           interfaces.IParticipationBrowserLayer,
+           Interface,
            interfaces.IInvitation,
            Interface)
 
@@ -67,7 +70,14 @@ class DefaultParticipationSetter(object):
         """List of roles to give the `self.user` on the `self.context`.
         Reader ist default, and must be set.
         """
-        default_role = ['Reader', ]
+        registry = getUtility(IRegistry)
+        config = registry.forInterface(IParticipationRegistry)
+
+        if config.allow_multiple_roles:
+            default_role = ['Reader', ]
+        else:
+            default_role = []
+
         if hasattr(self.invitation, 'roles'):
             return list(self.invitation.roles) + default_role
         return default_role
