@@ -1,6 +1,7 @@
 from AccessControl import getSecurityManager
 from ftw.participation import _
 from ftw.participation.interfaces import IInvitationStorage
+from ftw.participation.interfaces import IParticipationSupport
 from plone.app.workflow.interfaces import ISharingPageRole
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
@@ -41,7 +42,7 @@ class ManageParticipants(BrowserView):
             self.remove_invitations(del_invitations)
 
             IStatusMessage(self.request).addStatusMessage(_(u"Changes saved."),
-                                                              type='info')
+                                                          type='info')
 
         elif form.get('form.cancel'):
             return self.request.RESPONSE.redirect(self.cancel_url())
@@ -82,8 +83,8 @@ class ManageParticipants(BrowserView):
         self.require_manage()
 
         deletable = [p['userid'] for p in filter(
-                lambda p: not p['readonly'],
-                self.get_participants())]
+            lambda p: not p['readonly'],
+            self.get_participants())]
 
         # we should not remove readonly participants (like myself)
         for userid in userids:
@@ -185,4 +186,7 @@ class ManageParticipants(BrowserView):
         return result
 
     def hide_cancel_button(self):
-        return False
+        return not(self.has_participation_support())
+
+    def has_participation_support(self):
+        return IParticipationSupport.providedBy(self.context)
