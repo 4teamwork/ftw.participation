@@ -184,3 +184,24 @@ class TestParticipantsView(TestCase):
 
         with self.assertRaises(Forbidden):
             browser.find('Delete Participants').click()
+
+    @browsing
+    def test_participantstab_works_without_participationsupport(self, browser):
+        folder2 = create(Builder('folder')
+                         .titled('The Folder'))
+
+        browser.login().visit(folder2, view='tabbedview_view-participants')
+
+        self.assertFalse(browser.css('[href*="@@invite_participants"]'),
+                         'Invite link should not be visible')
+        self.assertFalse(browser.css('[name="form.delete"]'),
+                         'Delete button should not be visible')
+        self.assertFalse(browser.css('[name="form.cancel"]'),
+                         'Cancel button should not be visible')
+
+        self.assertNotIn('Invited by',
+                         browser.css('table').first.head_rows.text,
+                         '"Invited by" column should no be visible')
+        self.assertNotIn('State',
+                         browser.css('table').first.head_rows.text,
+                         '"State" column should no be visible')
