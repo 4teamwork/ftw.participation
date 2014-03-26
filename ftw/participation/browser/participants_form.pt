@@ -1,5 +1,5 @@
 <metal:form-macro define-macro="form" i18n:domain="ftw.participation">
-    <p i18n:translate="text_infos_participants">
+    <p i18n:translate="text_infos_participants" tal:condition="view/can_manage">
       General informations about the people who participate on this project. You are also able to remove users from this project.
     </p>
 
@@ -36,7 +36,7 @@
                       </td>
                       <td tal:content="item/name" />
                       <td tal:content="item/roles" />
-                      <td tal:condition="view/has_participation_support" tal:content="python:item.get('inviter', '&nbsp;')" />
+                      <td tal:condition="view/can_manage" tal:content="python:item.get('inviter', '&nbsp;')" />
                       <tal:if condition="view/has_participation_support">
                           <td tal:condition="python:item.get('userid', None)" i18n:translate="label_accepted">
                               Accepted
@@ -63,7 +63,7 @@
          i18n:attributes="title link_invite_participants"
          i18n:translate="link_invite_participants"
          title="Invite participants"
-         tal:condition="python: view.can_manage() and view.has_participation_support()"
+         tal:condition="view/can_manage"
          class="button">
         Invite participants
       </a>
@@ -71,7 +71,7 @@
       <input type="submit" name="form.delete" value="Delete Participants"
              class="destructive"
              i18n:attributes="value button_delete_participants"
-             tal:condition="python: view.can_manage() and view.has_participation_support()" />
+             tal:condition="view/can_manage" />
 
       <input type="submit" name="form.cancel" value="Cancel"
              i18n:attributes="value button_cancel"
