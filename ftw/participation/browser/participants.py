@@ -54,8 +54,9 @@ class ManageParticipants(BrowserView):
 
     def can_manage(self):
         sm = getSecurityManager()
-        return sm.checkPermission('Sharing page: Delegate roles',
-                                  self.context)
+        has_permission = sm.checkPermission('Sharing page: Delegate roles',
+                                            self.context)
+        return has_permission and self.has_participation_support()
 
     def require_manage(self):
         if not self.can_manage():

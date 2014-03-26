@@ -205,3 +205,9 @@ class TestParticipantsView(TestCase):
         self.assertNotIn('State',
                          browser.css('table').first.head_rows.text,
                          '"State" column should no be visible')
+
+        self.assertNotIn('change',
+                         browser.css('table').first.lists()[1],
+                         'The "change" role link should not be visible')
+        self.assertFalse(browser.css('table input[name="checkbox"]'),
+                         'There should be no column with checkboxes')
