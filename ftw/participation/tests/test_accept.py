@@ -26,6 +26,11 @@ class TestAcceptInvitation(TestCase):
         create(Builder('user').named('James', 'Bond'))
 
         Mailing(self.layer['portal']).set_up()
+        
+        self.portal.manage_changeProperties(
+            {'email_from_name': 'Plone Admin',
+             'email_from_address': 'plone@plone.local'})
+             
 
     def tearDown(self):
         Mailing(self.layer['portal']).tear_down()
@@ -48,6 +53,9 @@ class TestAcceptInvitation(TestCase):
 
         self.assertEquals('=?utf-8?q?Bond_James?= <james@bond.com>',
                           message.get('To'))
+
+        self.assertEquals('=?utf-8?q?Plone_Admin?= <plone@plone.local>',
+                          message.get('From'))
 
         self.assertRegexpMatches(
             message.get('Subject'),

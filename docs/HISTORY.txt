@@ -5,8 +5,8 @@ Changelog
 1.3.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
-
+- Do not encode from address only name.
+  [tschanzt]
 
 1.3.2 (2014-06-02)
 ------------------
@@ -16,6 +16,7 @@ Changelog
 
 - Make sure the participation-tab has no manipulation control elements
   if IParticipationSupport is not active.
+  [mathias.leimgruber]
 
 - The participants-tab now also works without IParticipationSupport (read only).
   [mathias.leimgruber]
