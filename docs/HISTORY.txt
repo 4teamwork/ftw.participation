@@ -2,6 +2,12 @@ Changelog
 =========
 
 
+1.1.4 (unreleased)
+------------------
+
+- Do not encode from address only name.
+  [tschanzt]
+
 1.1.3 (2014-01-09)
 ------------------
 
