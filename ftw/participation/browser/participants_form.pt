@@ -35,7 +35,11 @@
 
                       </td>
                       <td tal:content="item/name" />
-                      <td tal:content="item/roles" />
+                      <td class="roleNames">
+                        <tal:block tal:repeat="role item/roles">
+                          <span tal:content="role" class="roleName"></span><tal:comma tal:condition="not: repeat/role/end">,</tal:comma>
+                        </tal:block>
+                      </td>
                       <td tal:condition="view/can_manage" tal:content="python:item.get('inviter', '&nbsp;')" />
                       <tal:if condition="view/has_participation_support">
                           <td tal:condition="python:item.get('userid', None)" i18n:translate="label_accepted">
