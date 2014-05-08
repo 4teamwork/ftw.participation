@@ -52,12 +52,12 @@ class TestParticipation(TestCase):
         expect = [{'name': TEST_USER_ID,
                    'userid': TEST_USER_ID,
                    'readonly': True,
-                   'roles': 'Owner',
+                   'roles': ['Owner'],
                    'type_': 'userids'},
                   {'name': 'Usera (user@email.com)',
                    'userid': 'usera',
                    'readonly': False,
-                   'roles': u'Can view',
+                   'roles': [u'Can view'],
                    'type_': 'userids'}, ]
 
         self.assertEquals(expect, self.view.get_participants())
@@ -69,7 +69,7 @@ class TestParticipation(TestCase):
                                 roles=['Reader'])
 
         expect = [dict(name='user@email.com',
-                            roles=u'Can view',
+                            roles=[u'Can view'],
                             inviter=invitation.inviter,
                             type_='invitations',
                             iid=invitation.iid,

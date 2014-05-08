@@ -12,7 +12,7 @@ from zope.component import queryUtility
 from zope.i18n import translate
 
 
-def get_friendly_role_name(names, request):
+def get_friendly_role_names(names, request):
     friendly_names = []
 
     for name in names:
@@ -21,7 +21,7 @@ def get_friendly_role_name(names, request):
             friendly_names.append(name)
         else:
             friendly_names.append(translate(utility.title, context=request))
-    return ', '.join(friendly_names)
+    return friendly_names
 
 
 class ManageParticipants(BrowserView):
@@ -123,7 +123,7 @@ class ManageParticipants(BrowserView):
                 email = member.getProperty('email', '')
                 name = member.getProperty('fullname', '')
                 item = dict(userid=userid,
-                            roles=get_friendly_role_name(roles, self.request),
+                            roles=get_friendly_role_names(roles, self.request),
                             readonly=self.cannot_remove_user(userid),
                             type_='userids')
                 if name and email:
@@ -171,8 +171,8 @@ class ManageParticipants(BrowserView):
                 inviter_name = invitation.inviter
 
             item = dict(name=invitation.email,
-                        roles=get_friendly_role_name(invitation.roles,
-                                                     self.request),
+                        roles=get_friendly_role_names(invitation.roles,
+                                                      self.request),
                         inviter=inviter_name,
                         readonly=not member.getId() == invitation.inviter,
                         type_='invitations',
