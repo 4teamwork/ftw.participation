@@ -37,7 +37,10 @@
                       <td tal:content="item/name" />
                       <td class="roleNames">
                         <tal:block tal:repeat="role item/roles">
-                          <span tal:content="role" class="roleName"></span><tal:comma tal:condition="not: repeat/role/end">,</tal:comma>
+                          <span tal:content="role"
+                                tal:define="inherited python: role in item['inherited_roles'] and 'roleInherited' or ''"
+                                tal:attributes="class string:roleName ${inherited}">
+                            </span><tal:comma tal:condition="not: repeat/role/end">,</tal:comma>
                         </tal:block>
                       </td>
                       <td tal:condition="view/can_manage" tal:content="python:item.get('inviter', '&nbsp;')" />
