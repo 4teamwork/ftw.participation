@@ -35,7 +35,7 @@ class TestChangeRoles(TestCase):
 
         browser.open(self.folder, view='@@participants')
         table = browser.css('table.listing').first.lists()
-        self.assertEquals('Can view, Can add, Can edit', table[1][2])
+        self.assertEquals('Can add, Can edit, Can view', table[1][2])
 
     @browsing
     def test_form_with_default_value(self, browser):
@@ -69,9 +69,9 @@ class TestChangeRoles(TestCase):
         browser.fill(
             {'form.widgets.roles:list': []}).submit()
 
-        browser.open(self.folder, view='@@participants')
-        table = browser.css('table.listing').first.lists()
-        self.assertEquals('Can view', table[1][2])
+        self.assertIn(('john.doe', ('Reader', )),
+                      self.folder.get_local_roles(),
+                      'john should be still Reader')
 
     @browsing
     def test_raise_bad_request_if_no_memberid_is_given(self, browser):

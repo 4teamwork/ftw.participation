@@ -39,7 +39,31 @@ class TestParticipantsView(TestCase):
         browser.login().visit(self.folder, view='participants')
         self.assertIn({u'': '',
                        u'User': u'Boss Hugo (hugo@boss.com)',
-                       u'Roles': u'Can view, Can add',
+                       u'Roles': u'Can add, Can view',
+                       u'Invited by': u'',
+                       u'Status': u'Accepted',
+                       u'': u'change'},
+                      participants_view.table())
+    @browsing
+    def test_participants_with_inherited_roles_are_listed_in_table(self, browser):
+        subfolder = create(Builder('folder')
+                           .titled('The SubFolder')
+                           .within(self.folder)
+                           .providing(IParticipationSupport))
+
+        create(Builder('user')
+               .named('Hugo', 'Boss')
+               .with_roles('Reader', 'Contributor', on=self.folder))
+
+        browser.login().visit(subfolder, view='participants')
+
+        self.assertEquals(2,
+                          len(browser.css('.roleInherited')),
+                          'Expect two inherited roles')
+
+        self.assertIn({u'': '',
+                       u'User': u'Boss Hugo (hugo@boss.com)',
+                       u'Roles': u'Can add, Can view',
                        u'Invited by': u'',
                        u'Status': u'Accepted',
                        u'': u'change'},

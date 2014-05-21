@@ -53,9 +53,11 @@ class TestParticipation(TestCase):
                    'userid': TEST_USER_ID,
                    'readonly': True,
                    'roles': ['Owner'],
+                   'inherited_roles': [],
                    'type_': 'userids'},
                   {'name': 'Usera (user@email.com)',
                    'userid': 'usera',
+                   'inherited_roles': [],
                    'readonly': False,
                    'roles': [u'Can view'],
                    'type_': 'userids'}, ]
@@ -70,6 +72,7 @@ class TestParticipation(TestCase):
 
         expect = [dict(name='user@email.com',
                             roles=[u'Can view'],
+                            inherited_roles=[],
                             inviter=invitation.inviter,
                             type_='invitations',
                             iid=invitation.iid,
@@ -212,3 +215,123 @@ class TestParticipation(TestCase):
         self.assertEquals(1,
                           len(self.view.get_participants()),
                           'Expect one invitation')
+
+    def test_participants_inherited_roles(self):
+
+        folder = create(Builder('folder')
+                        .titled('Folder'))
+
+        subfolder = create(Builder('folder')
+                           .within(folder)
+                           .titled('Subfolder')
+                           .providing(IParticipationSupport))
+
+        create(Builder('user')
+               .named('Hugo', 'Boss')
+               .with_roles('Reader', on=folder)
+               .with_roles('Contributor', on=subfolder))
+
+        expect = [{'name': u'Boss Hugo (hugo@boss.com)',
+                   'userid': 'hugo.boss',
+                   'readonly': False,
+                   'roles': [u'Can add', u'Can view'],
+                   'inherited_roles': [u'Can view'],
+                   'type_': 'userids'},
+                  {'name': unicode(TEST_USER_ID),
+                   'userid': TEST_USER_ID,
+                   'readonly': True,
+                   'roles': ['Owner'],
+                   'inherited_roles': [],
+                   'type_': 'userids'}, ]
+
+        view = subfolder.restrictedTraverse('@@participants')
+        self.maxDiff = None
+        self.assertEquals(expect, view.get_participants())
+
+    def test_participants_inherited_roles_not_acquired(self):
+
+        folder = create(Builder('folder')
+                        .titled('Folder'))
+
+        subfolder = create(Builder('folder')
+                           .within(folder)
+                           .titled('Subfolder')
+                           .providing(IParticipationSupport))
+        setattr(subfolder, '__ac_local_roles_block__', True)
+
+        create(Builder('user')
+               .named('Hugo', 'Boss')
+               .with_roles('Reader', on=folder)
+               .with_roles('Contributor', on=subfolder))
+
+        expect = [{'name': u'Boss Hugo (hugo@boss.com)',
+                   'userid': 'hugo.boss',
+                   'readonly': False,
+                   'roles': [u'Can add'],
+                   'inherited_roles': [],
+                   'type_': 'userids'},
+                  {'name': unicode(TEST_USER_ID),
+                   'userid': TEST_USER_ID,
+                   'readonly': True,
+                   'roles': ['Owner'],
+                   'inherited_roles': [],
+                   'type_': 'userids'}, ]
+
+        view = subfolder.restrictedTraverse('@@participants')
+        self.maxDiff = None
+        self.assertEquals(expect, view.get_participants())
+
+    def test_participants_show_only_inherited_roles(self):
+
+        folder = create(Builder('folder')
+                        .titled('Folder'))
+
+        subfolder = create(Builder('folder')
+                           .within(folder)
+                           .titled('Subfolder')
+                           .providing(IParticipationSupport))
+
+        create(Builder('user')
+               .named('Hugo', 'Boss')
+               .with_roles('Contributor', on=folder))
+
+        expect = [{'name': u'Boss Hugo (hugo@boss.com)',
+                   'userid': 'hugo.boss',
+                   'readonly': False,
+                   'roles': [u'Can add'],
+                   'inherited_roles': [u'Can add'],
+                   'type_': 'userids'},
+                  {'name': unicode(TEST_USER_ID),
+                   'userid': TEST_USER_ID,
+                   'readonly': True,
+                   'roles': ['Owner'],
+                   'inherited_roles': [],
+                   'type_': 'userids'}, ]
+
+        view = subfolder.restrictedTraverse('@@participants')
+        self.maxDiff = None
+        self.assertEquals(expect, view.get_participants())
+
+    def test_participants_do_not_show_inherited_owner_role(self):
+
+        folder = create(Builder('folder')
+                        .titled('Folder'))
+
+        subfolder = create(Builder('folder')
+                           .within(folder)
+                           .titled('Subfolder')
+                           .providing(IParticipationSupport))
+        del subfolder.__ac_local_roles__[TEST_USER_ID]
+        subfolder._p_changed=True
+
+        expect = [{'name': unicode(TEST_USER_ID),
+                   'userid': TEST_USER_ID,
+                   'readonly': True,
+                   'roles': [],
+                   'inherited_roles': [],
+                   'type_': 'userids'}, ]
+
+        view = subfolder.restrictedTraverse('@@participants')
+        self.maxDiff = None
+        self.assertEquals(expect, view.get_participants())
+

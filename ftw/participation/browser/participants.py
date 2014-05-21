@@ -1,4 +1,6 @@
 from AccessControl import getSecurityManager
+from Acquisition import aq_base
+from Acquisition import aq_parent
 from ftw.participation import _
 from ftw.participation.interfaces import IInvitationStorage
 from ftw.participation.interfaces import IParticipationSupport
@@ -12,16 +14,29 @@ from zope.component import queryUtility
 from zope.i18n import translate
 
 
+ROLES_WHITE_LIST = ['Owner']
+
+
 def get_friendly_role_names(names, request):
     friendly_names = []
 
     for name in names:
         utility = queryUtility(ISharingPageRole, name=name)
-        if utility is None:
+        if utility is None and name not in ROLES_WHITE_LIST:
+            continue
+        elif utility is None:
             friendly_names.append(name)
         else:
             friendly_names.append(translate(utility.title, context=request))
+    friendly_names.sort()
     return friendly_names
+
+
+def inherited(context):
+    """Return True if local roles are inherited here.
+    """
+    return not bool(
+        getattr(aq_base(context), '__ac_local_roles_block__', None))
 
 
 class ManageParticipants(BrowserView):
@@ -110,22 +125,59 @@ class ManageParticipants(BrowserView):
     def cancel_url(self):
         return self.context.absolute_url()
 
+    def get_roles_settings(self):
+        context = self.context
+        portal = getToolByName(context, 'portal_url').getPortalObject()
+        result = {}
+
+        def get_roles(context, acquired=False):
+
+            for userid, roles in context.get_local_roles():
+                roles = list(roles)
+                if 'Owner' in roles and acquired:
+                    roles.remove('Owner')
+
+                if userid not in result:
+                    result[userid] = dict((role, acquired) for role in roles)
+                else:
+                    current_roles = result[userid]
+                    for role in roles:
+                        if role not in current_roles:
+                            current_roles[role] = acquired
+
+            parent = aq_parent(context)
+            if parent != portal and inherited(context):
+                get_roles(parent, acquired=True)
+
+        get_roles(context)
+        result = list(result.items())
+        return result
+
     def get_participants(self):
         """Returns some items for the template. Participants are local_roles..
         """
         mtool = getToolByName(self.context, 'portal_membership')
         users = []
 
-        for userid, roles in self.context.get_local_roles():
+        for userid, roles in self.get_roles_settings():
+
             member = mtool.getMemberById(userid)
             # skip groups
             if member is not None:
                 email = member.getProperty('email', '')
                 name = member.getProperty('fullname', '')
-                item = dict(userid=userid,
-                            roles=get_friendly_role_names(roles, self.request),
-                            readonly=self.cannot_remove_user(userid),
-                            type_='userids')
+
+                all_roles = roles.keys()
+                inherited_roles = [r for r, v in roles.items()
+                                   if v]
+
+                item = dict(
+                    userid=userid,
+                    roles=get_friendly_role_names(all_roles, self.request),
+                    inherited_roles=get_friendly_role_names(inherited_roles,
+                                                            self.request),
+                    readonly=self.cannot_remove_user(userid),
+                    type_='userids')
                 if name and email:
                     item['name'] = u'%s (%s)' % (name.decode('utf-8'),
                                                  email.decode('utf-8'))
@@ -134,6 +186,8 @@ class ManageParticipants(BrowserView):
                 else:
                     item['name'] = userid.decode('utf-8')
                 users.append(item)
+
+        users.sort(key=lambda item: item['name'].lower())
         return users
 
     def cannot_remove_user(self, userid):
@@ -173,6 +227,7 @@ class ManageParticipants(BrowserView):
             item = dict(name=invitation.email,
                         roles=get_friendly_role_names(invitation.roles,
                                                       self.request),
+                        inherited_roles=[],
                         inviter=inviter_name,
                         readonly=not member.getId() == invitation.inviter,
                         type_='invitations',
