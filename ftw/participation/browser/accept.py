@@ -132,11 +132,8 @@ class AcceptInvitation(BrowserView):
 
         # send the email
         mh = getToolByName(self.context, 'MailHost')
-<<<<<<< HEAD
-        mh.send(msg, mto=to_member.getProperty('email'), mfrom=from_str.decode('utf8').encode('windows-1252'))
-=======
+
         mh.send(msg)
->>>>>>> 2ff452f... use utf-8 for encoding
 
     def get_mail_body_html_view(self):
         return self.context.unrestrictedTraverse('@@invitation_accepted_mail_html')
