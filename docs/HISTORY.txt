@@ -5,6 +5,9 @@ Changelog
 1.1.1.1 (unreleased)
 ------------------
 
+- Fix some grammar mistakes in translations.
+  [tschanzt]
+
 - Do not encode from address only name.
   [tschanzt]
 
