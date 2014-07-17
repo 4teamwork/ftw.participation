@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.1.4 (unreleased)
+1.1.4 (2014-07-17)
 ------------------
 
 - Fix some grammar mistakes in translations.
