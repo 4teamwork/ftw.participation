@@ -185,7 +185,9 @@ class ManageParticipants(BrowserView):
                     item['name'] = name.decode('utf-8')
                 else:
                     item['name'] = userid.decode('utf-8')
-                users.append(item)
+
+                if item.get('roles') or item.get('inherited_roles'):
+                    users.append(item)
 
         users.sort(key=lambda item: item['name'].lower())
         return users

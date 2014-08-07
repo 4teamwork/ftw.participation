@@ -5,7 +5,10 @@ Changelog
 1.3.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Participants: hide users without roles.
+  This can happen when inheriting the Owner, because inherited Owner
+  roles are removed.
+  [jone]
 
 
 1.3.3 (2014-08-07)
