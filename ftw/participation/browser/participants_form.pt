@@ -43,7 +43,7 @@
                             </span><tal:comma tal:condition="not: repeat/role/end">,</tal:comma>
                         </tal:block>
                       </td>
-                      <td tal:condition="view/can_manage" tal:content="python:item.get('inviter', '&nbsp;')" />
+                      <td tal:condition="view/has_participation_support" tal:content="python:item.get('inviter', '&nbsp;')" />
                       <tal:if condition="view/has_participation_support">
                           <td tal:condition="python:item.get('userid', None)" i18n:translate="label_accepted">
                               Accepted
