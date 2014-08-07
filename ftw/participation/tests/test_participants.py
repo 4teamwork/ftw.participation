@@ -324,10 +324,12 @@ class TestParticipation(TestCase):
         del subfolder.__ac_local_roles__[TEST_USER_ID]
         subfolder._p_changed=True
 
+        subfolder.manage_setLocalRoles(TEST_USER_ID, ['Editor'])
+
         expect = [{'name': unicode(TEST_USER_ID),
                    'userid': TEST_USER_ID,
                    'readonly': True,
-                   'roles': [],
+                   'roles': ['Can edit'],
                    'inherited_roles': [],
                    'type_': 'userids'}, ]
 
@@ -335,3 +337,19 @@ class TestParticipation(TestCase):
         self.maxDiff = None
         self.assertEquals(expect, view.get_participants())
 
+    def test_exclude_inherited_users_without_roles(self):
+
+        folder = create(Builder('folder')
+                        .titled('Folder'))
+
+        subfolder = create(Builder('folder')
+                           .within(folder)
+                           .titled('Subfolder')
+                           .providing(IParticipationSupport))
+        del subfolder.__ac_local_roles__[TEST_USER_ID]
+        subfolder._p_changed=True
+
+        expect = []
+        view = subfolder.restrictedTraverse('@@participants')
+        self.maxDiff = None
+        self.assertEquals(expect, view.get_participants())
