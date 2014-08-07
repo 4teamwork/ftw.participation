@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.3.4 (unreleased)
+1.3.4 (2014-08-07)
 ------------------
 
 - Participants: fix table layout for read-only users.
