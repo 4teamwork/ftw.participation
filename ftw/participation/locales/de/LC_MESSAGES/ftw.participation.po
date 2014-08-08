@@ -219,7 +219,7 @@ msgstr "Guten Tag,"
 #: ./ftw/participation/browser/mail_templates/invitation_mail_html.pt:21
 #: ./ftw/participation/browser/mail_templates/invitation_mail_text.pt:8
 msgid "invitation_mail_actions"
-msgstr "Wenn Sie die Einladung annehmen möchten klicken sie auf folgenden Link: ${link_url}"
+msgstr "Wenn Sie die Einladung annehmen möchten, klicken sie auf folgenden Link: ${link_url}"
 
 #. Default: "${inviter_name} has invited you to participate in ${context_title} on the platform ${site_title}."
 #: ./ftw/participation/browser/mail_templates/invitation_mail_html.pt:15
@@ -332,7 +332,7 @@ msgstr "Personen einladen"
 #. Default: "No, I don't wan't to participate"
 #: ./ftw/participation/browser/invitations.pt:59
 msgid "link_reject_invitation"
-msgstr "Nein, ich möchte nicht Teilnehmen"
+msgstr "Nein, ich möchte nicht teilnehmen"
 
 #. Default: "The Invitation to participate in ${title} was accepted by ${user}"
 #: ./ftw/participation/browser/accept.py:154
@@ -389,12 +389,12 @@ msgstr "Keine offenen Einladungen. Alle Benutzer haben Ihre Einladungen angenomm
 #. Default: "You were invited to particpate in the objects below. Accept or reject the invitation - the invitor will be notified."
 #: ./ftw/participation/browser/invitations.pt:33
 msgid "text_received_invitations"
-msgstr "Sie wurden eingeladen an den Objekten unterhalb Teilzunehmen. Akzeptieren Sie oder lehnen Sie die Einladung ab - Die einladende Person wird Benachrichtigt"
+msgstr "Sie wurden eingeladen, an den Objekten unterhalb teilzunehmen. Akzeptieren Sie oder lehnen Sie die Einladung ab. Die einladende Person wird benachrichtigt."
 
 #. Default: "You have invited the following users. They have not yet confirmed your invitation."
 #: ./ftw/participation/browser/invitations.pt:88
 msgid "text_sent_invitations"
-msgstr "Sie haben die folgenden Benutzer eingeladen. Sie haben bis jetzt die Einladung noch nicht bestätigt"
+msgstr "Sie haben die folgenden Benutzer eingeladen. Sie haben bis jetzt die Einladung noch nicht bestätigt."
 
 #. Default: "The invitation has expired."
 #: ./ftw/participation/browser/invitations.py:108
