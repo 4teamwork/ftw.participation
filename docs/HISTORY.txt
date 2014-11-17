@@ -5,7 +5,8 @@ Changelog
 1.3.6 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Do not show invite link, if internal user and email invitation is disabled.
+  [mathias.leimgruber]
 
 
 1.3.5 (2014-09-15)

@@ -3,13 +3,16 @@ from Acquisition import aq_base
 from Acquisition import aq_parent
 from ftw.participation import _
 from ftw.participation.interfaces import IInvitationStorage
+from ftw.participation.interfaces import IParticipationRegistry
 from ftw.participation.interfaces import IParticipationSupport
 from plone.app.workflow.interfaces import ISharingPageRole
+from plone.registry.interfaces import IRegistry
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.statusmessages.interfaces import IStatusMessage
 from zExceptions import Forbidden
+from zope.component import getUtility
 from zope.component import queryUtility
 from zope.i18n import translate
 
@@ -247,4 +250,8 @@ class ManageParticipants(BrowserView):
         return not(self.has_participation_support())
 
     def has_participation_support(self):
-        return IParticipationSupport.providedBy(self.context)
+        registry = getUtility(IRegistry)
+        config = registry.forInterface(IParticipationRegistry)
+        allow_invitation = config.allow_invite_users or config.allow_invite_email
+        return IParticipationSupport.providedBy(
+            self.context) and allow_invitation
