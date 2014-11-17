@@ -1,5 +1,6 @@
 from ftw.builder import Builder
 from ftw.builder import create
+from ftw.participation.interfaces import IParticipationRegistry
 from ftw.participation.interfaces import IParticipationSupport
 from ftw.participation.tests.layer import FTW_PARTICIPATION_FUNCTIONAL_TESTING
 from ftw.participation.tests.pages import participants_view
@@ -7,8 +8,10 @@ from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import plone
 from ftw.testing.mailing import Mailing
 from plone.app.testing import login
+from plone.registry.interfaces import IRegistry
 from unittest2 import TestCase
 from zExceptions import Forbidden
+from zope.component import getUtility
 import transaction
 
 
@@ -235,3 +238,16 @@ class TestParticipantsView(TestCase):
                          'The "change" role link should not be visible')
         self.assertFalse(browser.css('table input[name="checkbox"]'),
                          'There should be no column with checkboxes')
+
+    @browsing
+    def test_participationtab_works_if_ext_and_int_is_disabled(self, browser):
+        registry = getUtility(IRegistry)
+        config = registry.forInterface(IParticipationRegistry)
+        config.allow_invite_users = False
+        config.allow_invite_email = False
+        transaction.commit()
+
+        browser.login().visit(self.folder, view='tabbedview_view-participants')
+
+        self.assertFalse(browser.css('[href*="@@invite_participants"]'),
+                         'Invite link should not be visible')
