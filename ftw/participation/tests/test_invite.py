@@ -11,6 +11,7 @@ from ftw.testing.mailing import Mailing
 from plone.app.layout.navigation.interfaces import INavigationRoot
 from plone.registry.interfaces import IRegistry
 from unittest2 import TestCase
+from zExceptions import NotFound
 from zope.component import getUtility
 from zope.interface import alsoProvides
 import transaction
@@ -141,3 +142,14 @@ class TestInviteForm(TestCase):
         self.layer['request'].SESSION = {}
         storage = IInvitationStorage(self.layer['portal'])
         return storage.get_invitations_for_email(email)
+
+    @browsing
+    def test_invite_raises_notfound_if_participation_isnt_possible(self, browser):
+        registry = getUtility(IRegistry)
+        config = registry.forInterface(IParticipationRegistry)
+        config.allow_invite_users = False
+        config.allow_invite_email = False
+        transaction.commit()
+
+        with self.assertRaises(NotFound):
+            browser.login().visit(self.folder, view='invite_participants')

@@ -22,6 +22,7 @@ from z3c.form.validator import InvariantsValidator
 from z3c.form.validator import SimpleFieldValidator
 from z3c.form.validator import WidgetsValidatorDiscriminators
 from z3c.form.validator import WidgetValidatorDiscriminators
+from zExceptions import NotFound
 from zope import schema
 from zope.component import provideAdapter, getUtility
 from zope.i18n import translate
@@ -179,6 +180,9 @@ class InviteForm(Form):
     def update(self):
         registry = getUtility(IRegistry)
         config = registry.forInterface(IParticipationRegistry)
+
+        if not (config.allow_invite_email and config.allow_invite_users):
+            raise NotFound
 
         if config.allow_multiple_roles:
             self.fields['roles'].widgetFactory = CheckBoxFieldWidget
