@@ -307,7 +307,7 @@ class InviteForm(Form):
         # make the mail
         msg = MIMEMultipart('alternative')
         msg['Subject'] = header_subject
-        msg['From'] = header_from
+        msg['From'] = str(header_from)
         msg['To'] = email
 
         # render and embedd html / text
