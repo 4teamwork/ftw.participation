@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.3.6 (unreleased)
+1.3.6 (2014-12-08)
 ------------------
 
 - BugFix: Pass email_from as string, not as email.header instance.
