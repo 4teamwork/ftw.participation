@@ -181,7 +181,7 @@ class InviteForm(Form):
         registry = getUtility(IRegistry)
         config = registry.forInterface(IParticipationRegistry)
 
-        if not (config.allow_invite_email and config.allow_invite_users):
+        if not (config.allow_invite_email or config.allow_invite_users):
             raise NotFound
 
         if config.allow_multiple_roles:
