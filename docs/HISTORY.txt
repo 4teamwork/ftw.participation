@@ -30,7 +30,7 @@ Changelog
 1.3.5 (2014-09-15)
 ------------------
 
-- Nothing changed yet.
+- Update Translations.
 
 
 1.3.4 (2014-08-07)
