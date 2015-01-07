@@ -1,29 +1,16 @@
-from Products.PloneTestCase import ptc
-from Testing.ZopeTestCase.utils import setupCoreSessions
-from collective.testcaselayer import common
-from collective.testcaselayer import ptc as tcl_ptc
 from ftw.builder.testing import BUILDER_LAYER
 from ftw.builder.testing import functional_session_factory
 from ftw.builder.testing import set_builder_session_factory
+from plone.app.testing import applyProfile
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import IntegrationTesting
 from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import PloneSandboxLayer
-from plone.app.testing import applyProfile
 from plone.app.testing import setRoles, TEST_USER_ID, TEST_USER_NAME, login
+from Testing.ZopeTestCase.utils import setupCoreSessions
 from zope.configuration import xmlconfig
 import ftw.participation.tests.builders
 import transaction
-
-
-class Layer(tcl_ptc.BasePTCLayer):
-    """Install ftw.participation"""
-
-    def afterSetUp(self):
-        ptc.installPackage('ftw.participation')
-        self.addProfile('ftw.participation:default')
-
-layer = Layer([common.common_layer])
 
 
 TEST_USER_ID_2 = '_test_user_2_'

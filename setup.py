@@ -6,8 +6,6 @@ maintainer = 'Jonas Baumann'
 
 tests_require = (
     'zope.testing',
-    'collective.testcaselayer',
-    'Products.PloneTestCase',
     'plone.app.testing',
     'zope.globalrequest', # Because of TinyMCE
     'ftw.builder',
