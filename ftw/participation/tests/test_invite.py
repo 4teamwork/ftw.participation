@@ -153,3 +153,45 @@ class TestInviteForm(TestCase):
 
         with self.assertRaises(NotFound):
             browser.login().visit(self.folder, view='invite_participants')
+
+    @browsing
+    def test_invitation_only_by_users_is_possible(self, browser):
+        registry = getUtility(IRegistry)
+        config = registry.forInterface(IParticipationRegistry)
+        config.allow_invite_users = True
+        config.allow_invite_email = False
+        transaction.commit()
+
+        browser.login().visit(self.folder, view='invite_participants')
+        self.assertEquals(
+            'Invite participants',
+            browser.css('.documentFirstHeading').first.text
+        )
+
+    @browsing
+    def test_invitation_only_by_email_is_possible(self, browser):
+        registry = getUtility(IRegistry)
+        config = registry.forInterface(IParticipationRegistry)
+        config.allow_invite_users = False
+        config.allow_invite_email = True
+        transaction.commit()
+
+        browser.login().visit(self.folder, view='invite_participants')
+        self.assertEquals(
+            'Invite participants',
+            browser.css('.documentFirstHeading').first.text
+        )
+
+    @browsing
+    def test_invitation_by_users_and_email_is_possible(self, browser):
+        registry = getUtility(IRegistry)
+        config = registry.forInterface(IParticipationRegistry)
+        config.allow_invite_users = True
+        config.allow_invite_email = True
+        transaction.commit()
+
+        browser.login().visit(self.folder, view='invite_participants')
+        self.assertEquals(
+            'Invite participants',
+            browser.css('.documentFirstHeading').first.text
+        )
