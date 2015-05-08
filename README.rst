@@ -83,9 +83,9 @@ Installing
 Links
 -----
 
-- Main github project repository: https://github.com/4teamwork/ftw.participation
-- Issue tracker: https://github.com/4teamwork/ftw.participation/issues
-- Package on pypi: http://pypi.python.org/pypi/ftw.participation
+- Github: https://github.com/4teamwork/ftw.participation
+- Issues: https://github.com/4teamwork/ftw.participation/issues
+- Pypi: http://pypi.python.org/pypi/ftw.participation
 - Continuous integration: https://jenkins.4teamwork.ch/search?q=ftw.participation
 
 
