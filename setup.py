@@ -47,6 +47,7 @@ setup(name='ftw.participation',
       zip_safe=False,
 
       install_requires=[
+        'Plone',
         'archetypes.schemaextender',
         'ftw.upgrade>=1.6.0',
         'plone.app.registry',
