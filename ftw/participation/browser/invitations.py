@@ -38,6 +38,9 @@ class InvitationsView(BrowserView):
                 passearch = self.context.unrestrictedTraverse('@@pas_search')
                 for iid in pending_iids:
                     invitation = self.storage.get_invitation_by_iid(iid)
+                    if not invitation:
+                        # Maybe a deleted Invitation is still in the session.
+                        continue
                     if len(passearch.searchUsers(email=invitation.email)) > 0:
                         url = os.path.join(
                             self.context.portal_url(),
