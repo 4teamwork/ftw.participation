@@ -5,6 +5,9 @@ Changelog
 1.3.8 (unreleased)
 ------------------
 
+- Change german translation for the InvitationAccepted text.
+  [raphael-s]
+
 - Check if we actually have a invitation for an id in the session.
   [tschanzt]
 
