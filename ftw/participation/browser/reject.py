@@ -1,7 +1,9 @@
-from Products.CMFCore.utils import getToolByName
-from Products.statusmessages.interfaces import IStatusMessage
 from ftw.participation import _
 from ftw.participation.browser.accept import AcceptInvitation
+from ftw.participation.events import InvitationRejectedEvent
+from Products.CMFCore.utils import getToolByName
+from Products.statusmessages.interfaces import IStatusMessage
+from zope.event import notify
 from zope.i18n import translate
 import os.path
 
@@ -19,6 +21,7 @@ class RejectInvitation(AcceptInvitation):
             iid = self.request.get('iid')
 
         self.load(iid)
+        notify(InvitationRejectedEvent(self.target, self.invitation))
 
         self.send_email()
 

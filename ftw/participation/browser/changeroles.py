@@ -1,4 +1,5 @@
 from ftw.participation import _
+from ftw.participation.events import RolesChangedEvent
 from ftw.participation.interfaces import IParticipationRegistry
 from plone.registry.interfaces import IRegistry
 from Products.CMFCore.utils import getToolByName
@@ -12,6 +13,7 @@ from z3c.form.interfaces import HIDDEN_MODE
 from zExceptions import BadRequest
 from zope import schema
 from zope.component import getUtility
+from zope.event import notify
 from zope.interface import Interface
 from zope.schema.interfaces import IVocabularyFactory
 
@@ -95,6 +97,12 @@ class ChangeRolesForm(Form):
 
         data['roles'] = map(lambda role: role.encode('utf-8'), data['roles'])
         data['memberid'] = data['memberid'].encode('utf-8')
+
+        notify(RolesChangedEvent(
+            self.context,
+            userid=data['memberid'],
+            old_roles=get_user_local_roles(data['memberid'], self.context),
+            new_roles=data['roles']))
 
         self.save_local_roles(data)
         return self.redirect()

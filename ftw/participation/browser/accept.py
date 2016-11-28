@@ -1,15 +1,17 @@
-from Products.CMFCore.interfaces import IPropertiesTool
-from Products.CMFCore.utils import getToolByName
-from Products.Five.browser import BrowserView
-from Products.statusmessages.interfaces import IStatusMessage
 from email.header import Header
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from ftw.participation import _
+from ftw.participation.events import InvitationAcceptedEvent
 from ftw.participation.interfaces import IInvitationStorage
 from ftw.participation.interfaces import IParticipationSetter
+from Products.CMFCore.interfaces import IPropertiesTool
+from Products.CMFCore.utils import getToolByName
+from Products.Five.browser import BrowserView
+from Products.statusmessages.interfaces import IStatusMessage
 from zExceptions import Redirect
 from zope.component import getMultiAdapter, getUtility
+from zope.event import notify
 from zope.i18n import translate
 
 
@@ -27,6 +29,7 @@ class AcceptInvitation(BrowserView):
         self.load(iid)
 
         self.set_participation()
+        notify(InvitationAcceptedEvent(self.target, self.invitation))
         self.send_email()
 
         # add status message

@@ -1,9 +1,11 @@
-from Products.CMFCore.utils import getToolByName
-from Products.statusmessages.interfaces import IStatusMessage
 from ftw.participation import _
 from ftw.participation.browser.accept import AcceptInvitation
+from ftw.participation.events import InvitationRetractedEvent
 from ftw.participation.interfaces import IInvitationStorage
+from Products.CMFCore.utils import getToolByName
+from Products.statusmessages.interfaces import IStatusMessage
 from zExceptions import Redirect
+from zope.event import notify
 import os.path
 
 
@@ -16,6 +18,7 @@ class RetractInvitation(AcceptInvitation):
             iid = self.request.get('iid')
 
         self.load(iid)
+        notify(InvitationRetractedEvent(self.target, self.invitation))
 
         msg = _(u'info_invitation_retracted',
                 default=u'You have retracted the invitation.')

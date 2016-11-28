@@ -80,6 +80,28 @@ Installing
 - Install the generic setup profile.
 
 
+Events
+------
+
+- ``ftw.participation.events.IInvitationCreatedEvent``:
+  An invitation was created.
+
+- ``ftw.participation.events.IInvitationAcceptedEvent``:
+  An invitation was accepted.
+
+- ``ftw.participation.events.IInvitationRejectedEvent``:
+  An invitation was rejected.
+
+- ``ftw.participation.events.IInvitationRetractedEvent``:
+  An invitation was retracted.
+
+- ``ftw.participation.events.IRolesChangedEvent``:
+  The roles of a participant was changed.
+
+- ``ftw.participation.events.ILocalRoleRemoved``:
+  A local role was removed.
+
+
 Links
 -----
 
