@@ -1,4 +1,5 @@
 from ftw.activity.tests.helpers import get_soup_activities
+from ftw.activity.tests.pages import activity
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.participation.interfaces import IParticipationSupport
@@ -46,6 +47,17 @@ class TestActivity(FunctionalTestCase):
                                  'invitation:roles',
                                  'invitation:comment')))
 
+        browser.open(folder, view='@@activity')
+        newest_event = activity.events()[0]
+        self.assertEquals(
+            {'url': 'http://nohost/plone/folder',
+             'byline': 'Invitation created now by test_user_1_',
+             'title': ''},
+            newest_event.infos())
+        self.assertEquals(
+            'test_user_1_ has invited hugo@boss.com as Can add.',
+            newest_event.body_text)
+
     @browsing
     def test_invitation_accepted_event(self, browser):
         self.grant('Manager')
@@ -83,6 +95,14 @@ class TestActivity(FunctionalTestCase):
                                  'invitation:inviter',
                                  'invitation:email',
                                  'invitation:roles',)))
+
+        browser.open(folder, view='@@activity')
+        newest_event = activity.events()[0]
+        self.assertEquals(
+            {'url': 'http://nohost/plone/folder',
+             'byline': 'Invitation accepted now by Boss Hugo',
+             'title': ''},
+            newest_event.infos())
 
     @browsing
     def test_invitation_rejected_event(self, browser):
@@ -122,6 +142,14 @@ class TestActivity(FunctionalTestCase):
                                  'invitation:email',
                                  'invitation:roles',)))
 
+        browser.open(folder, view='@@activity')
+        newest_event = activity.events()[0]
+        self.assertEquals(
+            {'url': 'http://nohost/plone/folder',
+             'byline': 'Invitation rejected now by Boss Hugo',
+             'title': ''},
+            newest_event.infos())
+
     @browsing
     def test_invitation_retracted_event(self, browser):
         self.grant('Manager')
@@ -160,15 +188,28 @@ class TestActivity(FunctionalTestCase):
                                  'invitation:email',
                                  'invitation:roles',)))
 
+        browser.open(folder, view='@@activity')
+        newest_event = activity.events()[0]
+        self.assertEquals(
+            {'url': 'http://nohost/plone/folder',
+             'byline': 'Invitation retracted now by Doe John',
+             'title': ''},
+            newest_event.infos())
+        self.assertEquals(
+            'Doe John has retracted the invitation for foo@bar.com.',
+            newest_event.body_text)
+
     @browsing
     def test_roles_changed_event(self, browser):
         self.grant('Manager')
         folder = create(Builder('folder').providing(IParticipationSupport))
 
+        hugo = create(Builder('user').named('Hugo', 'Boss')
+               .with_roles('Manager', on=folder))
         create(Builder('user').named('John', 'Doe')
                .with_roles('Editor', on=folder))
 
-        browser.login().open(folder, view='participants')
+        browser.login(hugo).open(folder, view='participants')
         browser.click_on('change')
         # Only Editor and Contributor are selectable
         browser.fill({'Roles': ['Contributor']}).submit()
@@ -181,7 +222,7 @@ class TestActivity(FunctionalTestCase):
                  'path': '/plone/folder'},
 
                 {'action': 'participation:role_changed',
-                 'actor': 'test_user_1_',
+                 'actor': 'hugo.boss',
                  'path': '/plone/folder',
                  'roles:userid': 'john.doe',
                  'roles:old': ('Editor',),
@@ -200,14 +241,28 @@ class TestActivity(FunctionalTestCase):
                                  'roles:new',
                                  'roles:added')))
 
+        browser.open(folder, view='@@activity')
+        newest_event = activity.events()[0]
+        self.assertEquals(
+            {'url': 'http://nohost/plone/folder',
+             'byline': 'Role changed now by Boss Hugo',
+             'title': ''},
+            newest_event.infos())
+        self.assertEquals(
+            'Boss Hugo has changed the role of Doe John'
+            ' from Can edit to Can add.',
+            newest_event.body_text)
+
     @browsing
     def test_local_role_removed(self, browser):
         self.grant('Manager')
         folder = create(Builder('folder').providing(IParticipationSupport))
+        hugo = create(Builder('user').named('Hugo', 'Boss')
+               .with_roles('Manager', on=folder))
         user = create(Builder('user').named('John', 'Doe')
                       .with_roles('Editor', on=folder))
 
-        browser.login().open(folder, view='participants')
+        browser.login(hugo).open(folder, view='participants')
         browser.fill({'userids:list': [user.getId()]}) \
                .find('Delete Participants').click()
 
@@ -219,7 +274,7 @@ class TestActivity(FunctionalTestCase):
                  'path': '/plone/folder'},
 
                 {'action': 'participation:role_removed',
-                 'actor': 'test_user_1_',
+                 'actor': 'hugo.boss',
                  'path': '/plone/folder',
                  'roles:userid': 'john.doe',
                 },
@@ -229,3 +284,14 @@ class TestActivity(FunctionalTestCase):
                                  'action',
                                  'actor',
                                  'roles:userid')))
+
+        browser.open(folder, view='@@activity')
+        newest_event = activity.events()[0]
+        self.assertEquals(
+            {'url': 'http://nohost/plone/folder',
+             'byline': 'Participant removed now by Boss Hugo',
+             'title': ''},
+            newest_event.infos())
+        self.assertEquals(
+            'Boss Hugo has removed the participant Doe John.',
+            newest_event.body_text)

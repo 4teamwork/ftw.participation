@@ -1,0 +1,6 @@
+<metal:wrapper use-macro="context/@@activity_macros/macros/event">
+    <metal:BODY metal:fill-slot="body">
+        <div class="participation-body-comment"
+             tal:content="options/comment|nothing" />
+    </metal:BODY>
+</metal:wrapper>

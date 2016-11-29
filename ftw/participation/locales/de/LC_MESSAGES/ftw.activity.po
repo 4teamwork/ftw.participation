@@ -1,0 +1,33 @@
+# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
+# SOME DESCRIPTIVE TITLE.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2014-03-12 10:43+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Preferred-Encodings: utf-8 latin1\n"
+
+msgid "participation:invitation_accepted"
+msgstr "Einladung akzeptiert"
+
+msgid "participation:invitation_created"
+msgstr "Einladung erstellt"
+
+msgid "participation:invitation_rejected"
+msgstr "Einladung abgelehnt"
+
+msgid "participation:invitation_retracted"
+msgstr "Einladung zurückgezogen"
+
+msgid "participation:role_changed"
+msgstr "Rolle geändert"
+
+msgid "participation:role_removed"
+msgstr "Beteiligung entfernt"
