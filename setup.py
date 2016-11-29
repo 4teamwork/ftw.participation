@@ -8,12 +8,22 @@ tests_require = (
     'zope.testing',
     'plone.app.testing',
     'zope.globalrequest', # Because of TinyMCE
+    'ftw.activity > 2',
     'ftw.builder',
     'ftw.testbrowser',
     'ftw.testing',
     'ftw.builder',
     'ftw.tabbedview',
     )
+
+
+extras_require = {
+    'tests': tests_require,
+    'activity': [
+        'ftw.activity > 2',
+    ]
+}
+
 
 setup(name='ftw.participation',
       version=version,
@@ -58,7 +68,7 @@ setup(name='ftw.participation',
         ],
 
       tests_require=tests_require,
-      extras_require=dict(tests=tests_require),
+      extras_require=extras_require,
       entry_points='''
       # -*- Entry points: -*-
       [z3c.autoinclude.plugin]
