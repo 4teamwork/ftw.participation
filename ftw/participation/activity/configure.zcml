@@ -1,0 +1,40 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    i18n_domain="ftw.participation">
+
+    <adapter
+        factory=".renderer.InvitationRenderer"
+        name="ftw.participant:invitations" />
+
+    <subscriber
+        for="* ftw.participation.events.IInvitationCreatedEvent"
+        handler=".subscribers.invitation_created"
+        />
+
+    <subscriber
+        for="* ftw.participation.events.IInvitationAcceptedEvent"
+        handler=".subscribers.invitation_accepted"
+        />
+
+    <subscriber
+        for="* ftw.participation.events.IInvitationRejectedEvent"
+        handler=".subscribers.invitation_rejected"
+        />
+
+    <subscriber
+        for="* ftw.participation.events.IInvitationRetractedEvent"
+        handler=".subscribers.invitation_retracted"
+        />
+
+    <subscriber
+        for="* ftw.participation.events.IRolesChangedEvent"
+        handler=".subscribers.role_changed"
+        />
+
+    <subscriber
+        for="* ftw.participation.events.ILocalRoleRemoved"
+        handler=".subscribers.role_removed"
+        />
+
+</configure>

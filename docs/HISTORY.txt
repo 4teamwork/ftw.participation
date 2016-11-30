@@ -5,9 +5,11 @@ Changelog
 1.3.9 (unreleased)
 ------------------
 
+- Add ftw.activity support for participation events. [jone]
+
 - Add events. [jone]
 
-- Drop Plone 4.1 support. [jone]
+- Drop Plone 4.1 and 4.2 support. [jone]
 
 
 1.3.8 (2016-11-11)
