@@ -2,6 +2,7 @@ from email.header import Header
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from ftw.participation import _
+from ftw.participation.events import InvitationCreatedEvent
 from ftw.participation.interfaces import IParticipationQuotaHelper
 from ftw.participation.interfaces import IParticipationQuotaSupport
 from ftw.participation.interfaces import IParticipationRegistry
@@ -25,6 +26,7 @@ from z3c.form.validator import WidgetValidatorDiscriminators
 from zExceptions import NotFound
 from zope import schema
 from zope.component import provideAdapter, getUtility
+from zope.event import notify
 from zope.i18n import translate
 from zope.interface import Interface
 from zope.interface import Invalid
@@ -249,6 +251,8 @@ class InviteForm(Form):
                     continue
                 inv = Invitation(self.context, email, inviter.getId(), roles)
                 self.send_invitation(inv, email, inviter, data.get('comment'))
+                notify(InvitationCreatedEvent(self.context, inv,
+                                              data.get('comment')))
                 emails.append(email)
 
             # notify user

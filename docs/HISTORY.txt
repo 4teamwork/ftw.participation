@@ -5,6 +5,8 @@ Changelog
 1.3.9 (unreleased)
 ------------------
 
+- Add events. [jone]
+
 - Drop Plone 4.1 support. [jone]
 
 

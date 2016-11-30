@@ -1,5 +1,7 @@
 from ftw.participation import _
 from zope import schema
+from zope.component.interfaces import IObjectEvent
+from zope.interface import Attribute
 from zope.interface import Interface
 
 
@@ -77,3 +79,53 @@ class IParticipationQuotaSupport(Interface):
 class IParticipationQuotaHelper(Interface):
     """Helper adapter for the participation quota.
     """
+
+
+class IParticipationEvent(IObjectEvent):
+    """Superclass of all ftw.participation events.
+    """
+
+
+class IInvitationEvent(IParticipationEvent):
+    """An event related to an invitation.
+    """
+
+    invitation = Attribute('The invitation')
+
+
+class IInvitationCreatedEvent(IInvitationEvent):
+    """An invitation was created.
+    """
+
+    comment = Attribute('Comment')
+
+
+class IInvitationAcceptedEvent(IInvitationEvent):
+    """An invitation was accepted.
+    """
+
+
+class IInvitationRejectedEvent(IInvitationEvent):
+    """An invitation was rejected.
+    """
+
+
+class IInvitationRetractedEvent(IInvitationEvent):
+    """An invitation was retracted.
+    """
+
+
+class IRolesChangedEvent(IParticipationEvent):
+    """The roles of a participant was changed.
+    """
+
+    userid = Attribute('userid of the user of whom the roles are changed')
+    old_roles = Attribute('roles of the userid before it was changed')
+    new_roles = Attribute('roles of the userid after it was changed')
+
+
+class ILocalRoleRemoved(IParticipationEvent):
+    """A local role was removed.
+    """
+
+    userid = Attribute('userid of the user who was removed')

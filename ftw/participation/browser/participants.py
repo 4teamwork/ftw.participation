@@ -2,6 +2,8 @@ from AccessControl import getSecurityManager
 from Acquisition import aq_base
 from Acquisition import aq_parent
 from ftw.participation import _
+from ftw.participation.events import InvitationRetractedEvent
+from ftw.participation.events import LocalRoleRemoved
 from ftw.participation.interfaces import IInvitationStorage
 from ftw.participation.interfaces import IParticipationRegistry
 from ftw.participation.interfaces import IParticipationSupport
@@ -14,6 +16,7 @@ from Products.statusmessages.interfaces import IStatusMessage
 from zExceptions import Forbidden
 from zope.component import getUtility
 from zope.component import queryUtility
+from zope.event import notify
 from zope.i18n import translate
 
 
@@ -97,6 +100,8 @@ class ManageParticipants(BrowserView):
                 raise Forbidden
 
             storage.remove_invitation(invitation)
+            notify(InvitationRetractedEvent(invitation.get_target(),
+                                            invitation))
 
     def remove_users(self, userids):
         self.require_manage()
@@ -109,6 +114,7 @@ class ManageParticipants(BrowserView):
         for userid in userids:
             if userid not in deletable:
                 raise Forbidden
+            notify(LocalRoleRemoved(self.context, userid))
 
         # now we need to remove the local roles recursively
         query = dict(path='/'.join(self.context.getPhysicalPath()))
