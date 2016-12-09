@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.4.1 (unreleased)
+1.4.1 (2016-12-09)
 ------------------
 
 - Fix unicode errors in activity renderer. [jone]
