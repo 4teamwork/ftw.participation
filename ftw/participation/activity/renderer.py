@@ -22,31 +22,32 @@ class InvitationRenderer(DefaultRenderer):
 
     def prepare_comment(self, activity):
         action = activity.attrs['action']
+        actor_info = activity.get_actor_info()
+        actor_fullname = actor_info.get('fullname').decode('utf-8')
 
         if action == 'participation:invitation_created':
-            actor_info = activity.get_actor_info()
+            actor_email = activity.attrs['invitation:email'].decode('utf-8')
             roles = translate_and_join_roles(
                 activity.attrs['invitation:roles'], self.request)
 
             return _(u'activity_invitation_created_body',
                      default=u'${inviter} has invited ${mail} as ${roles}.',
-                     mapping={'inviter': actor_info.get('fullname'),
-                              'mail': activity.attrs['invitation:email'],
+                     mapping={'inviter': actor_fullname,
+                              'mail': actor_email,
                               'roles': roles})
 
         if action == 'participation:invitation_retracted':
-            actor_info = activity.get_actor_info()
+            actor_email = activity.attrs['invitation:email'].decode('utf-8')
             roles = translate_and_join_roles(
                 activity.attrs['invitation:roles'], self.request)
 
             return _(u'activity_invitation_retracted_body',
                      default=u'${actor} has retracted the invitation'
                      u' for ${mail}.',
-                     mapping={'actor': actor_info.get('fullname'),
-                              'mail': activity.attrs['invitation:email']})
+                     mapping={'actor': actor_fullname,
+                              'mail': actor_email})
 
         if action == 'participation:role_changed':
-            actor_info = activity.get_actor_info()
             subject_fullname = self.get_fullname_of(
                 activity.attrs['roles:userid'])
             removed_roles = translate_and_join_roles(
@@ -57,20 +58,19 @@ class InvitationRenderer(DefaultRenderer):
             return _(u'activity_role_changed_body',
                      default=u'${actor} has changed the role of ${subject}'
                      u' from ${removed_roles} to ${added_roles}.',
-                     mapping={'actor': actor_info.get('fullname'),
+                     mapping={'actor': actor_fullname,
                               'subject': subject_fullname,
                               'removed_roles': removed_roles,
                               'added_roles': added_roles})
 
         if action == 'participation:role_removed':
-            actor_info = activity.get_actor_info()
             subject_fullname = self.get_fullname_of(
                 activity.attrs['roles:userid'])
 
             return _(u'activity_participant_removed_body',
                      default=u'${actor} has removed the'
                      u' participant ${subject}.',
-                     mapping={'actor': actor_info.get('fullname'),
+                     mapping={'actor': actor_fullname,
                               'subject': subject_fullname})
 
         return None
