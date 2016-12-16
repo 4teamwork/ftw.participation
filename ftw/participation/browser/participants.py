@@ -15,25 +15,48 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.statusmessages.interfaces import IStatusMessage
 from zExceptions import Forbidden
 from zope.component import getUtility
+from zope.component import queryMultiAdapter
 from zope.component import queryUtility
 from zope.event import notify
 from zope.i18n import translate
+import pkg_resources
+
+
+try:
+    pkg_resources.get_distribution('ftw.lawgiver')
+except pkg_resources.DistributionNotFound:
+    HAS_LAWGIVER = False
+else:
+    HAS_LAWGIVER = True
+    from ftw.lawgiver.interfaces import IDynamicRoleAdapter
 
 
 ROLES_WHITE_LIST = ['Owner']
 
 
-def get_friendly_role_names(names, request):
+def get_friendly_role_names(names, context, request):
     friendly_names = []
 
     for name in names:
-        utility = queryUtility(ISharingPageRole, name=name)
-        if utility is None and name not in ROLES_WHITE_LIST:
+        title = None
+        if HAS_LAWGIVER:
+            adapter = queryMultiAdapter((context, request),
+                                        IDynamicRoleAdapter,
+                                        name=name)
+            if adapter:
+                title = adapter.get_title()
+
+        if title is None:
+            utility = queryUtility(ISharingPageRole, name=name)
+            if utility:
+                title = utility.title
+
+        if title is None and name not in ROLES_WHITE_LIST:
             continue
-        elif utility is None:
+        elif title is None:
             friendly_names.append(name)
         else:
-            friendly_names.append(translate(utility.title, context=request))
+            friendly_names.append(translate(title, context=request))
     friendly_names.sort()
     return friendly_names
 
@@ -182,9 +205,10 @@ class ManageParticipants(BrowserView):
 
                 item = dict(
                     userid=userid,
-                    roles=get_friendly_role_names(all_roles, self.request),
-                    inherited_roles=get_friendly_role_names(inherited_roles,
-                                                            self.request),
+                    roles=get_friendly_role_names(
+                        all_roles, self.context, self.request),
+                    inherited_roles=get_friendly_role_names(
+                        inherited_roles, self.context, self.request),
                     readonly=self.cannot_remove_user(userid),
                     type_='userids')
                 if name and email:
@@ -236,8 +260,8 @@ class ManageParticipants(BrowserView):
                 inviter_name = invitation.inviter
 
             item = dict(name=invitation.email,
-                        roles=get_friendly_role_names(invitation.roles,
-                                                      self.request),
+                        roles=get_friendly_role_names(
+                            invitation.roles, self.context, self.request),
                         inherited_roles=[],
                         inviter=inviter_name,
                         readonly=not member.getId() == invitation.inviter,
