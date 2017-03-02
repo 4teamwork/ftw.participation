@@ -5,7 +5,7 @@ Changelog
 1.5.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Prevent crash if "ftw.activity" 1.x is installed. [mbaechtold]
 
 
 1.5.0 (2016-12-20)
