@@ -18,14 +18,37 @@ class TestChangeRoles(TestCase):
                              .providing(IParticipationSupport))
 
     @browsing
-    def test_change_local_roles(self, browser):
+    def test_change_local_roles_on_post(self, browser):
         john = create(Builder('user')
                       .named('John', 'Doe')
                       .with_roles('Member')
                       .with_roles('Reader', on=self.folder))
 
         data = {'form.widgets.memberid': john.getId()}
+        # Passing "data" will cause a POST request.
         browser.login().visit(self.folder, view='change_roles', data=data)
+
+        browser.fill(
+            {'form.widgets.roles:list': ['Contributor', 'Editor']}).submit()
+        self.assertEquals(
+            '{0}/@@participants'.format(self.folder.absolute_url()),
+            browser.url)
+
+        browser.open(self.folder, view='@@participants')
+        table = browser.css('table.listing').first.lists()
+        self.assertEquals('Can add, Can edit, Can view', table[1][2])
+
+    @browsing
+    def test_change_local_roles_on_get(self, browser):
+        john = create(Builder('user')
+                      .named('John', 'Doe')
+                      .with_roles('Member')
+                      .with_roles('Reader', on=self.folder))
+
+        # Pass the member id in a GET request.
+        browser.login().open(
+            self.folder.absolute_url() + '/change_roles?form.widgets.memberid=' + john.getId()
+        )
 
         browser.fill(
             {'form.widgets.roles:list': ['Contributor', 'Editor']}).submit()

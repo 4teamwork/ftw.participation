@@ -8,6 +8,7 @@ from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import PloneSandboxLayer
 from plone.app.testing import setRoles, TEST_USER_ID, TEST_USER_NAME, login
 from Testing.ZopeTestCase.utils import setupCoreSessions
+from plone.testing import z2
 from zope.configuration import xmlconfig
 import ftw.participation.tests.builders
 import transaction
@@ -29,6 +30,8 @@ class FtwParticipationLayer(PloneSandboxLayer):
             '  <includePluginsOverrides package="plone" />'
             '</configure>',
             context=configurationContext)
+
+        z2.installProduct(app, 'Products.PloneHotfix20160830')
 
         # Invoke SESSION
         setupCoreSessions(app)

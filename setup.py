@@ -14,6 +14,7 @@ tests_require = (
     'ftw.testing',
     'ftw.builder',
     'ftw.tabbedview',
+    'Products.PloneHotfix20160830',
     )
 
 

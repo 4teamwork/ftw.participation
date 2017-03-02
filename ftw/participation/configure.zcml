@@ -18,7 +18,10 @@
     <!-- include sub module zcmls -->
     <include package=".browser" />
     <include package=".upgrades" />
-    <include package=".activity" zcml:condition="installed ftw.activity" />
+    <configure zcml:condition="installed ftw.activity">
+        <include package="ftw.activity"  />
+        <include package=".activity" zcml:condition="have ftw-activity-2" />
+    </configure>
 
     <!-- register translations -->
     <i18n:registerTranslations directory="locales" />
