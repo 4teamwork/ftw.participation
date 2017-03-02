@@ -5,6 +5,9 @@ Changelog
 1.5.1 (unreleased)
 ------------------
 
+- Prevent crash when changing roles of participants if
+  "Products.PloneHotfix20160830" is installed. [mbaechtold]
+
 - Prevent crash if "ftw.activity" 1.x is installed. [mbaechtold]
 
 

@@ -54,6 +54,8 @@ class ChangeRolesForm(Form):
     ignoreContext = True
     fields = Fields(IChangeRoleSchema)
 
+    allow_prefill_from_GET_request = True
+
     def update(self):
         memberid = self.request.form.get('form.widgets.memberid')
         if not memberid:
