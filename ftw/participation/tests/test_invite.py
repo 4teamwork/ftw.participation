@@ -8,6 +8,7 @@ from ftw.participation.tests.pages import inviteform
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import statusmessages
 from ftw.testing.mailing import Mailing
+from plone import api
 from plone.app.layout.navigation.interfaces import INavigationRoot
 from plone.registry.interfaces import IRegistry
 from unittest2 import TestCase
@@ -109,6 +110,31 @@ class TestInviteForm(TestCase):
         self.assertIn('=?utf-8?q?Invitation_for_paticipating_in_F=C3=B6lder?=',
                       mail)
         self.assertIn('Hi th=C3=B6re', mail)
+
+    @browsing
+    def test_inviting_a_user_by_userid_with_a_different_login_name_is_possible(self, browser):
+        user = create(Builder('user')
+                      .named('Hugo', 'Boss')
+                      .with_userid('hugo.boss')
+                      .with_email('hugo.boss@example.ch'))
+
+        # Happens if the user changes the login-name trough the web in the zmi
+        # or if he imported users from another source.
+        api.portal.get_tool('acl_users').source_users.updateUser('hugo.boss', 'hugo.boss@example.ch')
+        transaction.commit()
+
+        self.assertEquals([], self.get_invitations(user=user))
+
+        browser.login().visit(self.folder, view='invite_participants')
+        browser.fill({'Users': [user.getId()], 'Roles': ['Contributor']})
+        browser.find('Invite').click()
+
+        statusmessages.assert_no_error_messages()
+        statusmessages.assert_message(
+            'The invitation mails were sent to hugo.boss@example.ch.')
+
+        self.assertEquals(1, len(self.get_invitations(email='hugo.boss@example.ch')),
+                          'Expected one invitation to be available for hugo@boss.com')
 
     @browsing
     def test_get_invitations_from_context_providing_inavigationroot(

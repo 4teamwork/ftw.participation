@@ -7,6 +7,7 @@ from ftw.participation.interfaces import IParticipationQuotaHelper
 from ftw.participation.interfaces import IParticipationQuotaSupport
 from ftw.participation.interfaces import IParticipationRegistry
 from ftw.participation.invitation import Invitation
+from plone import api
 from plone.formwidget.autocomplete.widget import AutocompleteMultiFieldWidget
 from plone.registry.interfaces import IRegistry
 from plone.z3cform.layout import wrap_form
@@ -236,8 +237,8 @@ class InviteForm(Form):
                     addresses.append(addr.strip())
 
             if config.allow_invite_users and data.get('users'):
-                for user in data['users']:
-                    member = mtool.getMemberById(user)
+                for username in data['users']:
+                    member = api.user.get(username=username)
                     addresses.append(member.getProperty('email'))
 
             # get roles
