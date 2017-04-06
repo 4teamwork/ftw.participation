@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.5.2 (unreleased)
+1.5.2 (2017-04-06)
 ------------------
 
 - Fixes an issue where it was not possible to invite an existing user whose userid
