@@ -5,7 +5,8 @@ Changelog
 1.5.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fixes an issue where it was not possible to invite an existing user whose userid
+  was not equal to his loginname. [elioschmutz]
 
 
 1.5.1 (2017-03-02)
