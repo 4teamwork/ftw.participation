@@ -10,7 +10,6 @@ from ftw.testing.mailing import Mailing
 from plone.app.testing import login
 from plone.registry.interfaces import IRegistry
 from unittest2 import TestCase
-from zExceptions import Forbidden
 from zope.component import getUtility
 import transaction
 
@@ -209,7 +208,7 @@ class TestParticipantsView(TestCase):
         browser.fill({'userids:list': [jane.getId()]})
         browser.login(hugo.getId())
 
-        with self.assertRaises(Forbidden):
+        with browser.expect_http_error(reason='Forbidden'):
             browser.find('Delete Participants').click()
 
     @browsing

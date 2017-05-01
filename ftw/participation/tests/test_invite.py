@@ -12,7 +12,6 @@ from plone import api
 from plone.app.layout.navigation.interfaces import INavigationRoot
 from plone.registry.interfaces import IRegistry
 from unittest2 import TestCase
-from zExceptions import NotFound
 from zope.component import getUtility
 from zope.interface import alsoProvides
 import transaction
@@ -177,7 +176,7 @@ class TestInviteForm(TestCase):
         config.allow_invite_email = False
         transaction.commit()
 
-        with self.assertRaises(NotFound):
+        with browser.expect_http_error(reason='Not Found'):
             browser.login().visit(self.folder, view='invite_participants')
 
     @browsing
