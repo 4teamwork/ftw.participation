@@ -4,7 +4,6 @@ from ftw.participation.interfaces import IParticipationSupport
 from ftw.participation.tests.layer import FTW_PARTICIPATION_FUNCTIONAL_TESTING
 from ftw.testbrowser import browsing
 from unittest2 import TestCase
-from zExceptions import BadRequest
 import transaction
 
 
@@ -98,12 +97,12 @@ class TestChangeRoles(TestCase):
 
     @browsing
     def test_raise_bad_request_if_no_memberid_is_given(self, browser):
-        with self.assertRaises(BadRequest):
+        with browser.expect_http_error(reason='Bad Request'):
             browser.login().visit(self.folder, view='change_roles')
 
     @browsing
     def test_raise_bad_request_if_no_valid_memberid_is_given(self, browser):
-        with self.assertRaises(BadRequest):
+        with browser.expect_http_error(reason='Bad Request'):
             data = {'form.widgets.memberid': 'invalid_member_id'}
             browser.login().visit(self.folder, view='change_roles', data=data)
 
