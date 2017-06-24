@@ -8,6 +8,7 @@ from ftw.testing.mailing import Mailing
 from plone.app.testing import login
 from plone.registry.interfaces import IRegistry
 from unittest2 import TestCase
+from zExceptions import Redirect
 from zope.component import getUtility
 from zope.interface import alsoProvides
 import email
@@ -26,11 +27,11 @@ class TestAcceptInvitation(TestCase):
         create(Builder('user').named('James', 'Bond'))
 
         Mailing(self.layer['portal']).set_up()
-        
+
         self.portal.manage_changeProperties(
             {'email_from_name': 'Plone Admin',
              'email_from_address': 'plone@plone.local'})
-             
+
 
     def tearDown(self):
         Mailing(self.layer['portal']).tear_down()
@@ -116,3 +117,11 @@ class TestAcceptInvitation(TestCase):
         self.assertItemsEqual(
             ['Contributor'],
             dict(self.folder.get_local_roles()).get('felix.leiter'))
+
+    def test_accept_nonexisting_invitiation_is_aborted(self):
+        view = self.portal.restrictedTraverse('accept_invitation')
+        with self.assertRaises(Redirect) as cm:
+            view(iid=999)
+
+        self.assertEquals(self.portal.absolute_url(),
+                          cm.exception.args[0])

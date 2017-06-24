@@ -26,7 +26,11 @@ class AcceptInvitation(BrowserView):
         if not iid:
             iid = self.request.get('iid')
 
-        self.load(iid)
+        if not self.load(iid):
+            msg = _(u'error_invitation_not_found',
+                    default=u'Could not find the invitation.')
+            IStatusMessage(self.request).addStatusMessage(msg, type='error')
+            raise Redirect(self.context.portal_url())
 
         self.set_participation()
         notify(InvitationAcceptedEvent(self.target, self.invitation))
@@ -52,6 +56,9 @@ class AcceptInvitation(BrowserView):
         """
         self.storage = IInvitationStorage(self.context)
         self.invitation = self.storage.get_invitation_by_iid(iid)
+        if not self.invitation:
+            return False
+
         self.target = self.invitation.get_target()
 
         # sanity check
@@ -59,11 +66,10 @@ class AcceptInvitation(BrowserView):
         self.member = mtool.getAuthenticatedMember()
         valid_emails = (self.member.getId(),
                         self.member.getProperty('email', object()))
-        if not self.invitation or self.invitation.email not in valid_emails:
-            msg = _(u'error_invitation_not_found',
-                    default=u'Could not find the invitation.')
-            IStatusMessage(self.request).addStatusMessage(msg, type='error')
-            raise Redirect(self.context.portal_url())
+        if self.invitation.email not in valid_emails:
+            return False
+
+        return True
 
     def set_participation(self):
         """Sets up participation up.
