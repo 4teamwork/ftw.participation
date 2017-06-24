@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.5.3 (unreleased)
+1.5.3 (2017-06-24)
 ------------------
 
 - Fix AttributeError "get_target" when accepting. [jone]
