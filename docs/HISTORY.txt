@@ -5,7 +5,7 @@ Changelog
 1.5.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix AttributeError "get_target" when accepting. [jone]
 
 
 1.5.2 (2017-04-06)
