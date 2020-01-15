@@ -7,6 +7,16 @@
     <form action="" method="post"
           tal:attributes="action form_action|string:${here/absolute_url}/@@participants"
           name="manage-participants">
+        <p>
+            <a tal:attributes="href string:${here/absolute_url}/@@invite_participants"
+               i18n:attributes="title link_invite_participants"
+               i18n:translate="link_invite_participants"
+               title="Invite participants"
+               tal:condition="view/can_manage"
+               class="button">
+                Invite participants
+            </a>
+        </p>
 
       <table class="listing">
           <thead>
@@ -66,19 +76,14 @@
           </tbody>
       </table>
 
-      <a tal:attributes="href string:${here/absolute_url}/@@invite_participants"
-         i18n:attributes="title link_invite_participants"
-         i18n:translate="link_invite_participants"
-         title="Invite participants"
-         tal:condition="view/can_manage"
-         class="button">
-        Invite participants
-      </a>
-
       <input type="submit" name="form.delete" value="Delete Participants"
              class="destructive"
              i18n:attributes="value button_delete_participants"
              tal:condition="view/can_manage" />
+
+        <input type="submit" name="form.resend-invite" value="Resend Invitations"
+               i18n:attributes="value button_resend_invitations"
+               tal:condition="view/can_manage" />
 
       <input type="submit" name="form.cancel" value="Cancel"
              i18n:attributes="value button_cancel"
