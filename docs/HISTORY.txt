@@ -5,6 +5,7 @@ Changelog
 1.5.4 (unreleased)
 ------------------
 
+- Add reminder button for pending invitations. [2e12]
 - Use unittest instead of unittest2. [busykoala]
 
 

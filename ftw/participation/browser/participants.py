@@ -1,7 +1,12 @@
 from AccessControl import getSecurityManager
 from Acquisition import aq_base
 from Acquisition import aq_parent
+from Products.CMFCore.utils import getToolByName
+from Products.Five.browser import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from Products.statusmessages.interfaces import IStatusMessage
 from ftw.participation import _
+from ftw.participation.browser.invite import InviteForm
 from ftw.participation.events import InvitationRetractedEvent
 from ftw.participation.events import LocalRoleRemoved
 from ftw.participation.interfaces import IInvitationStorage
@@ -9,10 +14,6 @@ from ftw.participation.interfaces import IParticipationRegistry
 from ftw.participation.interfaces import IParticipationSupport
 from plone.app.workflow.interfaces import ISharingPageRole
 from plone.registry.interfaces import IRegistry
-from Products.CMFCore.utils import getToolByName
-from Products.Five.browser import BrowserView
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from Products.statusmessages.interfaces import IStatusMessage
 from zExceptions import Forbidden
 from zope.component import getUtility
 from zope.component import queryMultiAdapter
@@ -20,7 +21,6 @@ from zope.component import queryUtility
 from zope.event import notify
 from zope.i18n import translate
 import pkg_resources
-
 
 try:
     pkg_resources.get_distribution('ftw.lawgiver')
@@ -74,12 +74,18 @@ class ManageParticipants(BrowserView):
 
     template = ViewPageTemplateFile('participants.pt')
     form = ViewPageTemplateFile('participants_form.pt')
+    storage = None
 
     def __call__(self):
         form = self.request.form
 
         del_userids = form.get('userids', [])
         del_invitations = form.get('invitations', [])
+
+        if form.get('form.resend-invite') and del_invitations:
+            self.storage = IInvitationStorage(self.context)
+            self.resend_invitations(del_invitations)
+
 
         if form.get('form.delete') and (del_userids or del_invitations):
             self.remove_users(del_userids)
@@ -92,6 +98,24 @@ class ManageParticipants(BrowserView):
             return self.request.RESPONSE.redirect(self.cancel_url())
 
         return self.template()
+
+    def resend_invitations(self, invitation_iids):
+        for iid in invitation_iids:
+            self.storage.get_invitation_by_iid(iid)
+            all_invitations = self.storage._invitations_list
+            invite_form = InviteForm(self.context, self.request)
+
+            for email, user_invitations in all_invitations.items():
+                for invite in user_invitations:
+                    if invite.iid == iid:
+                        note = translate(_(u'reminder_invitation_note',
+                                           default=u'This is a reminder.'),
+                                         context=self.request)
+                        invite_form.send_invitation(invite, email, self.get_inviter(), note)
+
+    def get_inviter(self):
+        mtool = getToolByName(self.context, 'portal_membership')
+        return mtool.getAuthenticatedMember()
 
     def render_form(self):
         return self.form()

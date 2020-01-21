@@ -444,3 +444,8 @@ msgstr ""
 msgid "warning_invitaiton_expired"
 msgstr ""
 
+msgid "resend_invitation"
+msgstr ""
+
+msgid "reminder_invitation_note"
+msgstr ""

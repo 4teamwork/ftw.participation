@@ -85,9 +85,9 @@
                i18n:attributes="value button_resend_invitations"
                tal:condition="view/can_manage" />
 
-      <input type="submit" name="form.cancel" value="Cancel"
-             i18n:attributes="value button_cancel"
-             tal:condition="not: view/hide_cancel_button" />
+        <input type="submit" name="form.cancel" value="Cancel"
+               i18n:attributes="value button_cancel"
+               tal:condition="not: view/hide_cancel_button" />
 
     </form>
 
