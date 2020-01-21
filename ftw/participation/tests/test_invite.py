@@ -11,7 +11,7 @@ from ftw.testing.mailing import Mailing
 from plone import api
 from plone.app.layout.navigation.interfaces import INavigationRoot
 from plone.registry.interfaces import IRegistry
-from unittest2 import TestCase
+from unittest import TestCase
 from zope.component import getUtility
 from zope.interface import alsoProvides
 import transaction

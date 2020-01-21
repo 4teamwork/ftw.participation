@@ -3,7 +3,7 @@ from ftw.builder import create
 from ftw.participation.interfaces import IParticipationSupport
 from ftw.participation.tests.layer import FTW_PARTICIPATION_FUNCTIONAL_TESTING
 from ftw.testbrowser import browsing
-from unittest2 import TestCase
+from unittest import TestCase
 import transaction
 
 

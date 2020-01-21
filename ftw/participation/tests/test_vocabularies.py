@@ -3,7 +3,7 @@ from ftw.participation.tests.layer import FTW_PARTICIPATION_INTEGRATION_TESTING
 from plone.app.workflow.interfaces import ISharingPageRole
 from plone.app.workflow.permissions import DelegateContributorRole
 from plone.registry.interfaces import IRegistry
-from unittest2 import TestCase
+from unittest import TestCase
 from zope.component import getSiteManager
 from zope.component import getUtility
 from zope.i18nmessageid import Message
