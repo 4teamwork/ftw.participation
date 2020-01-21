@@ -7,7 +7,7 @@ from ftw.participation.tests import layer
 from ftw.testing.mailing import Mailing
 from plone.app.testing import login
 from plone.registry.interfaces import IRegistry
-from unittest2 import TestCase
+from unittest import TestCase
 from zExceptions import Redirect
 from zope.component import getUtility
 from zope.interface import alsoProvides

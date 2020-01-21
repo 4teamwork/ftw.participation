@@ -9,7 +9,7 @@ from ftw.testbrowser.pages import plone
 from ftw.testing.mailing import Mailing
 from plone.app.testing import login
 from plone.registry.interfaces import IRegistry
-from unittest2 import TestCase
+from unittest import TestCase
 from zope.component import getUtility
 import transaction
 
