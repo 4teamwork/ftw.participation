@@ -5,7 +5,7 @@ Changelog
 1.5.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Use unittest instead of unittest2. [busykoala]
 
 
 1.5.3 (2017-06-24)
